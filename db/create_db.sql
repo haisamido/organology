@@ -1,17 +1,17 @@
 CREATE TABLE manufacturers (
     manufacturer_id bigint NOT NULL PRIMARY KEY,
-    manufacturer_name TEXT,
+    manufacturer_name TEXT NOT NULL,
     comment TEXT
 );
 
 CREATE TABLE strings (
     string_id bigint NOT NULL PRIMARY KEY,
-    string_name TEXT,
-    string_year int,
-    string_tensile_strength numeric,
-    string_density numeric,
-    string_thickness numeric,
-    string_description TEXT,
+    string_name TEXT NOT NULL,
+    string_date date NOT NULL,
+    string_tensile_strength numeric NOT NULL,
+    string_density numeric NOT NULL,
+    string_thickness numeric NOT NULL,
+    string_description TEXT NOT NULL,
     manufacturer_id bigint NOT NULL,
     comment TEXT
 );
@@ -19,14 +19,14 @@ CREATE TABLE strings (
 CREATE TABLE string_scales (
     string_scale_id bigint NOT NULL PRIMARY KEY,
     string_id bigint NOT NULL,
-    string_minimum_scale numeric,
-    string_maximum_scale numeric,
+    string_minimum_scale numeric NOT NULL,
+    string_maximum_scale numeric NOT NULL,
     comment TEXT
 )
 
 CREATE attributes (
     attribute_id bigint NOT NULL PRIMARY KEY,
-    attribute_name TEXT,
+    attribute_name TEXT NOT NULL,
     comment TEXT
 );
 
@@ -39,7 +39,7 @@ CREATE TABLE string_attributes (
 
 CREATE TABLE materials (
     material_id bigint NOT NULL PRIMARY KEY,
-    material_name TEXT,
+    material_name TEXT NOT NULL,
     comment TEXT
 );
 
@@ -53,7 +53,7 @@ CREATE TABLE string_materials (
 CREATE TABLE string_sets (
     string_set_id bigint NOT NULL PRIMARY KEY,
     string_id bigint NOT NULL,
-    string_set_name TEXT,
+    string_set_name TEXT NOT NULL,
     comment TEXT
 );
 
@@ -65,8 +65,8 @@ CREATE TABLE instruments (
 
 CREATE TABLE string_instruments (
     string_instrument_id bigint NOT NULL PRIMARY KEY,
-    string_id bigint,
-    instrument_id bigint
+    string_id bigint NOT NULL,
+    instrument_id bigint NOT NULL,
     comment TEXT
 );
 
