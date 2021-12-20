@@ -17,7 +17,7 @@ CREATE TABLE strings (
     string_name TEXT NOT NULL,
     string_density numeric NOT NULL,
     string_thickness numeric NOT NULL,
-    UNIQUE(string_name,string_density,string_thickness),
+    UNIQUE(string_name, string_density, string_thickness),
     string_tensile_strength numeric,
     string_description TEXT,
     comment TEXT
@@ -31,6 +31,21 @@ CREATE TABLE string_sets (
     manufacturer_id bigint NOT NULL,
     FOREIGN KEY (string_id) REFERENCES strings (string_id),
     FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
+    comment TEXT
+);
+
+CREATE TABLE attributes (
+    attribute_id bigint NOT NULL PRIMARY KEY,
+    attribute_name TEXT NOT NULL UNIQUE,
+    comment TEXT
+);
+
+CREATE TABLE string_attributes (
+    string_id bigint NOT NULL,
+    attribute_id bigint NOT NULL,
+    PRIMARY KEY (string_id, attribute_id),
+    FOREIGN KEY (string_id) REFERENCES strings (string_id),
+    FOREIGN KEY (attribute_id) REFERENCES attributes (attribute_id),
     comment TEXT
 );
 
@@ -61,20 +76,6 @@ CREATE TABLE string_scales (
     comment TEXT
 );
 
-CREATE TABLE attributes (
-    attribute_id bigint NOT NULL PRIMARY KEY,
-    attribute_name TEXT NOT NULL UNIQUE,
-    comment TEXT
-);
-
-CREATE TABLE string_attributes (
-    string_id bigint NOT NULL,
-    attribute_id bigint NOT NULL,
-    PRIMARY KEY (string_id, attribute_id),
-    FOREIGN KEY (string_id) REFERENCES strings (string_id),
-    FOREIGN KEY (attribute_id) REFERENCES attributes (attribute_id),
-    comment TEXT
-);
 
 CREATE TABLE materials (
     material_id SERIAL PRIMARY KEY,
