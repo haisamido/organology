@@ -4,31 +4,44 @@ CREATE TABLE manufacturers (
     comment TEXT
 );
 
+CREATE TABLE musical_notes (
+    note_id SERIAL PRIMARY KEY,
+    international_pitch_notation TEXT NOT NULL UNIQUE,
+    note_frequency numeric NOT NULL, 
+    note_description TEXT,
+    comment TEXT
+);
+
 CREATE TABLE strings (
     string_id SERIAL PRIMARY KEY,
     string_name TEXT NOT NULL,
-    string_tensile_strength numeric NOT NULL,
-    string_linear_density numeric NOT NULL,
+    string_density numeric NOT NULL,
     string_thickness numeric NOT NULL,
-    string_description TEXT NOT NULL,
+    UNIQUE(string_name,string_density,string_thickness),
+    string_tensile_strength numeric,
+    string_description TEXT,
     comment TEXT
 );
 
--- https://en.wikipedia.org/wiki/String_vibration
-CREATE TABLE string_frequencies (
-    string_id bigint NOT NULL PRIMARY KEY,
-    string_length numeric NOT NULL,
-    string_linear_density numeric NOT NULL,
-    string_tension numeric NOT NULL,
-    string_frequency numeric GENERATED ALWAYS AS ((1.0/2*string_length)*sqrt(string_tension/string_linear_density)) STORED,
-    FOREIGN KEY (string_id) REFERENCES strings (string_id)
+CREATE TABLE string_sets (
+    string_set_id SERIAL PRIMARY KEY,
+    string_set_name TEXT NOT NULL,
+    string_id bigint NOT NULL,
+    string_order int NOT NULL,
+    manufacturer_id bigint NOT NULL,
+    FOREIGN KEY (string_id) REFERENCES strings (string_id),
+    FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
+    comment TEXT
 );
 
-CREATE TABLE musical_notes (
-    note_id SERIAL PRIMARY KEY,
-    note TEXT NOT NULL UNIQUE,
-    note_description TEXT,
-    comment TEXT
+-- this is actually derivable from string length, density, thickness and tension
+CREATE TABLE string_notes (
+  string_id bigint NOT NULL,
+  note_id bigint NOT NULL,
+  PRIMARY KEY (string_id, note_id),
+  FOREIGN KEY (string_id) REFERENCES strings (string_id),
+  FOREIGN KEY (note_id) REFERENCES musical_notes (note_id),
+  comment TEXT
 );
 
 CREATE TABLE string_manufacturers (
@@ -78,16 +91,6 @@ CREATE TABLE string_materials (
     comment TEXT
 );
 
-CREATE TABLE string_sets (
-    string_set_id SERIAL PRIMARY KEY,
-    string_id bigint NOT NULL,
-    manufacturer_id bigint NOT NULL,
-    FOREIGN KEY (string_id) REFERENCES strings (string_id),
-    FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
-    string_set_name TEXT NOT NULL,
-    comment TEXT
-);
-
 CREATE TABLE instruments (
     instrument_id SERIAL PRIMARY KEY,
     instrument_name TEXT UNIQUE,
@@ -103,3 +106,13 @@ CREATE TABLE string_instruments (
     comment TEXT
 );
 
+-- https://en.wikipedia.org/wiki/String_vibration
+CREATE TABLE harmonics (
+    L numeric NOT NULL,
+    rho numeric NOT NULL,
+    d numeric NOT NULL,
+    T numeric NOT NULL,
+    n int NOT NULL DEFAULT 1,
+    frequency numeric GENERATED ALWAYS AS ((n/L*d)*sqrt(T/PI()*rho)) STORED,
+	wavelength numeric GENERATED ALWAYS AS ((2*L/n)) STORED
+);
