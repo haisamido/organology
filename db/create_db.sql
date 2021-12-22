@@ -1,3 +1,4 @@
+-- manufacturers
 CREATE TABLE manufacturer_types (
     manufacturer_type_id SERIAL PRIMARY KEY,
     manufacturer_type TEXT NOT NULL UNIQUE,
@@ -34,6 +35,7 @@ INSERT INTO strings(manufacturer_id, string_name, string_unit_weight ) VALUES (
     .00002024
 );
 
+-- string sets
 CREATE TABLE string_sets (
     string_set_id SERIAL PRIMARY KEY,
     string_set_name TEXT NOT NULL,
@@ -44,18 +46,74 @@ CREATE TABLE string_sets (
     comment TEXT
 );
 INSERT INTO string_sets (manufacturer_id, string_set_name, number_of_strings ) VALUES (
-    (SELECT manufacturer_id from manufacturers where manufacturer_name='D''Addario' AND manufacturer_type='strings'),'EXL-120',6);
+    (SELECT manufacturer_id from manufacturers where manufacturer_name='D''Addario' AND manufacturer_type='strings'),
+    'EXL-120',
+    6);
 
----
-CREATE TABLE strings_in_sets (
-    string_id BIGINT NOT NULL, FOREIGN KEY (string_id) REFERENCES strings (string_id),
-    string_set_name TEXT NOT NULL, FOREIGN KEY (string_set_name) REFERENCES string_sets (string_set_name),
-    string_order int NOT NULL,
-    UNIQUE(string_id,string_set_name,string_order),
+-- CREATE TABLE strings_in_sets (
+--     string_id BIGINT NOT NULL, FOREIGN KEY (string_id) REFERENCES strings (string_id),
+--     string_set_name TEXT NOT NULL, FOREIGN KEY (string_set_name) REFERENCES string_sets (string_set_name),
+--     string_order int NOT NULL,
+--     UNIQUE(string_id,string_set_name,string_order),
+--     comment TEXT
+-- );
+
+--- instruments
+CREATE TABLE instrument_types (
+    instrument_type_id SERIAL PRIMARY KEY,
+    instrument_type TEXT NOT NULL UNIQUE,
     comment TEXT
 );
----
+INSERT INTO instrument_types (instrument_type) VALUES ( 'brass' );
+INSERT INTO instrument_types (instrument_type) VALUES ( 'keyboard' );
+INSERT INTO instrument_types (instrument_type) VALUES ( 'percussion' );
+INSERT INTO instrument_types (instrument_type) VALUES ( 'stringed' );
+INSERT INTO instrument_types (instrument_type) VALUES ( 'woodwind' );
 
+CREATE TABLE instrument_categories (
+    nstrument_category_id SERIAL PRIMARY KEY,
+    instrument_category TEXT NOT NULL UNIQUE,
+    comment TEXT
+);
+INSERT INTO instrument_categories (instrument_category) VALUES ( 'acoustic' );
+INSERT INTO instrument_categories (instrument_category) VALUES ( 'acoustic-electric' );
+INSERT INTO instrument_categories (instrument_category) VALUES ( 'classical' );
+INSERT INTO instrument_categories (instrument_category) VALUES ( 'classical-electric' );
+INSERT INTO instrument_categories (instrument_category) VALUES ( 'solid-body' );
+INSERT INTO instrument_categories (instrument_category) VALUES ( 'solid-body-electric' );
+
+-- TODO: need a table that has permitted permutations of instrument names, i.e. guitar can only be stringed.
+CREATE TABLE instruments (
+    instrument_id SERIAL PRIMARY KEY,
+    instrument_category TEXT NOT NULL, FOREIGN KEY (instrument_category) REFERENCES instrument_categories (instrument_category),
+    instrument_name TEXT NOT NULL,
+    instrument_type TEXT NOT NULL, FOREIGN KEY (instrument_type) REFERENCES instrument_types (instrument_type),
+    instrument_culture TEXT NOT NULL DEFAULT '',
+    number_of_actuators INT NOT NULL,
+    UNIQUE(instrument_category,instrument_name,instrument_type,instrument_culture,number_of_actuators),
+    comment TEXT
+);
+INSERT INTO instruments (instrument_name,instrument_type,instrument_category,instrument_culture,number_of_actuators) VALUES ('guitar','stringed','classical','brazillian',6);
+INSERT INTO instruments (instrument_name,instrument_type,instrument_category,instrument_culture,number_of_actuators) VALUES ('guitar','stringed','classical','russian',7);
+INSERT INTO instruments (instrument_name,instrument_type,instrument_category,instrument_culture,number_of_actuators) VALUES ('lute guitar','stringed','classical','german',7);
+
+-- materials
+CREATE TABLE materials (
+    material_id SERIAL PRIMARY KEY,
+    material_name TEXT NOT NULL UNIQUE,
+    comment TEXT
+);
+
+CREATE TABLE string_materials (
+    string_id BIGINT NOT NULL,
+    material_id BIGINT NOT NULL,
+    PRIMARY KEY (string_id, material_id),
+    FOREIGN KEY (string_id) REFERENCES strings (string_id),
+    FOREIGN KEY (material_id) REFERENCES materials (material_id),
+    comment TEXT
+);
+
+-- attributes
 CREATE TABLE attributes (
     attribute_id SERIAL PRIMARY KEY,
     attribute_name TEXT NOT NULL UNIQUE,
@@ -71,62 +129,7 @@ CREATE TABLE string_attributes (
     comment TEXT
 );
 
-CREATE TABLE string_scales (
-    string_id BIGINT NOT NULL,
-    string_minimum_scale NUMERIC NOT NULL,
-    string_maximum_scale NUMERIC NOT NULL,
-    FOREIGN KEY (string_id) REFERENCES strings (string_id),
-    comment TEXT
-);
-
---- instrument tables
-CREATE TABLE instruments (
-    instrument_id SERIAL PRIMARY KEY,
-    instrument_name TEXT NOT NULL,
-    instrument_culture TEXT NOT NULL DEFAULT '',
-    UNIQUE(instrument_name,instrument_culture),
-    comment TEXT
-);
-INSERT INTO instruments (instrument_name,instrument_culture) VALUES ( 'guitar', '',false );
-INSERT INTO instruments (instrument_name,instrument_culture) VALUES ( 'guitar', 'brazillian',false  );
-INSERT INTO instruments (instrument_name,instrument_culture) VALUES ( 'guitar', 'german',false  );
-INSERT INTO instruments (instrument_name,instrument_culture) VALUES ( 'guitar', 'russian',false  );
-
-CREATE TABLE instrument_types (
-    instrument_type_id SERIAL PRIMARY KEY,
-    instrument_type TEXT NOT NULL UNIQUE,
-    comment TEXT
-);
-INSERT INTO instrument_types (instrument_type) VALUES ( 'stringed' );
-
-CREATE TABLE instrument_categories (
-    nstrument_category_id SERIAL PRIMARY KEY,
-    instrument_category TEXT NOT NULL UNIQUE,
-    comment TEXT
-);
-INSERT INTO instrument_categories (instrument_category) VALUES ( 'classical' );
-INSERT INTO instrument_categories (instrument_category) VALUES ( 'acoustic' );
-
-CREATE TABLE instrument_classifications (
-    instrument_id SERIAL PRIMARY KEY,
-    instrument_name TEXT NOT NULL, FOREIGN KEY (instrument_name) REFERENCES instruments (instrument_name),
-    instrument_type TEXT NOT NULL, FOREIGN KEY (instrument_type) REFERENCES instrument_types (instrument_type),
-    instrument_category TEXT NOT NULL, FOREIGN KEY (instrument_category) REFERENCES instrument_categories (instrument_category),
-    number_of_actuators INT NOT NULL,
-    UNIQUE( instrument_name, instrument_type, instrument_category, number_of_actuators),
-    comment TEXT
-);
-INSERT INTO instruments (instrument_name,instrument_type,instrument_category,number_of_actuators) VALUES ('guitar','stringed','classical',6);
-
-CREATE TABLE string_instruments (
-    string_id BIGINT NOT NULL,
-    instrument_id BIGINT NOT NULL,
-    PRIMARY KEY (string_id, instrument_id),
-    FOREIGN KEY (string_id) REFERENCES strings (string_id),
-    FOREIGN KEY (instrument_id) REFERENCES instruments (instrument_id),
-    comment TEXT
-);
-
+-- music
 -- https://en.wikipedia.org/wiki/String_vibration
 CREATE TABLE harmonics (
     L NUMERIC NOT NULL,
@@ -143,20 +146,5 @@ CREATE TABLE musical_notes (
     international_pitch_notation TEXT NOT NULL UNIQUE,
     note_frequency NUMERIC NOT NULL, 
     note_description TEXT,
-    comment TEXT
-);
-
-CREATE TABLE materials (
-    material_id SERIAL PRIMARY KEY,
-    material_name TEXT NOT NULL UNIQUE,
-    comment TEXT
-);
-
-CREATE TABLE string_materials (
-    string_id BIGINT NOT NULL,
-    material_id BIGINT NOT NULL,
-    PRIMARY KEY (string_id, material_id),
-    FOREIGN KEY (string_id) REFERENCES strings (string_id),
-    FOREIGN KEY (material_id) REFERENCES materials (material_id),
     comment TEXT
 );
