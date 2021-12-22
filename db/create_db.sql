@@ -98,9 +98,17 @@ INSERT INTO instruments (instrument_name,instrument_type,instrument_category,ins
 INSERT INTO instruments (instrument_name,instrument_type,instrument_category,instrument_culture,number_of_actuators) VALUES ('lute guitar','stringed','classical','german',7);
 
 -- materials
+CREATE TABLE material_types (
+    material_id SERIAL PRIMARY KEY,
+    material_type TEXT NOT NULL UNIQUE,
+    comment TEXT
+);
+
 CREATE TABLE materials (
     material_id SERIAL PRIMARY KEY,
     material_name TEXT NOT NULL UNIQUE,
+    material_type TEXT NOT NULL, FOREIGN KEY (material_type) REFERENCES material_types (material_type),
+    UNIQUE(material_name,material_type),
     comment TEXT
 );
 
