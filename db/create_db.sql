@@ -82,6 +82,14 @@ INSERT INTO instrument_categories (instrument_category) VALUES ( 'classical-elec
 INSERT INTO instrument_categories (instrument_category) VALUES ( 'solid-body' );
 INSERT INTO instrument_categories (instrument_category) VALUES ( 'solid-body-electric' );
 
+CREATE TABLE tunings (
+    tuning_id SERIAL PRIMARY KEY,
+    tuning TEXT NOT NULL UNIQUE,
+    comment TEXT
+);
+INSERT INTO tunings (tuning) VALUES ( '12-TET' );
+INSERT INTO tunings (tuning) VALUES ( '14-TET' );
+
 -- TODO: need a table that has permitted permutations of instrument names, i.e. guitar can only be stringed.
 -- TODO: fretted vs not fretted, but that doesn't make sense in a generic instrument table
 CREATE TABLE instruments (
