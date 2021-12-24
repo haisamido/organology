@@ -14,7 +14,14 @@ CREATE TABLE manufacturers (
     UNIQUE(manufacturer_name,manufacturer_type),
     comment TEXT
 );
+INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Aquila','strings');
 INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('D''Addario','strings');
+INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Elixer','strings');
+INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Ernie Ball','strings');
+INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('La Bella','strings');
+INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Martin & Co.','strings');
+INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Pyramid','strings');
+INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Savarez','strings');
 INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Taylor','musical instruments');
 
 CREATE TABLE units (
@@ -31,6 +38,7 @@ CREATE TABLE strings (
     manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
     manufacturer_string_id TEXT NOT NULL,
     density NUMERIC DEFAULT 0 NOT NULL,
+    unit_of_density NUMERIC DEFAULT 0 NOT NULL,
     unit_weight NUMERIC DEFAULT 0 NOT NULL,
     unit_of_unit_weight TEXT NOT NULL,FOREIGN KEY (unit_of_unit_weight) REFERENCES units (unit),
     thickness NUMERIC DEFAULT 0 NOT NULL,
@@ -75,15 +83,17 @@ INSERT INTO string_sets (manufacturer_id, string_set_name, number_of_strings ) V
 
 --- instruments
 CREATE TABLE instrument_types (
-    instrument_type_id SERIAL PRIMARY KEY,
-    instrument_type TEXT NOT NULL UNIQUE,
-    comment TEXT
+    type_id SERIAL PRIMARY KEY,
+    type TEXT NOT NULL UNIQUE,
+    actuator_type TEXT NOT NULL,
+    comment TEXT,
+    UNIQUE( type, actuator_type)
 );
-INSERT INTO instrument_types (instrument_type) VALUES ( 'brass' );
-INSERT INTO instrument_types (instrument_type) VALUES ( 'keyboard' );
-INSERT INTO instrument_types (instrument_type) VALUES ( 'percussion' );
-INSERT INTO instrument_types (instrument_type) VALUES ( 'stringed' );
-INSERT INTO instrument_types (instrument_type) VALUES ( 'woodwind' );
+INSERT INTO instrument_types (type,actuator_type) VALUES ( 'brass', 'button' );
+INSERT INTO instrument_types (type,actuator_type) VALUES ( 'keyboard', 'key' );
+INSERT INTO instrument_types (type,actuator_type) VALUES ( 'percussion', 'stick' );
+INSERT INTO instrument_types (type,actuator_type) VALUES ( 'stringed', 'pluck' );
+INSERT INTO instrument_types (type,actuator_type) VALUES ( 'woodwind', 'breath' );
 
 CREATE TABLE instrument_categories (
     nstrument_category_id SERIAL PRIMARY KEY,
@@ -97,29 +107,32 @@ INSERT INTO instrument_categories (instrument_category) VALUES ( 'classical-elec
 INSERT INTO instrument_categories (instrument_category) VALUES ( 'solid-body' );
 INSERT INTO instrument_categories (instrument_category) VALUES ( 'solid-body-electric' );
 
-CREATE TABLE tunings (
-    tuning_id SERIAL PRIMARY KEY,
-    tuning TEXT NOT NULL UNIQUE,
-    comment TEXT
-);
-INSERT INTO tunings (tuning) VALUES ( '12-TET' );
-INSERT INTO tunings (tuning) VALUES ( '14-TET' );
-
 -- TODO: need a table that has permitted permutations of instrument names, i.e. guitar can only be stringed.
 -- TODO: fretted vs not fretted, but that doesn't make sense in a generic instrument table
 CREATE TABLE instruments (
     instrument_id SERIAL PRIMARY KEY,
-    instrument_category TEXT NOT NULL, FOREIGN KEY (instrument_category) REFERENCES instrument_categories (instrument_category),
-    instrument_name TEXT NOT NULL,
-    instrument_type TEXT NOT NULL, FOREIGN KEY (instrument_type) REFERENCES instrument_types (instrument_type),
-    instrument_culture TEXT NOT NULL DEFAULT '',
+    name TEXT NOT NULL,
+    category TEXT NOT NULL, FOREIGN KEY (category) REFERENCES instrument_categories (instrument_category),
+    subcategory TEXT NOT NULL DEFAULT '',
+    type TEXT NOT NULL, FOREIGN KEY (type) REFERENCES instrument_types (type),
+    style TEXT NOT NULL DEFAULT '',
     number_of_actuators INT NOT NULL,
-    UNIQUE(instrument_category,instrument_name,instrument_type,instrument_culture,number_of_actuators),
-    comment TEXT
+    fretted BOOLEAN DEFAULT 'true',
+    comment TEXT,
+    UNIQUE(name,category,subcategory,type,style,number_of_actuators,fretted)
 );
-INSERT INTO instruments (instrument_name,instrument_type,instrument_category,instrument_culture,number_of_actuators) VALUES ('guitar','stringed','classical','brazillian',6);
-INSERT INTO instruments (instrument_name,instrument_type,instrument_category,instrument_culture,number_of_actuators) VALUES ('guitar','stringed','classical','russian',7);
-INSERT INTO instruments (instrument_name,instrument_type,instrument_category,instrument_culture,number_of_actuators) VALUES ('lute guitar','stringed','classical','german',7);
+INSERT INTO instruments (name,category,subcategory,type,style,number_of_actuators) VALUES ('guitar','classical','','stringed','spanish',6);
+INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','classical','stringed',6);
+INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','classical-electric','stringed',6);
+INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','acoustic','stringed',6);
+INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','acoustic-electric','stringed',6);
+INSERT INTO instruments (name,category,type,number_of_actuators,fretted) VALUES ('guitar','classical','stringed',6,'false');
+INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('guitar','classical','stringed','brazillian',7);
+INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('guitar','classical','stringed','brazillian',8);
+INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('guitar','classical','stringed','russian',7);
+INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('lute guitar','classical','stringed',6);
+INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('lute guitar','classical','stringed','german',6);
+INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('banjo','acoustic','stringed','american',5);
 
 -- materials
 CREATE TABLE material_types (
@@ -181,3 +194,12 @@ CREATE TABLE musical_notes (
     note_description TEXT,
     comment TEXT
 );
+
+CREATE TABLE tunings (
+    tuning_id SERIAL PRIMARY KEY,
+    tuning TEXT NOT NULL UNIQUE,
+    description TEXT NOT NULL,
+    comment TEXT
+);
+INSERT INTO tunings (tuning,description) VALUES ( '12-TET', '12 equal temperament' );
+INSERT INTO tunings (tuning,description) VALUES ( '24-TET', '24 equal temperament' );
