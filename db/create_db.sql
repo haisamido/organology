@@ -15,24 +15,39 @@ CREATE TABLE manufacturers (
     comment TEXT
 );
 INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('D''Addario','strings');
+INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Taylor','musical instruments');
+
+CREATE TABLE units (
+    unit_id SERIAL PRIMARY KEY,
+    unit TEXT NOT NULL UNIQUE,
+    description TEXT NOT NULL,
+    comment TEXT
+);
+INSERT INTO units (unit,description) VALUES ( 'lb/in', 'pound mass per inch');
 
 -- strings
 CREATE TABLE strings (
     string_id SERIAL PRIMARY KEY,
     manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
-    string_name TEXT NOT NULL,
-    string_density NUMERIC DEFAULT 0 NOT NULL,
-    string_unit_weight NUMERIC DEFAULT 0 NOT NULL,
-    string_thickness NUMERIC DEFAULT 0 NOT NULL,
-    string_tensile_strength NUMERIC DEFAULT 0 NOT NULL,
-    UNIQUE(manufacturer_id, string_name, string_density, string_unit_weight, string_thickness),
-    string_description TEXT,
+    manufacturer_string_id TEXT NOT NULL,
+    density NUMERIC DEFAULT 0 NOT NULL,
+    unit_weight NUMERIC DEFAULT 0 NOT NULL,
+    unit_of_unit_weight TEXT NOT NULL,FOREIGN KEY (unit_of_unit_weight) REFERENCES units (unit),
+    thickness NUMERIC DEFAULT 0 NOT NULL,
+    unit_of_thickness NUMERIC DEFAULT 0 NOT NULL,
+    tensile_strength NUMERIC DEFAULT 0 NOT NULL,
+    unit_of_tensile_strength NUMERIC DEFAULT 0 NOT NULL,
+    source TEXT DEFAULT '' NOT NULL,
+    UNIQUE(manufacturer_id, manufacturer_string_id, density, unit_weight,unit_of_unit_weight,thickness,unit_of_thickness,tensile_strength,unit_of_tensile_strength),
+    description TEXT,
     comment TEXT
 );
-INSERT INTO strings(manufacturer_id, string_name, string_unit_weight ) VALUES (
+INSERT INTO strings(manufacturer_id, manufacturer_string_id, unit_weight, unit_of_unit_weight, source ) VALUES (
     (SELECT manufacturer_id from manufacturers where manufacturer_name='D''Addario' AND manufacturer_type='strings'),
     'J4301',
-    .00002024
+    .00002024,
+    'lb/in',
+    'https://www.daddario.com/globalassets/pdfs/accessories/tension_chart_13934.pdf'
 );
 
 -- string sets
@@ -148,6 +163,7 @@ CREATE TABLE string_attributes (
 
 -- music
 -- https://en.wikipedia.org/wiki/String_vibration
+-- http://www.donaldsauter.com/string-calculation.htm
 CREATE TABLE harmonics (
     L NUMERIC NOT NULL,
     rho NUMERIC NOT NULL,
