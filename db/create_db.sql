@@ -23,6 +23,7 @@ INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Martin &
 INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Pyramid','strings');
 INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Savarez','strings');
 INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Taylor','musical instruments');
+INSERT INTO manufacturers(manufacturer_name,manufacturer_type) VALUES ('Doff','musical instruments');
 
 CREATE TABLE units (
     unit_id SERIAL PRIMARY KEY,
@@ -52,9 +53,11 @@ CREATE TABLE strings (
 );
 INSERT INTO strings(manufacturer_id, manufacturer_string_id, unit_weight, unit_of_unit_weight, source ) VALUES (
     (SELECT manufacturer_id from manufacturers where manufacturer_name='D''Addario' AND manufacturer_type='strings'),
-    'J4301',
-    .00002024,
-    'lb/in',
+    'J4301',.00002024,'lb/in',
+    'https://www.daddario.com/globalassets/pdfs/accessories/tension_chart_13934.pdf'
+);
+INSERT INTO strings(manufacturer_id, manufacturer_string_id, unit_weight, unit_of_unit_weight, source ) VALUES ( (SELECT manufacturer_id from manufacturers where manufacturer_name='D''Addario' AND manufacturer_type='strings'),
+    'J4302',.00002729,'lb/in',
     'https://www.daddario.com/globalassets/pdfs/accessories/tension_chart_13934.pdf'
 );
 
@@ -82,12 +85,13 @@ INSERT INTO string_sets (manufacturer_id, string_set_name, number_of_strings ) V
 -- );
 
 --- instruments
+-- TODO: there are stringed instruments that are not plucked! violin etc. so perhaps stringed should be plucked-string ?
 CREATE TABLE instrument_types (
     type_id SERIAL PRIMARY KEY,
     type TEXT NOT NULL UNIQUE,
     actuator_type TEXT NOT NULL,
     comment TEXT,
-    UNIQUE( type, actuator_type)
+    UNIQUE(type, actuator_type)
 );
 INSERT INTO instrument_types (type,actuator_type) VALUES ( 'brass', 'button' );
 INSERT INTO instrument_types (type,actuator_type) VALUES ( 'keyboard', 'key' );
@@ -101,14 +105,19 @@ CREATE TABLE instrument_categories (
     comment TEXT
 );
 INSERT INTO instrument_categories (instrument_category) VALUES ( 'acoustic' );
-INSERT INTO instrument_categories (instrument_category) VALUES ( 'acoustic-electric' );
 INSERT INTO instrument_categories (instrument_category) VALUES ( 'classical' );
-INSERT INTO instrument_categories (instrument_category) VALUES ( 'classical-electric' );
 INSERT INTO instrument_categories (instrument_category) VALUES ( 'solid-body' );
-INSERT INTO instrument_categories (instrument_category) VALUES ( 'solid-body-electric' );
 
--- TODO: need a table that has permitted permutations of instrument names, i.e. guitar can only be stringed.
--- TODO: fretted vs not fretted, but that doesn't make sense in a generic instrument table
+CREATE TABLE adjustable_scale_length_types (
+    id SERIAL PRIMARY KEY,  
+    type TEXT NOT NULL UNIQUE,
+    description TEXT NULL DEFAULT '',
+    comment TEXT
+);
+INSERT INTO adjustable_scale_length_types (type,description) VALUES ( 'NA', 'not applicable' );
+INSERT INTO adjustable_scale_length_types (type) VALUES ( 'fret' );
+INSERT INTO adjustable_scale_length_types (type) VALUES ( 'fretless' );
+
 CREATE TABLE instruments (
     instrument_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
@@ -117,22 +126,29 @@ CREATE TABLE instruments (
     type TEXT NOT NULL, FOREIGN KEY (type) REFERENCES instrument_types (type),
     style TEXT NOT NULL DEFAULT '',
     number_of_actuators INT NOT NULL,
-    fretted BOOLEAN DEFAULT 'true',
+    electric BOOLEAN NOT NULL DEFAULT 'false',
+    adjustable_scale_length BOOLEAN NOT NULL DEFAULT 'true',
+    adjustable_scale_length_type TEXT NOT NULL DEFAULT 'fret', FOREIGN KEY (adjustable_scale_length_type) REFERENCES adjustable_scale_length_types (type),
+    multi_scale BOOLEAN NOT NULL DEFAULT 'false',
     comment TEXT,
-    UNIQUE(name,category,subcategory,type,style,number_of_actuators,fretted)
+    UNIQUE(name,category,subcategory,type,style,number_of_actuators,electric,adjustable_scale_length,adjustable_scale_length_type,multi_scale)
 );
-INSERT INTO instruments (name,category,subcategory,type,style,number_of_actuators) VALUES ('guitar','classical','','stringed','spanish',6);
-INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','classical','stringed',6);
-INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','classical-electric','stringed',6);
-INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','acoustic','stringed',6);
-INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','acoustic-electric','stringed',6);
-INSERT INTO instruments (name,category,type,number_of_actuators,fretted) VALUES ('guitar','classical','stringed',6,'false');
-INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('guitar','classical','stringed','brazillian',7);
-INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('guitar','classical','stringed','brazillian',8);
-INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('guitar','classical','stringed','russian',7);
-INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('lute guitar','classical','stringed',6);
-INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('lute guitar','classical','stringed','german',6);
-INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('banjo','acoustic','stringed','american',5);
+INSERT INTO instruments (type,name,category,style,number_of_actuators) VALUES ('stringed','guitar','classical','spanish',6);
+INSERT INTO instruments (type,name,category,style,number_of_actuators,adjustable_scale_length_type) VALUES ('stringed','guitar','classical','spanish',6,'fretless');
+INSERT INTO instruments (type,name,category,style,number_of_actuators,multi_scale) VALUES ('stringed','guitar','classical','spanish',6,'true');
+INSERT INTO instruments (type,name,category,style,number_of_actuators,electric) VALUES ('stringed','guitar','classical','spanish',6,'true');
+
+-- INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','classical','stringed',6);
+-- INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','classical-electric','stringed',6);
+-- INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','acoustic','stringed',6);
+-- INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','acoustic-electric','stringed',6);
+-- INSERT INTO instruments (name,category,type,number_of_actuators,fretted) VALUES ('guitar','classical','stringed',6,'false');
+-- INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('guitar','classical','stringed','brazillian',7);
+-- INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('guitar','classical','stringed','brazillian',8);
+-- INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('guitar','classical','stringed','russian',7);
+-- INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('lute guitar','classical','stringed',6);
+-- INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('lute guitar','classical','stringed','german',6);
+-- INSERT INTO instruments (name,category,type,style,number_of_actuators) VALUES ('banjo','acoustic','stringed','american',5);
 
 -- materials
 CREATE TABLE material_types (
