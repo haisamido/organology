@@ -1,0 +1,11 @@
+version: '3' # Which version of Docker Compose to use
+services:
+  msdb:
+    image: msdb
+    container_name: msdb
+    hostname: msdb
+    command: ls
+    volumes:
+      - .:/opt/msdb
+    ports:
+      - "127.0.0.1:8080:8080"
