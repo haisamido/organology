@@ -61,6 +61,27 @@ INSERT INTO strings(manufacturer_id, manufacturer_string_id, unit_weight, unit_o
     'https://www.daddario.com/globalassets/pdfs/accessories/tension_chart_13934.pdf'
 );
 
+CREATE TABLE strings2 (
+    string_id SERIAL PRIMARY KEY,
+    manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
+    manufacturer_string_id TEXT NOT NULL,
+    instrument_id BIGINT NOT NULL, FOREIGN KEY (instrument_id) REFERENCES instruments (instrument_id),
+    unit_weight NUMERIC DEFAULT 0 NOT NULL,
+    unit_of_unit_weight TEXT NOT NULL,FOREIGN KEY (unit_of_unit_weight) REFERENCES units (unit),
+    source TEXT DEFAULT '' NOT NULL,
+    UNIQUE(manufacturer_id, manufacturer_string_id, unit_weight, unit_of_unit_weight),
+    description TEXT,
+    comment TEXT
+);
+INSERT INTO strings2(manufacturer_id, manufacturer_string_id, unit_weight, unit_of_unit_weight, instrument_id,source ) VALUES ( 
+    (SELECT manufacturer_id from manufacturers where manufacturer_name='D''Addario' AND manufacturer_type='strings'),
+    'J4302',
+    .00002729,
+    'lb/in',
+    array(select * from instruments where name='guitar' and type='stringed' and category='classical'),
+    'https://www.daddario.com/globalassets/pdfs/accessories/tension_chart_13934.pdf'
+);
+
 -- string sets
 CREATE TABLE string_sets (
     string_set_id SERIAL PRIMARY KEY,
@@ -137,6 +158,22 @@ INSERT INTO instruments (type,name,category,style,number_of_actuators) VALUES ('
 INSERT INTO instruments (type,name,category,style,number_of_actuators,adjustable_scale_length_type) VALUES ('stringed','guitar','classical','spanish',6,'fretless');
 INSERT INTO instruments (type,name,category,style,number_of_actuators,multi_scale) VALUES ('stringed','guitar','classical','spanish',6,'true');
 INSERT INTO instruments (type,name,category,style,number_of_actuators,electric) VALUES ('stringed','guitar','classical','spanish',6,'true');
+
+
+CREATE TABLE instrument_attributes (
+    id SERIAL PRIMARY KEY,
+    key TEXT NOT NULL,
+    value TEXT NOT NULL,
+    instrument_id BIGINT NOT NULL, FOREIGN KEY (instrument_id) REFERENCES instruments (instrument_id),
+    UNIQUE(name, instrument_id),
+    description TEXT,
+    comment TEXT
+);
+INSERT INTO instrument_attributes (key,value,instrument_id) VALUES (
+    'number_of_actuators',
+    6,
+    (SELECT instrument_id where type='stringed' and name='guitar' and category='classical')
+);
 
 -- INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','classical','stringed',6);
 -- INSERT INTO instruments (name,category,type,number_of_actuators) VALUES ('guitar','classical-electric','stringed',6);

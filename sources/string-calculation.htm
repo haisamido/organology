@@ -1,0 +1,554 @@
+<HTML>
+<HEAD>
+<TITLE> String calculation; string measurement; stringed instruments; 
+mass per unit length.</TITLE>
+<link rel="canonical" href="http://www.donaldsauter.com/string-calculation.htm"/>
+</HEAD>
+<BODY>
+<FONT FACE="verdana">
+<A NAME="top"></A>
+<P> Back to index of <A HREF="index.html#guitar">guitar pages</A> by Donald Sauter.  
+
+<CENTER>
+<P><H3> String Calculation
+<BR> Mass per unit length (MPL) - the most useful string measurement! </H3>
+</CENTER>
+
+<P> (All links are internal.)
+
+<P><UL>
+<LI><A HREF="#pt1">
+Part 1. </A> Why you might need to "calculate strings".
+<LI><A HREF="#pt2">
+Part 2. </A> How to "calculate strings" - determining MPL.  
+<LI><A HREF="#fn1">
+Footnote 1. </A> MPL formula derivation.
+<LI><A HREF="#fn2">
+Footnote 2. </A> Old-fashioned string calculation - string diameter (gauge). 
+<LI><A HREF="#fn3">
+Footnote 3. </A> Tension and string diameters for a typical 6-string set. 
+<LI><A HREF="#ap1">
+Appendix 1. </A> Frequencies of the notes.
+<LI><A HREF="#ap2">
+Appendix 2. </A> Program for calculating MPL.
+<LI><A HREF="#ap3">
+Appendix 3. </A> Program for calculating string diameters (old-fashioned way).
+</UL>
+
+</P><A NAME="pt1"></A><HR>
+<CENTER><P><B> 
+Why you might need to "calculate strings"
+</B></CENTER>
+
+<P> If all you will ever do is play a standard-sized <B>guitar</B> in the 
+<B>standard tuning</B>, stringing your guitar is no problem - 
+pre-packaged sets of guitar strings will do just fine.  If, 
+you ever need or want to branch out, however, you would need to 
+"calculate" the correct string depending on the <B>size</B> of your 
+instrument, the <B>note</B> you want, and the <B>tension</B> you want.  
+Here are some of the guitar-related areas you could find yourself 
+exploring that would require strings not found in the regular set.  
+
+<P> There are the early plucked string instruments: vihuela, Renaissance 
+guitar, Renaissance lute, Baroque guitar, Baroque lute, plus more.  
+Even if you're sure you're never going to own one of those instruments, 
+you could get involved, anyhow.  For instance, I converted 
+a <B>modern guitar</B> into a <B>Baroque guitar</B> (see my web page).  
+Some of these instruments have additional bass strings, and I can 
+envision the simple addition of second neck to a modern guitar for 
+these extra basses.  
+
+<P> Other eras produced guitar music requiring extra basses.  
+For example, Napolean Coste wrote for a <B>7-string guitar</B> and 
+Fernando Carulli wrote some music for a <B>10-string guitar</B>.  
+A 7th string would give us access to the <B>Russian guitar</B> repertoire.  
+(Reading the music would pose a problem, but nothing that couldn't 
+be handled by <B>tablature</B>.)
+
+<P> There is a wealth of chamber works written for the <B>terz guitar</B>, 
+tuned a minor third (3 half-steps) higher than the regular guitar.  
+The <B>capo</B> solution becomes unsatisfactory when the music starts going 
+way up the fingerboard.  By the way, a terz guitar with the 3rd string 
+tuned down a half-step could serve as a quasi-Renaissance treble lute.
+
+<P> <B>Alternate tunings</B> that deviate more than slightly from the 
+regular tuning are candidates for custom-selected strings.  In my web 
+page on the subject, I point out that you can often shift the whole 
+tuning up or down a half-step or so to keep the over-all tension about 
+right, but there may be cases where some strings are still 
+too far removed from their intended tension.  Examples that come to mind are 
+tunings that call for a low C, and my proposed violin tuning with 
+string 6 tuned up to G.  Of course you wouldn't change a string to 
+play a single piece in an alternate tuning, but it could be 
+worth your while if you had a collection of such pieces and an 
+extra guitar.  
+
+<P> Perhaps your guitar is larger or smaller than the 
+standard guitar.  Maybe a child in your family or a student has a half- or 
+three-quarter sized guitar.  What are the right strings for it?
+
+<P> The first problem is that string makers who offer a complete range 
+of gauges - usually for "lute strings" - are pretty hard to come by.  And 
+when you find a dealer, the prices can be hard to swallow after having 
+gotten used to the prices of pre-packaged sets.  But I'll let market forces 
+work that one out.  When guitarists get enthused about the areas that 
+require custom-selected strings, all that should change.  
+
+</P><A NAME="pt2"></A><HR>
+<CENTER><P><B> 
+How to "calculate strings" - determining MPL
+</B></CENTER>
+
+<P> So how do you figure out what string(s) will do the job?  What is 
+the relevant string measurement and how do you calculate it?  
+
+<P> I've used the word <B>gauge</B> above, and we know that 
+steel-string guitarists and lutenists select strings by gauge.  
+The gauge is the diameter of the cross-section of the 
+string.  The problem is: gauge is <I>not</I> a very useful parameter.  
+
+<P> That should come as no surprise.  We know, for example, that our 
+3rd string has a larger diameter than the 4th and 5th strings even 
+though the 3rd is higher pitched.  The explanation, of course, is that 
+the composition of the treble and bass strings are different.  
+
+<P> If we take a look at the physical equation that describes 
+a <B>vibrating string</B>, we see that the <B>frequency</B> depends 
+on length, tension and <B>mass per unit length</B>.  If we use 
+the following shorthand:
+<PRE>
+
+      TENS = tension 
+      FREQ = frequency 
+      LENG = length 
+      MPL  = mass per unit length, 
+and   sqrt = square root
+</PRE>
+
+<P> the fundamental relationship is:
+<PRE>
+
+     FREQ = sqrt(TENS/MPL)/LENG/2
+</PRE>
+
+<P> Solving for the thing we need to know:  
+<PRE>
+
+     MPL = 9800xTENS/FREQ/FREQ/LENG/LENG/4
+
+where TENS is in kilograms (kg),
+      FREQ is in cycles per second (cps),
+      LENG is in meters (m), 
+and   MPL is in grams per meter (g/m).  
+</PRE>
+
+<P> See footnote 1 if you're curious about where the 9800 came from.  
+
+<P> Related formulas have been devised to calculate the string diameter, but
+you need a different formula for every string composition (see footnote 2.)  
+The beauty of our formula above is that it works for any type of string 
+imaginable - nylon monofilament, wound, gut, steel, 
+graphite-impregnated horse-hair, rubber bands . . . you-name-it.  Just plug 
+in your string length, the frequency of the note you want and the desired 
+tension, and out pops the required mass per unit length.  
+
+<P> But who the heck knows note frequencies???
+You know I always have your best interests at heart, and if you 
+check out Appendix 1, you will find a table of note frequencies.  
+Better yet is Appendix 2, which gives a program in BASIC which 
+does the whole calculation for you.  You don't even have to mess 
+with frequencies - just tell it the note you want.  
+
+<P> <B>Example:</B>  You are experimenting with higher tension on string 3 only.  
+Your set of normal tension strings has the <B>G string</B> sized for a 
+tension of 5.49 kg (see footnote 3) and you wonder what 6.0 kg would 
+sound and feel like.  Your guitar has a .650m scale length.  The 
+frequency of the G is 196 cps.  Plugging everything in yields 
+MPL = 0.91 grams/meter.  That will give you a G note at the 
+tension you want - regardless of the string composition: nylon, 
+wound, gut, steel . . .
+
+<P> <B>Example:</B>  You want to tune the pair of 5th strings on your 
+<B>Baroque guitar</B> to the upper octave (220 hz) and you only 
+want 3 Kg of tension per string, for a total of 6 Kg for the 
+pair.  Suppose the string length is .650m.  Plugging everything 
+in yields MPL = 0.36 grams/meter for each string.
+
+<P> <B>Example:</B>  For playing John Dowland, you need a low B for your 
+<B>8-string guitar</B>.  You think 6.33 kg will be a good tension.  
+Plugging in LENG=.650, FREQ=61.7 and TENS=6.33 yields MPL=9.63 g/m.
+
+<P><B>Summary:</B>
+
+<P> Summing up, I implore all string makers to supply the 
+<B>MPL</B> measurement for all of their strings.  I propose that 
+<B>grams per meter</B> is a convenient unit for MPL.  
+
+<P> It would be nice to see guitarists get enthused about the 
+alternatives to the regular guitar tuning.  This would incidentally 
+create an incentive for string makers to offer individual strings 
+spanning the whole gamut of MPL densities.  
+
+</P><A NAME="fn1"></A><HR>
+<P><B> 
+Footnote 1.  Deriving the formula for MPL.
+</B>
+
+<P> The constant 9800 which seems to pop up out of nowhere comes about 
+in the conversion of natural physical units into units we 
+are more comfortable with.  A kilogram is actually a unit of mass, but 
+is used in this context as a unit of force - specifically, the 
+<I>weight</I> of a 1-kg mass at sea level, or, equivalently, the 
+<I>tension</I> in a string with a 1-kg mass hanging from it.  (Weight 
+and tension are both forces.)  
+
+<P> The conversion of tension from proper units of newtons to 
+units of "kilograms" is gotten from the relationship, 
+<PRE>
+
+      TENS newtons = MASS kg x grav
+</PRE>
+
+<P> where grav = 9.8 m/sec/sec, the acceleration due to gravity.  The 
+units all cancel out leaving, 
+<PRE>
+
+      TENS = 9.8 MASS  
+</PRE>
+
+<P> This substitution is made while solving for MPL, BUT . . . after the 
+substitution is made we rename MASS back to TENS.  Got it?  (Wouldn't 
+it have made more sense to have gotten comfortable with the distinction 
+between mass and force from pre-school on?  After all, they're totally 
+different beasts.)  
+
+<P> The extra 
+factors of 10 arise from the conversion of MPL in units of kg/m to g/m.
+
+</P><A NAME="fn2"></A><HR>
+<P><B> 
+Footnote 2.  The old-fashioned string calculation: gauge (= diameter).
+</B>
+
+<P> Toyohiko Satoh, in his article "A Method For Stringing Lutes", 
+Journal of the Lute Society of America, Vol II, 1969, p44, 
+gives a formula devised by Dr. Helmut Herminghaus:
+<PRE>
+
+      DIAM = CONST x sqrt(TENS)/FREQ/LENG
+</PRE>
+
+<P> where DIAM is the string diameter in mm, and CONST is some 
+constant which depends on the material of the string.  The article 
+gives two values: CONST=49 for gut strings, and CONST=54 for
+nylon strings.  
+
+<P> Note that this equation is in agreement with ours.  The diameter of 
+the string and the mass per unit length are related as follows:
+<PRE>
+
+      MPL = DENS x PI x DIAM x DIAM / 4
+</PRE>
+
+<P> where DENS is the ordinary density (mass per unit volume) 
+of the string material, and PI = 3.14159 (approx.)  Substituting 
+for MPL in our equation yields
+<PRE>
+
+      CONST = sqrt(9800/PI/DENS)
+</PRE>
+
+<P> where DENS is in units of g/m/mm/mm (grams per meter per millimeter 
+squared.)  It can be seen that the Herminghaus equation requires a 
+different constant for every density of string material.  Worse yet, 
+<I>no</I> CONST will work for a family of wound strings since the 
+density would not be the same for different gauges.
+
+<P> Still, string manufacturers only provide string diameters so that's what 
+you must work with (unless you have a triple beam balance and string 
+samples.)  Appendix 3 gives a computer program that calculates 
+desired string diameters.  
+
+</P><A NAME="fn3"></A><HR>
+<P><B> 
+Footnote 3.  A typical set of strings.
+</B>
+
+<P> A set of values for the tension of normal tension 
+guitar strings is given on D'Addario Pro Arte J45 string envelopes.  
+They used a .648m scale length.  The tensions and diameters are:
+<PRE>
+
+      String     Tension     Diameter
+      ------     -------     --------
+      1st, E     6.94 kg     0.71 mm
+      2nd, B     5.26 kg     0.82 mm
+      3rd, G     5.49 kg     1.02 mm
+      4th, D     7.09 kg     0.74 mm
+      5th, A     6.29 kg     0.86 mm
+      6th, E     6.33 kg     1.09 mm
+</PRE>
+
+<P> Does anybody know the reason for the variation in tension from string to 
+string?  It seems likely that, given the chance, many guitarists would want 
+to be in control of the tension of each string.
+
+<P> By the way, the information provided by D'Addario allows us to 
+calculate the constant in the Herminghaus equation (see footnote 2) 
+for the nylon used in D'Addario monofilament strings.  It works out 
+to about 57.  Herminghaus provided a constant of 54 for nylon strings.  
+I don't know the reason for the discrepancy.  
+
+</P><A NAME="ap1"></A><HR>
+<CENTER><P><B> 
+Appendix 1 - Frequencies of the notes
+</B></CENTER>
+
+<P> Pitch names are a pain in the neck.  The A notes named below 
+(A, A a a') which start the octaves indicate the <I>actual</I> pitch - 
+as opposed to the notated pitch in guitar music.  Another wrinkle is 
+that the subscripts and superscripts change at each occurrence of <I>C</I> - 
+not A.  
+
+<P> But you can safely ignore all that.  To orient yourself, note that 
+the six open guitar string notes are labeled with the 
+string number in parentheses.  
+
+<P> To get the frequency of the next lower octave of a note, just 
+divide by 2.  
+<PRE>
+
+                                     Frequencies (cps)
+    
+    Octave starts on:   A,            A             a             a'
+                       ----         -----         -----         -----
+    Notes: A           55       (5) 110           220           440       
+           Bflat       58.3         116.5         233.1         466.2     
+           B           61.7         123.5     (2) 246.9         493.9     
+           C           65.4         130.8         261.6         523.3     
+           C#          69.3         138.6         277.2         554.4     
+           D           73.4     (4) 146.8         293.7         587.3     
+           D#          77.8         155.6         311.1         622.3     
+           E       (6) 82.4         164.8     (1) 329.6         659.3     
+           F           87.3         174.6         349.2         698.5     
+           F#          92.5         185           370           740       
+           G           98       (3) 196           392           784       
+           G#         103.8         207.7         415.3         830.6     
+</PRE>
+
+</P><A NAME="ap2"></A><HR>
+<CENTER><P><B> 
+Appendix 2 - Program to calculate MPL
+</B></CENTER>
+
+<P> This BASIC program calculates the mass per unit length, MPL, for 
+a string that will have the desired tension for a desired note.  
+
+<P> If you want to take it off this web page and use it, make sure you 
+download the <I>unrendered</I> HTML.  BASIC uses "&lt;" and "&gt;" signs 
+in the conventional "less than" and "greater than" sense.  But 
+HTML uses those characters to bracket instructions for your browser.  
+Thus they might be misinterpreted, or not even shown, in the program 
+code below.  In the Explorer browser, click View; click Source; 
+scroll down to this point; and save the lines of program code 
+in a BASIC file called STRINGM.BAS .
+
+<PRE>
+
+10 'STRINGM - calculate mass per unit length, MPL, for a string.
+20 'Programmed by Donald Sauter.
+30 ROOT#=2#^(1!/12!)
+50 PRINT
+60 PRINT "This program calculates the Mass Per Unit Length, MPL, of the 
+70 PRINT "string that will give you the desired tension for a given note.  
+80 PRINT "This value for MPL is appropriate for any string composition, 
+90 PRINT "monofilament or wound.  
+100 PRINT 
+110 PRINT "The program goes the other way, too. You feed it the MPL and it 
+120 PRINT "will calculate the tension. 
+130 PRINT 
+140 PRINT "The relationship is MPL = 9800 x TENS/FREQ/FREQ/LENG/LENG/4
+150 PRINT
+158 STRLEN=.65
+160 INPUT "String length (meters) (<cr>=.650): ",ANS$
+170 IF ANS$<>"" THEN STRLEN=VAL(ANS$)
+180 IF STRLEN>1 THEN BEEP : PRINT "WARNING: That's a mighty long string!"
+190 'DO-UNTIL operator is done
+200 PRINT
+210 PRINT "      4
+220 PRINT "      4    -O-
+230 PRINT "    3   _________   Choose the number corresponding to the 
+240 PRINT "    3   _________   octave within which your desired note 
+250 PRINT "    3   _________   will fall.  Octaves begin on A notes.  
+260 PRINT "    3   ____O____   (This is a *guitar music* staff - notes 
+270 PRINT "      2 _________   sound an octave lower than written.  The 
+280 PRINT "      2    ___      highest A pictured here is 440 cps.)  
+290 PRINT "      2    -O-
+300 PRINT "    1
+310 PRINT "    1
+320 PRINT
+330 INPUT "Desired octave number (0-4, probably): ",IOCT
+340 IF IOCT>4 THEN BEEP : PRINT "WARNING: That's a mighty high note!"
+350 IF IOCT<0 THEN BEEP : PRINT "WARNING: That's a mighty low note!"
+360 OCTOFF=-IOCT+3
+370 PRINT
+380 PRINT "             A  A# B  C  C# D  D# E  F  F# G  G#"
+390 INPUT "Note number (0  1  2  3  4  5  6  7  8  9  10 11): ",NOTNUM
+400 IF NOTNUM>11 THEN BEEP :PRINT "Try again." :GOTO 390
+410 T2MFL=-1   :'Calculate MPL from tension flag.
+420 PRINT
+430 INPUT "String tension (kg) *OR* hit <cr> to input MPL instead: ",TENS
+440 IF TENS=0 THEN T2MFL=0 : INPUT "Mass Per unit Length (g/m): ",MPL
+450 FREQ=220*ROOT#^NOTNUM
+460 FREQ=FREQ/2^OCTOFF
+470 '
+480 'IF calculating MPL from tension
+490 IF NOT(T2MFL) THEN 620
+500 MPL=9800*TENS/4/FREQ/FREQ/STRLEN/STRLEN
+510 PRINT
+520 PRINT "For: Length (m) = ";STRLEN
+530 PRINT "     Frequency (cps) =";
+540 PRINT USING "####.##";FREQ
+550 PRINT "     Tension (kg) =";
+560 PRINT USING "###.###";TENS
+570 PRINT "MASS PER UNIT LENGTH =";
+580 PRINT USING "###.####";MPL;
+590 PRINT " grams/meter.  (Any string composition.)
+600 GOTO 720
+610 '
+620 'ELSE calculating tension from MPL
+630 TENS=MPL*4/9800*FREQ*FREQ*STRLEN*STRLEN
+640 PRINT
+650 PRINT "For: Length (m) = ";STRLEN
+660 PRINT "     Frequency (cps) =";
+670 PRINT USING "####.##";FREQ
+680 PRINT "     Mass per length (g/m) =";
+690 PRINT USING "###.####";MPL
+700 PRINT "TENSION (kg) =";
+710 PRINT USING "###.###";TENS
+720 'ENDIF
+730 PRINT "==============================================================="
+740 INPUT "Another calculation? (Y/N <cr>=yes): ",ANS$
+750 IF ANS$="" OR ANS$="y" OR ANS$="Y" THEN GOTO 190
+760 'END-DO operator is done
+770 END
+</PRE>
+
+</P><A NAME="ap3"></A><HR>
+<CENTER><P><B> 
+Appendix 3 - Program to calculate string diameter
+</B></CENTER>
+
+<P> This BASIC program calculates the Diameter (gauge) for 
+a string that will have the desired tension for a desired note.  
+As discussed above, <I>this only makes sense for monofilament strings</I>, 
+even though string manufacturers talk in terms of gauge for wound strings 
+as well.  Again, you must extract the <I>unrendered</I> HTML.  
+In the Explorer browser, click View; click Source; scroll down to this 
+point; and save the lines of program code as STRINGD.BAS .
+<PRE>
+
+10 'STRINGD - calculate string diameter.
+20 'Programmed by Donald Sauter.
+30 ROOT#=2#^(1!/12!)
+40 PRINT
+50 PRINT "This program calculates the Diameter, or gauge, of the string 
+60 PRINT "that will give you the desired tension for a given note.  
+70 PRINT "Unfortunately, this only makes sense for monofilaments, and 
+80 PRINT "you need to supply a constant which depends on the material. 
+90 PRINT "(Values for gut and nylon are provided here.)  
+100 PRINT
+110 PRINT "The program goes the other way, too. You feed it the diameter 
+120 PRINT "and it will calculate the tension. 
+130 PRINT 
+140 PRINT "The relationship is FREQ x LENG x DIAM = const x sqrt(TENS)
+150 PRINT "See Satoh, Journal of the Lute Society of America, Vol II 1969.
+160 PRINT 
+170 STRLEN=.65
+180 INPUT "String length (m) (<cr>=.650): ",ANS$
+190 IF ANS$<>"" THEN STRLEN=VAL(ANS$)
+200 IF STRLEN>1 THEN BEEP : PRINT "WARNING: That's a mighty *long* string!"
+210 'DO-UNTIL operator is done
+220 PRINT
+230 PRINT "      4
+240 PRINT "      4    -O-
+250 PRINT "    3   _________   Choose the number corresponding to the 
+260 PRINT "    3   _________   octave within which your desired note 
+270 PRINT "    3   _________   will fall.  Octaves begin on A notes.  
+280 PRINT "    3   ____O____   (This is a *guitar music* staff - notes 
+290 PRINT "      2 _________   sound an octave lower than written.  The 
+300 PRINT "      2    ___      highest A pictured here is 440 cps.)  
+310 PRINT "      2    -O-
+320 PRINT "    1
+330 PRINT "    1
+340 PRINT
+350 INPUT "Desired octave number (0-4, probably): ",IOCT
+360 IF IOCT>4 THEN BEEP : PRINT "WARNING: That's a mighty high note!"
+370 IF IOCT<0 THEN BEEP : PRINT "WARNING: That's a mighty low note!"
+380 OCTOFF=-IOCT+3
+390 PRINT
+400 PRINT "             A  A# B  C  C# D  D# E  F  F# G  G#"
+410 INPUT "Note number (0  1  2  3  4  5  6  7  8  9  10 11): ",NOTNUM
+420 PRINT
+430 DFLG=-1   :'Calculate diam flag.
+440 INPUT "Tension (kg) *OR* hit <cr> to input Diameter instead: ",TENS
+450 IF TENS=0 THEN INPUT "String diameter (mm): ",DMM : DFLG=0
+460 FUDGE=57  :'d'Addario nylon.
+470 INPUT "Constant (49=gut <cr>=57=DAddario nylon): ",ANS$
+480 IF ANS$<>"" THEN FUDGE=VAL(ANS$)
+490 FREQ=220*ROOT#^NOTNUM
+500 FREQ=FREQ/2^OCTOFF
+510 '
+520 'IF CALCULATING DIAMETER
+530 IF NOT(DFLG) THEN 710
+540 DMM=FUDGE*SQR(TENS)/STRLEN/FREQ
+550 DIN=DMM/25.4
+560 PRINT
+570 PRINT "For: Length (m) = ";STRLEN
+580 PRINT "     Frequency (cps) =";
+590 PRINT USING "####.##";FREQ
+600 PRINT "     Tension (kg) =";
+610 PRINT USING "###.###";TENS
+620 PRINT "     Material constant = ";FUDGE
+630 PRINT "DIAMETER =";
+640 PRINT USING "##.###";DMM;
+650 PRINT "mm  or ";
+660 PRINT USING ".####";DIN;
+670 PRINT "in.    ";
+680 PRINT "(For monofilaments only!)
+690 GOTO 810
+700 '
+710 'ELSE calculating tension
+720 TENS=(FREQ*STRLEN*DMM/FUDGE)^2
+730 PRINT
+740 PRINT "For: Length (m) = ";STRLEN
+750 PRINT "     Frequency (cps) =";
+760 PRINT USING "####.##";FREQ
+770 PRINT "     Diameter (mm) = ";DMM;"     (Monofilament only!)
+780 PRINT "     Material constant = ";FUDGE
+790 PRINT "TENSION (kg) =";
+800 PRINT USING "###.###";TENS
+810 'ENDIF
+820 PRINT "==============================================================="
+830 INPUT "Another calculation? (Y/N <cr>=yes): ",ANS$
+840 IF ANS$="" OR ANS$="y" OR ANS$="Y" THEN GOTO 210
+850 'END-DO operator is done
+860 END
+</PRE>
+
+
+
+<P>&nbsp <P><HR>
+<P> <A HREF="contact.htm">
+Contact Donald Sauter: </A> send an email; view guestbook; sign guestbook.
+<BR> Back to <A HREF="index.html">Donald Sauter's main page</A>.
+<BR> Rather shop than think? Please visit <A HREF=my-shop.htm>My Little Shop of Rare and Precious Commodities</A>. 
+<BR> <A HREF="#top">Back to the top of this page</A>.
+
+<P> Helpful keywords not in the main text: string calculation program. 
+
+<P> Parents, if you're considering tutoring or supplemental education for your child, you may be interested in my observations on <A HREF="http://www.donaldsauter.com/kumon.htm">Kumon</A>.  
+<BR>
+</BODY>
+</HTML>
+
