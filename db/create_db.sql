@@ -170,7 +170,6 @@ INSERT INTO string_sets (manufacturer_id, string_set_name, number_of_strings ) V
 --     comment TEXT
 -- );
 
-
 -- materials
 CREATE TABLE material_types (
     material_id SERIAL PRIMARY KEY,
@@ -249,7 +248,7 @@ CREATE TABLE musical_notes (
     note_description TEXT,
     comment TEXT
 );
-I-- NSERT INTO musical_notes (international_pitch_notation,octave);
+-- NSERT INTO musical_notes (international_pitch_notation,octave);
 
 -- CREATE TABLE temperaments (
 --     id SERIAL PRIMARY KEY,
