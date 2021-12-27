@@ -224,19 +224,38 @@ CREATE TABLE harmonics (
 	wavelength NUMERIC GENERATED ALWAYS AS ((2*L/n)) STORED
 );
 
+DROP FUNCTION IF EXISTS public.music_frequencies(numeric, numeric, numeric);
+CREATE FUNCTION music_frequencies(
+	f0 numeric DEFAULT 440.0, 
+	intervals numeric DEFAULT 12, 
+	n numeric DEFAULT 0
+) RETURNS numeric
+	AS 'select (f0*(2^(1/intervals))^n);'
+    LANGUAGE SQL
+    IMMUTABLE
+    RETURNS NULL ON NULL INPUT;
+	
+SELECT music_frequencies(f0=>440.0,intervals=>12, n=>0);
+SELECT music_frequencies(f0=>440.0, n=>1);
+SELECT music_frequencies(440.0,12,1);
+
+--   RETURN (f0*(2^(1/intervals))^n);
+
 CREATE TABLE musical_notes (
     note_id SERIAL PRIMARY KEY,
     international_pitch_notation TEXT NOT NULL UNIQUE,
-    note_frequency NUMERIC NOT NULL, 
+    octave INT NOT NULL,
+    note_frequency NUMERIC, 
     note_description TEXT,
     comment TEXT
 );
+I-- NSERT INTO musical_notes (international_pitch_notation,octave);
 
-CREATE TABLE tunings (
-    tuning_id SERIAL PRIMARY KEY,
-    tuning TEXT NOT NULL UNIQUE,
-    description TEXT NOT NULL,
-    comment TEXT
-);
-INSERT INTO tunings (tuning,description) VALUES ( '12-TET', '12 equal temperament' );
-INSERT INTO tunings (tuning,description) VALUES ( '24-TET', '24 equal temperament' );
+-- CREATE TABLE temperaments (
+--     id SERIAL PRIMARY KEY,
+--     temperament TEXT NOT NULL UNIQUE,
+--     description TEXT,
+--     comment TEXT
+-- );
+-- INSERT INTO tunings (temparment,description) VALUES ( '12-TET', '12 equal temperament' );
+-- INSERT INTO tunings (temparment,description) VALUES ( '24-TET', '24 equal temperament' );
