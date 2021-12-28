@@ -213,18 +213,23 @@ CREATE TABLE string_attributes (
 -- music
 -- https://en.wikipedia.org/wiki/String_vibration
 -- http://www.donaldsauter.com/string-calculation.htm
-CREATE TABLE harmonics (
-    L NUMERIC NOT NULL,
-    rho NUMERIC NOT NULL,
-    d NUMERIC NOT NULL,
-    T NUMERIC NOT NULL,
-    n int NOT NULL DEFAULT 1,
-    frequency NUMERIC GENERATED ALWAYS AS ((n/L*d)*sqrt(T/PI()*rho)) STORED,
-	wavelength NUMERIC GENERATED ALWAYS AS ((2*L/n)) STORED
-);
+DROP FUNCTION IF EXISTS public.string_frequency(numeric, numeric, numeric, numeric, numeric);
+CREATE FUNCTION string_frequency(
+    L NUMERIC,
+    density NUMERIC,
+    diameter NUMERIC,
+    tension NUMERIC,
+    n NUMERIC DEFAULT 1
+) RETURNS numeric
+	AS 'SELECT ((n/(L*diameter))*sqrt(tension/(PI()*density)));'
+    LANGUAGE SQL
+    IMMUTABLE
+    RETURNS NULL ON NULL INPUT;
+SELECT string_frequency(L=>25.625*2.54,density=>7.726,diameter=>0.00899*2.54,tension=>13.1*453.59237*980.655);
+SELECT string_frequency(L=>25.5*2.54,density=>7.726,diameter=>0.0285*2.54,tension=>16.8*453.59237*980.655);
 
-DROP FUNCTION IF EXISTS public.music_frequencies(numeric, numeric, numeric);
-CREATE FUNCTION music_frequencies(
+DROP FUNCTION IF EXISTS public.music_frequency_of_interval(numeric, numeric, numeric);
+CREATE FUNCTION music_frequency_of_interval(
 	f0 numeric DEFAULT 440.0, 
 	intervals numeric DEFAULT 12, 
 	n numeric DEFAULT 0
@@ -233,12 +238,34 @@ CREATE FUNCTION music_frequencies(
     LANGUAGE SQL
     IMMUTABLE
     RETURNS NULL ON NULL INPUT;
-	
-SELECT music_frequencies(f0=>440.0,intervals=>12, n=>0);
-SELECT music_frequencies(f0=>440.0, n=>1);
-SELECT music_frequencies(440.0,12,1);
+SELECT music_frequency_of_interval(f0=>440.0,intervals=>12, n=>0);
+SELECT music_frequency_of_interval(f0=>440.0, n=>1);
+SELECT music_frequency_of_interval(440.0,12,1);
 
---   RETURN (f0*(2^(1/intervals))^n);
+-- https://en.wikipedia.org/wiki/String_vibration
+DROP FUNCTION IF EXISTS public.music_frequencies_mpl(numeric, numeric, numeric);
+CREATE FUNCTION music_frequencies_mpl(
+	T numeric, 
+	mu numeric,
+  L numeric,
+  n numeric DEFAULT 1
+) RETURNS numeric
+	AS 'select ((n/2*L)*sqrt(T/mu));'
+    LANGUAGE SQL
+    IMMUTABLE
+    RETURNS NULL ON NULL INPUT;
+SELECT music_frequencies_mpl(T=>14.8*4.4482216153,mu=>.0000202*11.2985,L => 25.65*2.54/100);
+
+DROP FUNCTION IF EXISTS public.music_mu(numeric, numeric);
+CREATE FUNCTION music_mu(
+	diameter numeric, 
+	density numeric
+) RETURNS numeric
+	AS 'select (PI()*(diameter^2)*density/4);'
+    LANGUAGE SQL
+    IMMUTABLE
+	RETURNS NULL ON NULL INPUT;
+SELECT music_mu(diameter=>0.00899 * 2.54, density =>7.726 );
 
 CREATE TABLE musical_notes (
     note_id SERIAL PRIMARY KEY,
