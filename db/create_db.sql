@@ -262,7 +262,7 @@ CREATE FUNCTION music.string_mass_per_length(
 -- frequency = 329.63 Hz, i.e. E4 (e')
 -- length    = 25.5 inches * 2.54 to convert inches to cm
 -- 178.58    = needed to convert g/m to lb/in to check results against PL009 spec by Daadario
-SELECT music.string_mass_per_length(tension=>13.1*453.59237*980.665,frequency=>329.63, scale_length => 25.5*2.54)/178.58;
+SELECT music.string_mass_per_length(tension=>13.1*453.59237*980.665,frequency=>329.63,scale_length => 25.5*2.54)/178.58;
 
 -- Item#,Unit Weight,g',f',e',d',c',b,a,g
 -- PL0095,.00001999,20.7,16.4,** 14.6 **,11.6,9.2,8.2,6.5,5.2
@@ -270,7 +270,7 @@ SELECT music.string_mass_per_length(tension=>13.1*453.59237*980.665,frequency=>3
 -- frequency = 329.63 Hz, i.e. E4 (e')
 -- length    = 25.5 inches * 2.54 to convert inches to cm
 -- 178.58    = needed to convert g/m to lb/in to check results against PL0095 spec by Daadario
-SELECT music.string_mass_per_length(tension=>14.6*453.59237*980.665,frequency=>329.63, scale_length => 25.5*2.54)/178.58;
+SELECT music.string_mass_per_length(tension=>14.6*453.59237*980.665,frequency=>329.63,scale_length => 25.5*2.54)/178.58;
 
 -- Item#,Unit Weight,f',e',d',c',b,a,g,f
 -- J4301,.00002024,16.6,** 14.8 **,11.8,9.3,8.3,6.6,5.2,4.2
@@ -278,7 +278,7 @@ SELECT music.string_mass_per_length(tension=>14.6*453.59237*980.665,frequency=>3
 -- frequency = 329.63 Hz, i.e. E4 (e')
 -- length    = 25.5 inches * 2.54 to convert inches to cm
 -- 178.58    = needed to convert g/m to lb/in to check results against J4301 spec by Daadario
-SELECT music.string_mass_per_length(tension=>14.8*453.59237*980.665,frequency=>329.63, scale_length => 25.5*2.54)/178.58;
+SELECT music.string_mass_per_length(tension=>14.8*453.59237*980.665,frequency=>329.63,scale_length => 25.5*2.54)/178.58;
 
 -- Item#,Unit Weight,f',e',d',c',b,a,g,f
 -- J4503/EXP,.00004679,38.4,** 34.2 **,27.2,21.6,19.2,15.2,12.1,9.6
@@ -286,7 +286,7 @@ SELECT music.string_mass_per_length(tension=>14.8*453.59237*980.665,frequency=>3
 -- frequency = 329.63 Hz, i.e. E4 (e')
 -- length    = 25.5 inches * 2.54 to convert inches to cm
 -- 178.58    = needed to convert g/m to lb/in to check results against J4301 spec by Daadario
-SELECT music.string_mass_per_length(tension=>34.2*453.59237*980.665,frequency=>329.63, scale_length => 25.5*2.54)/178.58;
+SELECT music.string_mass_per_length(tension=>34.2*453.59237*980.665,frequency=>329.63,scale_length => 25.5*2.54)/178.58;
 
 -- Item#,Unit Weight,f',e',d',c',b,a,g,f
 -- J4503/EXP,.00004679,38.4,34.2,27.2,21.6,** 19.2 **,15.2,12.1,9.6
@@ -294,7 +294,7 @@ SELECT music.string_mass_per_length(tension=>34.2*453.59237*980.665,frequency=>3
 -- frequency = 246.9 Hz, i.e. B3 (b)
 -- length    = 25.5 inches * 2.54 to convert inches to cm
 -- 178.58    = needed to convert g/m to lb/in to check results against J4301 spec by Daadario
-SELECT music.string_mass_per_length(tension=>19.2*453.59237*980.665,frequency=>246.9, length => 25.5*2.54)/178.58;
+SELECT music.string_mass_per_length(tension=>19.2*453.59237*980.665,frequency=>246.9,scale_length => 25.5*2.54)/178.58;
 
 -- https://en.wikipedia.org/wiki/String_vibration
 DROP FUNCTION IF EXISTS music.frequency_from_mass_per_length(numeric, numeric, numeric, numeric);
