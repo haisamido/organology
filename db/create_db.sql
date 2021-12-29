@@ -335,10 +335,34 @@ SELECT music.frequency_from_mass_per_length(tension =>19.2*453.59237*980.665,mas
 -- 	RETURNS NULL ON NULL INPUT;
 -- SELECT music.mu(diameter=>0.00899 * 2.54, density =>7.726 );
 
-CREATE TABLE music.musical_notes (
-    note_id SERIAL PRIMARY KEY,
+-- https://en.wikipedia.org/wiki/E_(musical_note)
+CREATE TABLE music.octaves (
+  id SERIAL PRIMARY KEY,
+  number INT NOT NULL UNIQUE,
+  name TEXT NOT NULL UNIQUE,
+  midi_number INT NOT NULL UNIQUE,
+  UNIQUE(number,name,midi_number)
+);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (-1,'?',0);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (0,'??',12);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (1,'contra',24);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (2,'great',36);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (3,'small',48);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (4,'one-lined',60);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (5,'two-lined',72);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (6,'three-lined',84);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (7,'four-lined',96);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (8,'five-lined',108);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (9,'six-lined',120);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (10,'seven-lined',132);
+
+-- https://en.wikipedia.org/wiki/Scientific_pitch_notation
+CREATE TABLE music.notes (
+    id SERIAL PRIMARY KEY,
     international_pitch_notation TEXT NOT NULL UNIQUE,
-    octave INT NOT NULL,
+    helmholtz_designation TEXT NULL UNIQUE,
+    octave_number INT NOT NULL,
+    octave_name TEXT NULL,
     note_frequency NUMERIC, 
     note_description TEXT,
     comment TEXT
