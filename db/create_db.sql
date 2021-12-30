@@ -777,82 +777,254 @@ CREATE TABLE materials (
 );
 INSERT INTO materials (material_name) VALUES ('clear nylon');
 
+CREATE TABLE string_tension_categories (
+  id SERIAL PRIMARY KEY,
+  category TEXT NOT NULL UNIQUE,
+  description TEXT,
+  comment TEXT
+);
+INSERT INTO string_tension_categories (category) VALUES ('light tension');
+INSERT INTO string_tension_categories (category) VALUES ('medium tension' );
+INSERT INTO string_tension_categories (category) VALUES ('hard tension' );
+INSERT INTO string_tension_categories (category) VALUES ('extra hard tension');
+
+-- strings from the perspective of the manufacture
 CREATE TABLE strings (
-  string_id SERIAL PRIMARY KEY,
-
+  id SERIAL PRIMARY KEY,
   manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
-  manufacturer_part_id TEXT NOT NULL,
-  manufacturer_tension_classification TEXT NOT NULL,
-  manufacturer_string_family TEXT NOT NULL,
-  manufacturer_string_material TEXT NOT NULL, FOREIGN KEY (manufacturer_string_material) REFERENCES materials (material_name),
-  manufacturer_string_note TEXT NOT NULL, FOREIGN KEY (manufacturer_string_note) REFERENCES music.international_pitch_notations (notation),
-  manufacturer_string_diameter NUMERIC,
-
+  part_id TEXT NOT NULL,
+  string_family TEXT NOT NULL,
   instrument_id BIGINT NOT NULL, FOREIGN KEY (instrument_id) REFERENCES instruments (instrument_id),
-
+  string_note TEXT NOT NULL, FOREIGN KEY (string_note) REFERENCES music.international_pitch_notations (notation),
+  string_order INT NOT NULL,
+  string_diameter NUMERIC,
+  string_tension_category TEXT NOT NULL, FOREIGN KEY (string_tension_category) REFERENCES string_tension_categories(category),
+  string_material TEXT NOT NULL, FOREIGN KEY (string_material) REFERENCES materials (material_name),
   mass_per_length NUMERIC NOT NULL,
   scale_length NUMERIC NOT NULL,
   tension_maximum NUMERIC DEFAULT 0,
+  tension_at_note NUMERIC NOT NULL,
   tension_minimum NUMERIC DEFAULT 0,
+  UNIQUE(manufacturer_id, part_id),
+  UNIQUE(manufacturer_id, part_id, string_family),
+  UNIQUE(manufacturer_id, part_id, string_material),
+  UNIQUE(manufacturer_id, part_id, string_note),
+  UNIQUE(manufacturer_id, part_id, string_order),
+  UNIQUE(manufacturer_id, part_id, string_diameter),
   source TEXT DEFAULT '' NOT NULL,
-
-  UNIQUE(manufacturer_id, manufacturer_part_id),
   description TEXT,
   comment TEXT
-
 );
+
 -- J4301,.00002024,16.6,14.8,11.8,9.3,8.3,6.6,5.2,4.2
 INSERT INTO strings(
   manufacturer_id,
-  manufacturer_part_id,
-  manufacturer_tension_classification,
-  manufacturer_string_family,
-  manufacturer_string_material,
-  manufacturer_string_note,
-  manufacturer_string_diameter,
-  scale_length,
-  mass_per_length,
-  tension_maximum,
-  tension_minimum,
+  part_id,
+  string_family,
   instrument_id,
-  source
+  string_note,
+  string_order,
+  string_diameter,
+  string_tension_category,
+  string_material,
+  mass_per_length,  
+  scale_length,
+  tension_maximum,
+  tension_at_note,
+  tension_minimum,
+  description
 ) VALUES (
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
   'J4301',
-  'light tension',
   'Pro-Arté',
-  'clear nylon',
-  'E4',
-   .0275*25.4,25.5*25.4,.00002024*453.592292/2.54,16.6*453.592292/1000,4.2*453.592292/1000 ,
   (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
-  'https://www.daddario.com/globalassets/pdfs/accessories/tension_chart_13934.pdf'
+  'E4',
+  1,
+  .0275*25.4,
+  'light tension',
+  'clear nylon',
+  .00002024*453.592292/2.54,
+  25.5*25.4,
+  16.6*453.592292/1000,
+  14.8*453.592292/1000,
+  4.2*453.592292/1000 ,
+  'Pro-Arté Classical Guitar J4301 - E-1st - 0.0275" (.699mm) Light Tension-Clear Nylon - 2F052'
 );
+
 
 -- J4302,.00002729,22.4,20.0,15.8,12.6,11.2,8.9,7.1,5.6
 INSERT INTO strings(
   manufacturer_id,
-  manufacturer_part_id,
-  manufacturer_tension_classification,
-  manufacturer_string_family,
-  manufacturer_string_material,
-  manufacturer_string_note,
-  manufacturer_string_diameter,
-  scale_length,
-  mass_per_length,
-  tension_maximum,
-  tension_minimum,
+  part_id,
+  string_family,
   instrument_id,
-  source
+  string_note,
+  string_order,
+  string_diameter,
+  string_tension_category,
+  string_material,
+  mass_per_length,  
+  scale_length,
+  tension_maximum,
+  tension_at_note,
+  tension_minimum,
+  description
 ) VALUES (
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
   'J4302',
-  'light tension',
   'Pro-Arté',
-  'clear nylon',
-  'B2',
-  .0317*25.4,25.5*25.4,.00002729*453.592292/2.54,22.4*453.592292/1000,5.6*453.592292/1000,
   (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
-  'https://www.daddario.com/globalassets/pdfs/accessories/tension_chart_13934.pdf'
+  'B3',
+  2,
+  .0317*25.4,
+  'light tension',
+  'clear nylon',
+  .00002729*453.592292/2.54,
+  25.5*25.4,
+  22.4*453.592292/1000,
+  11.2*453.592292/1000,
+  5.6*453.592292/1000,
+  'Pro-Arté Classical Guitar J4302 - B-2nd - 0.0317" (.806mm) Light Tension-Clear Nylon - 1K021'
+);
+
+-- J4303,.00004525,37.1,33.1,26.3,20.8,18.6,14.7,11.7,9.3
+INSERT INTO strings(
+  manufacturer_id,
+  part_id,
+  string_family,
+  instrument_id,
+  string_note,
+  string_order,
+  string_diameter,
+  string_tension_category,
+  string_material,
+  mass_per_length,  
+  scale_length,
+  tension_maximum,
+  tension_at_note,
+  tension_minimum,
+  description
+) VALUES (
+  (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
+  'J4303',
+  'Pro-Arté',
+  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  'G3',
+  3,
+  .0397*25.4,
+  'light tension',
+  'clear nylon',
+  .00004525*453.592292/2.54,
+  25.5*25.4,
+  37.1*453.592292/1000,
+  11.7*453.592292/1000,
+  9.3*453.592292/1000,
+  'Pro-Arté Classical Guitar J4303 - G-3rd - 0.0397" (1.010mm) Light Tension-Clear Nylon'
+);
+
+-- J4401/EXP,.00002243,18.4,16.4,13.0,10.3,9.2,7.3,5.8,4.6
+INSERT INTO strings(
+  manufacturer_id,
+  part_id,
+  string_family,
+  instrument_id,
+  string_note,
+  string_order,
+  string_diameter,
+  string_tension_category,
+  string_material,
+  mass_per_length,  
+  scale_length,
+  tension_maximum,
+  tension_at_note,
+  tension_minimum,
+  description
+) VALUES (
+  (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
+  'J4401',
+  'Pro-Arté',
+  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  'E4',
+  1,
+  .029*25.4,
+  'extra hard tension',
+  'clear nylon',
+  .00002243*453.592292/2.54,
+  25.5*25.4,
+  18.4*453.592292/1000,
+  16.4*453.592292/1000,
+  4.6*453.592292/1000,
+  'Pro-Arté Classical Guitar J4401 - E-1st - 0.029" (.737mm) Extra Hard Tension-Clear Nylon - 2E 222'
+);
+
+-- J4402/EXP,.00003046,25.0,22.3,17.7,14.0,12.5,9.9,7.9,6.3
+INSERT INTO strings(
+  manufacturer_id,
+  part_id,
+  string_family,
+  instrument_id,
+  string_note,
+  string_order,
+  string_diameter,
+  string_tension_category,
+  string_material,
+  mass_per_length,  
+  scale_length,
+  tension_maximum,
+  tension_at_note,
+  tension_minimum,
+  description
+) VALUES (
+  (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
+  'J4402',
+  'Pro-Arté',
+  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  'B3',
+  2,
+  .033*25.4,
+  'extra hard tension',
+  'clear nylon',
+  .00003046*453.592292/2.54,
+  25.5*25.4,
+  22.3*453.592292/1000,
+  12.5*453.592292/1000,
+  6.3*453.592292/1000,
+  'Pro-Arté Classical Guitar J4401 - E-1st - 0.029" (.737mm) Extra Hard Tension-Clear Nylon - 2E222'
+);
+
+-- J4403/EXP,.00004989,40.9,36.5,29.0,23.0,20.5,16.3,12.9,10.2
+INSERT INTO strings(
+  manufacturer_id,
+  part_id,
+  string_family,
+  instrument_id,
+  string_note,
+  string_order,
+  string_diameter,
+  string_tension_category,
+  string_material,
+  mass_per_length,  
+  scale_length,
+  tension_maximum,
+  tension_at_note,
+  tension_minimum,
+  description
+) VALUES (
+  (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
+  'J4403',
+  'Pro-Arté',
+  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  'G3',
+  3,
+  .0416*25.4,
+  'extra hard tension',
+  'clear nylon',
+  .00004989*453.592292/2.54,
+  25.5*25.4,
+  40.9*453.592292/1000,
+  12.9*453.592292/1000,
+  10.2*453.592292/1000,
+  'Pro-Arté Classical Guitar J4403 - G-3rd - 0.0416" (1.057mm) Extra Hard Tension-Clear Nylon - 2C282'
 );
 
 -- string sets
@@ -870,18 +1042,31 @@ INSERT INTO string_sets (manufacturer_id, string_set_name, number_of_strings ) V
   'EXL-120',
   6);
 
--- attributes
-CREATE TABLE attributes (
-  attribute_id SERIAL PRIMARY KEY,
-  attribute_name TEXT NOT NULL UNIQUE,
-  comment TEXT
-);
+-- CREATE TABLE manufacturer_string_families (
+--   id SERIAL PRIMARY KEY,
+--   manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
+--   string_family TEXT NOT NULL,
+--   UNIQUE(manufacturer_id,string_family),
+--   description TEXT,
+--   comment TEXT
+-- );
+-- INSERT INTO manufacturer_string_families (manufacturer_id,string_family) VALUES ( 
+--   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
+--   'Pro-Arté' 
+-- );
 
-CREATE TABLE string_attributes (
-  string_id BIGINT NOT NULL,
-  attribute_name TEXT NOT NULL,
-  PRIMARY KEY (string_id, attribute_name),
-  FOREIGN KEY (string_id) REFERENCES strings (string_id),
-  FOREIGN KEY (attribute_name) REFERENCES attributes (attribute_name),
-  comment TEXT
-);
+-- -- attributes
+-- CREATE TABLE attributes (
+--   attribute_id SERIAL PRIMARY KEY,
+--   attribute_name TEXT NOT NULL UNIQUE,
+--   comment TEXT
+-- );
+
+-- CREATE TABLE string_attributes (
+--   string_id BIGINT NOT NULL,
+--   attribute_name TEXT NOT NULL,
+--   PRIMARY KEY (string_id, attribute_name),
+--   FOREIGN KEY (string_id) REFERENCES strings (string_id),
+--   FOREIGN KEY (attribute_name) REFERENCES attributes (attribute_name),
+--   comment TEXT
+-- );
