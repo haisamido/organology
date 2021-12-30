@@ -336,6 +336,7 @@ SELECT music.frequency_from_mass_per_length(tension =>19.2*453.59237*980.665,mas
 -- SELECT music.mu(diameter=>0.00899 * 2.54, density =>7.726 );
 
 -- https://en.wikipedia.org/wiki/E_(musical_note)
+-- https://en.wikipedia.org/wiki/Scientific_pitch_notation
 CREATE TABLE music.octaves (
   id SERIAL PRIMARY KEY,
   number INT NOT NULL UNIQUE,
@@ -343,8 +344,8 @@ CREATE TABLE music.octaves (
   midi_number INT NOT NULL UNIQUE,
   UNIQUE(number,name,midi_number)
 );
-INSERT INTO music.octaves (number,name,midi_number) VALUES (-1,'?',0);
-INSERT INTO music.octaves (number,name,midi_number) VALUES (0,'??',12);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (-1,'subsubcontra',0);
+INSERT INTO music.octaves (number,name,midi_number) VALUES (0,'sub-contra',12);
 INSERT INTO music.octaves (number,name,midi_number) VALUES (1,'contra',24);
 INSERT INTO music.octaves (number,name,midi_number) VALUES (2,'great',36);
 INSERT INTO music.octaves (number,name,midi_number) VALUES (3,'small',48);
@@ -356,18 +357,67 @@ INSERT INTO music.octaves (number,name,midi_number) VALUES (8,'five-lined',108);
 INSERT INTO music.octaves (number,name,midi_number) VALUES (9,'six-lined',120);
 INSERT INTO music.octaves (number,name,midi_number) VALUES (10,'seven-lined',132);
 
--- https://en.wikipedia.org/wiki/Scientific_pitch_notation
 CREATE TABLE music.notes (
+  id SERIAL PRIMARY KEY,
+  note TEXT NOT NULL UNIQUE,
+  note_also_known_as TEXT NOT NULL DEFAULT '',
+  solfege TEXT NOT NULL UNIQUE,
+  solfege_also_known_as TEXT NOT NULL DEFAULT '',
+  UNIQUE(note,note_also_known_as,solfege,solfege_also_known_as),
+  description TEXT,
+  comment TEXT
+);
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('C♭','','Do♭','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('C/U+1D133','','Do/U+1D133','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('C','','Do','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('C/U+1D132','','Do/U+1D132','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('C♯','','Do♯','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('D♭','','Re♭','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('D/U+1D133','','Re/U+1D133','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('D','','Re','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('D/U+1D132','','Re/U+1D132','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('D♯','','Re♯','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('E♭','','Mi♭','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('E/U+1D133','','Mi/U+1D133','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('E','','Mi','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('E/U+1D132','','Mi/U+1D132','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('E♯','','Mi♯','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('F♭','','Fa♭','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('F/U+1D133','','Fa/U+1D133','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('F','','Fa','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('F/U+1D132','','Fa/U+1D132','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('F♯','','Fa♯','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('G♭','','Sol♭','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('G/U+1D133','','Sol/U+1D133','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('G','','Sol','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('G/U+1D132','','Sol/U+1D132','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('G♯','','Sol♯','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('A♭','','La♭','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('A/U+1D133','','La/U+1D133','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('A','','La','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('A/U+1D132','','La/U+1D132','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('A♯','','La♯','');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('B♭','H♭','Si♭','Ti♭');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('B/U+1D133','H/U+1D133','Si/U+1D133','Ti/U+1D133');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('B','H','Si','Ti');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('B/U+1D132','H/U+1D132','Si/U+1D132','Ti/U+1D132');
+INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('B♯','H♯','Si♯','Ti♯');
+
+-- https://en.wikipedia.org/wiki/Scientific_pitch_notation
+CREATE TABLE music.international_pitch_notations (
     id SERIAL PRIMARY KEY,
-    international_pitch_notation TEXT NOT NULL UNIQUE,
-    helmholtz_designation TEXT NULL UNIQUE,
-    octave_number INT NOT NULL,
-    octave_name TEXT NULL,
-    note_frequency NUMERIC, 
-    note_description TEXT,
+    notation TEXT NOT NULL UNIQUE,
+    note TEXT NOT NULL, FOREIGN KEY (note) REFERENCES music.notes(note),
+    octave_number INT NOT NULL, FOREIGN KEY (octave_number) REFERENCES music.octaves(number),
+    frequency NUMERIC, 
+    description TEXT,
     comment TEXT
 );
--- NSERT INTO musical_notes (international_pitch_notation,octave);
+-- music.international_pitch_notations AS music.international_pitch_notations2;
+INSERT INTO music.international_pitch_notations (notation,note,octave_number) VALUES ('E-1','E',-1);
+INSERT INTO music.international_pitch_notations (notation,note,octave_number) VALUES ('E0', 'E', 0);
+INSERT INTO music.international_pitch_notations (notation,note,octave_number) VALUES ('E4', 'E', 4);
+INSERT INTO music.international_pitch_notations (notation,note,octave_number) VALUES ('E♭4','E♭',4);
 
 -- CREATE TABLE temperaments (
 --     id SERIAL PRIMARY KEY,
