@@ -851,7 +851,6 @@ INSERT INTO strings(
   'Pro-Arté Classical Guitar J4301 - E-1st - 0.0275" (.699mm) Light Tension-Clear Nylon - 2F052'
 );
 
-
 -- J4302,.00002729,22.4,20.0,15.8,12.6,11.2,8.9,7.1,5.6
 INSERT INTO strings(
   manufacturer_id,
@@ -1041,6 +1040,24 @@ INSERT INTO string_sets (manufacturer_id, string_set_name, number_of_strings ) V
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
   'EXL-120',
   6);
+
+-- 9806.65 = gravity in mm/s**2
+-- 980.665 = gravity in cm/s2
+SELECT music.frequency_from_mass_per_length( 
+	tension         => (SELECT tension_at_note FROM strings where id=1)*1000*980.665, 
+	mass_per_length => (SELECT mass_per_length FROM strings where id=1),
+	scale_length    => (SELECT scale_length FROM strings where id=1)/10
+);
+
+CREATE VIEW view_strings AS 
+  SELECT 
+    music.frequency_from_mass_per_length(tension_maximum*1000*980.665,mass_per_length,scale_length/10) AS frequency_maximum,
+    music.frequency_from_mass_per_length(tension_at_note*1000*980.665,mass_per_length,scale_length/10) AS frequency_at_note,
+    music.frequency_from_mass_per_length(tension_minimum*1000*980.665,mass_per_length,scale_length/10) AS frequency_minimum,
+	*
+  FROM strings;
+
+select * from view_strings;
 
 -- CREATE TABLE manufacturer_string_families (
 --   id SERIAL PRIMARY KEY,
