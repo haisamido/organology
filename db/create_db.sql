@@ -267,7 +267,7 @@ INSERT INTO music.octaves (octave_number,octave_name,midi_number) VALUES (8,'fiv
 INSERT INTO music.octaves (octave_number,octave_name,midi_number) VALUES (9,'six-lined',120);
 INSERT INTO music.octaves (octave_number,octave_name,midi_number) VALUES (10,'seven-lined',132);
 
--- notes
+-- notes - has quarter tone steps
 CREATE TABLE music.notes (
   id SERIAL PRIMARY KEY,
   note TEXT NOT NULL UNIQUE,
@@ -776,6 +776,8 @@ CREATE TABLE materials (
   comment TEXT
 );
 INSERT INTO materials (material_name) VALUES ('clear nylon');
+INSERT INTO materials (material_name) VALUES ('black nylon');
+INSERT INTO materials (material_name) VALUES ('titanium nylon');
 
 CREATE TABLE string_tension_categories (
   id SERIAL PRIMARY KEY,
@@ -788,7 +790,7 @@ INSERT INTO string_tension_categories (category) VALUES ('medium tension' );
 INSERT INTO string_tension_categories (category) VALUES ('hard tension' );
 INSERT INTO string_tension_categories (category) VALUES ('extra hard tension');
 
--- strings from the perspective of the manufacture
+-- strings from the perspective of the manufacturer
 CREATE TABLE strings (
   id SERIAL PRIMARY KEY,
   manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
@@ -811,7 +813,7 @@ CREATE TABLE strings (
   UNIQUE(manufacturer_id, part_id, string_note),
   UNIQUE(manufacturer_id, part_id, string_order),
   UNIQUE(manufacturer_id, part_id, string_diameter),
-  source TEXT DEFAULT '' NOT NULL,
+  source TEXT,
   description TEXT,
   comment TEXT
 );
@@ -1058,6 +1060,43 @@ CREATE VIEW view_strings AS
   FROM strings;
 
 select * from view_strings;
+
+CREATE TABLE music.chromatic_scale (
+  note TEXT NOT NULL UNIQUE,
+  semitones_from_A4 INT NOT NULL UNIQUE,
+  UNIQUE(note,semitones_from_A4),
+  description TEXT,
+  comment TEXT
+);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('C',-9);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('C#',-8);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('D',-7);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('D#',-6);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('E',-5);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('F',-4);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('F#',-3);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('G',-2);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('G#',-1);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('A',0);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('A#',1);
+INSERT INTO music.chromatic_scale (note,semitones_from_A4) VALUES ('B',2);
+
+( select (
+	(select octave_number from music.international_pitch_notations where notation='G3')-
+	(select octave_number from music.international_pitch_notations where notation='A4')
+) ) ;
+
+DROP FUNCTION IF EXISTS music.octave_difference(TEXT, TEXT);
+CREATE FUNCTION music.octave_difference(
+  n1 TEXT,
+  n2 TEXT DEFAULT 'A4'
+) RETURNS numeric
+  AS '(SELECT ((SELECT octave_number FROM music.international_pitch_notations WHERE notation="n1") - (SELECT octave_number FROM music.international_pitch_notations WHERE notation="n2")));'
+  LANGUAGE SQL
+  IMMUTABLE
+  RETURNS NULL ON NULL INPUT;
+
+SELECT music.octave_difference('G3');
 
 -- CREATE TABLE manufacturer_string_families (
 --   id SERIAL PRIMARY KEY,
