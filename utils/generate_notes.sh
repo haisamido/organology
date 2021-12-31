@@ -3,7 +3,8 @@
 # UTF-8: /U+1D133 quarter-tone flat
 # UTF-8: /U+1D132 quarter-tone sharp
 
-steps=( ♭ '/U+1D133' ':' '/U+1D132' ♯ )
+# steps=( ♭ '/U+1D133' ':' '/U+1D132' ♯ )
+steps=( ':' '#')
 
 declare -A notes2solfege
 notes2solfege['C']='Do'
