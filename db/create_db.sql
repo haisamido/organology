@@ -140,8 +140,8 @@ CREATE FUNCTION music.string_frequency(
   RETURNS NULL ON NULL INPUT;
 SELECT music.string_frequency(scale_length=>25.625*2.54,density=>7.726,diameter=>0.00899*2.54,tension=>13.1*453.59237*980.655);
 
-DROP FUNCTION IF EXISTS music.frequency_of_interval(numeric, numeric, numeric);
-CREATE FUNCTION music.frequency_of_interval(
+DROP FUNCTION IF EXISTS music.frequency_by_interval(numeric, numeric, numeric);
+CREATE FUNCTION music.frequency_by_interval(
   f0 numeric DEFAULT 440.0, 
   intervals numeric DEFAULT 12, 
   n numeric DEFAULT 0
@@ -150,9 +150,9 @@ CREATE FUNCTION music.frequency_of_interval(
   LANGUAGE SQL
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
-SELECT music.frequency_of_interval(f0=>440.0,intervals=>12, n=>0);
--- SELECT music.frequency_of_interval(f0=>440.0, n=>1);
--- SELECT music.frequency_of_interval(440.0,12,1);
+SELECT music.frequency_by_interval(f0=>440.0,intervals=>12, n=>0);
+-- SELECT music.frequency_by_interval(f0=>440.0, n=>1);
+-- SELECT music.frequency_by_interval(440.0,12,1);
 
 -- https://en.wikipedia.org/wiki/String_vibration
 DROP FUNCTION IF EXISTS music.string_mass_per_length(numeric, numeric, numeric);
@@ -1102,7 +1102,7 @@ SELECT (
 	(SELECT semitones_from_A4 from music.chromatic_scale where note=(( SELECT note from music.international_pitch_notations where notation='G3' ) ))
 ); 
 
-SELECT music.frequency_of_interval(
+SELECT music.frequency_by_interval(
 	n=>(
 		SELECT (
 			(SELECT music.octave_difference('A0'))*12 + 
@@ -1111,6 +1111,30 @@ SELECT music.frequency_of_interval(
 	)
 );
 
+DROP FUNCTION IF EXISTS music.frequency_by_notation(TEXT, TEXT, NUMERIC);
+CREATE FUNCTION music.frequency_by_notation(
+	n TEXT,
+	n0 TEXT DEFAULT 'A4',
+	f0 NUMERIC DEFAULT 440.0
+) RETURNS numeric
+	AS 'SELECT (
+			SELECT music.frequency_by_interval(
+				n=>(
+					SELECT (
+						(SELECT music.octave_difference("n","n0"))*12 + 
+						(SELECT semitones_from_A4 from music.chromatic_scale where note=(( SELECT note from music.international_pitch_notations where notation="n" ) ))
+					)
+				),
+				f0=>f0
+			)
+		);'
+	LANGUAGE SQL
+	IMMUTABLE
+	RETURNS NULL ON NULL INPUT;
+
+SELECT music.frequency_by_notation(n=>'E4', n0=>'A4', f0=>440.0 );
+SELECT music.frequency_by_notation(n=>'E4');
+SELECT music.frequency_by_notation('D2');
 
 -- CREATE TABLE manufacturer_string_families (
 --   id SERIAL PRIMARY KEY,
