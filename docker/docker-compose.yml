@@ -9,3 +9,12 @@ services:
       - .:/opt/msdb
     ports:
       - "127.0.0.1:8080:8080"
+  organology-database:
+    image: organology-database
+    container_name: organology-database
+    hostname: organology-database
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+    - "127.0.0.1:5432:5432"
