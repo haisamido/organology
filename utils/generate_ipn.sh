@@ -29,7 +29,8 @@ do
     for step in ${steps[@]}
     do
       ipn="${note}${step}${octave}"
-      echo "INSERT INTO music.international_pitch_notations (notation,note,octave_number) VALUES ('$ipn','$note${step}',$octave);" | sed 's/://g'
+      # skipping B# and E# since they are analogous to C and F
+      echo "INSERT INTO music.international_pitch_notations (notation,note,octave_number) VALUES ('$ipn','$note${step}',$octave);" | sed 's/://g' | egrep -v 'B#|E#'
     done
   done
 done
