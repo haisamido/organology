@@ -24,3 +24,5 @@ SELECT music.frequency_by_notation(n=>'E4');
 SELECT music.frequency_by_notation('E4');
 
 select * from view_strings;
+
+select music.frequency_by_notation(n=>notation, n0=>'A4', f0=>440.0),* from music.international_pitch_notations;

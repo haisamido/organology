@@ -41,10 +41,10 @@ database-create: database-up ## create project's database
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -tc "SELECT 1 FROM pg_database WHERE datname = '$(DB)'" \
 		| grep -q 1 || psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -c "CREATE DATABASE $(DB);"
 
-database-delete: database-up ## delete project's database (NON-RECOVERABLE)
+database-drop: database-up ## delete project's database (NON-RECOVERABLE)
 	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -c "DROP DATABASE IF EXISTS $(DB) WITH (FORCE);"
 
-database-configure: | database-delete database-create ## configure project's database
+database-configure: | database-drop database-create ## configure project's database
 	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/create_db.sql
 
 database-insert-records: database-configure ## insert records into project's database

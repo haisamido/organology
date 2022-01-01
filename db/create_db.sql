@@ -741,6 +741,7 @@ SELECT music.frequency_from_mass_per_length(
 	scale_length    => (SELECT scale_length FROM strings where id=1)/10
 );
 
+DROP VIEW IF EXISTS view_strings;
 CREATE VIEW view_strings AS 
   SELECT 
     music.frequency_from_mass_per_length(tension_maximum*1000*980.665,mass_per_length,scale_length/10) AS frequency_maximum,
@@ -751,7 +752,7 @@ CREATE VIEW view_strings AS
 
 CREATE TABLE music.chromatic_scale (
   note TEXT NOT NULL UNIQUE,
-  semitones_from_A4 INT NOT NULL UNIQUE,
+  semitones_from_A4 NUMERIC NOT NULL UNIQUE,
   UNIQUE(note,semitones_from_A4),
   description TEXT,
   comment TEXT
@@ -818,6 +819,18 @@ CREATE FUNCTION music.frequency_by_notation(
 SELECT music.frequency_by_notation(n=>'E4', n0=>'A4', f0=>440.0 );
 SELECT music.frequency_by_notation(n=>'E4');
 SELECT music.frequency_by_notation('D2');
+
+DROP VIEW IF EXISTS music.view_frequency_by_notation;
+CREATE VIEW music.view_frequency_by_notation AS 
+  SELECT 
+	  id,
+	  notation,
+	  note,
+	  octave_number,
+	  music.frequency_by_notation(n=>notation, n0=>'A4', f0=>440.0) AS frequency_A4_440
+  FROM music.international_pitch_notations;
+
+select * from music.view_frequency_by_notation;
 
 -- CREATE TABLE manufacturer_string_families (
 --   id SERIAL PRIMARY KEY,
