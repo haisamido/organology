@@ -48,7 +48,10 @@ database-configure: | database-drop database-create ## configure project's datab
 	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/create_db.sql
 
 database-insert-records: database-configure ## insert records into project's database
-	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_db.sql
+	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_records.sql
+
+database-test: database-insert-records ## test inserted database records
+	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./tests/db/tests.sql > ./tests/db/results/run.txt
 
 build-app:
 	cd ./docker && docker build . && docker tag $(IMAGE) $(TAG)
