@@ -65,8 +65,6 @@ CREATE TABLE instrument_characteristics (
 );
 
 -- music
--- https://en.wikipedia.org/wiki/String_vibration
--- http://www.donaldsauter.com/string-calculation.htm
 CREATE SCHEMA IF NOT EXISTS music AUTHORIZATION postgres;
 SET search_path TO public,music;
 
@@ -80,11 +78,7 @@ CREATE FUNCTION music.frequency_by_interval(
   LANGUAGE SQL
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
-SELECT music.frequency_by_interval(f0=>440.0,intervals=>12, n=>0);
--- SELECT music.frequency_by_interval(f0=>440.0, n=>1);
--- SELECT music.frequency_by_interval(440.0,12,1);
 
--- https://en.wikipedia.org/wiki/String_vibration
 DROP FUNCTION IF EXISTS music.derive_mass_per_length(numeric, numeric, numeric);
 CREATE FUNCTION music.derive_mass_per_length(
   tension numeric,
@@ -96,45 +90,6 @@ CREATE FUNCTION music.derive_mass_per_length(
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
 
--- Item#,Unit Weight,g',f',e',d',c',b,a,g
--- PL009,.00001794,18.6,14.7,** 13.1 **,10.4,8.3,7.4,5.8,4.6
--- tension   = 13.1 lb mass * 453.59237*980.665 to convert to ~Newtons (g*cm/s**2), from F=ma
--- frequency = 329.63 Hz, i.e. E4 (e')
--- length  = 25.5 inches * 2.54 to convert inches to cm
--- 178.58  = needed to convert g/m to lb/in to check results against PL009 spec by Daadario
-SELECT music.derive_mass_per_length(tension=>13.1*453.59237*980.665,frequency=>329.63,scale_length => 25.5*2.54)/178.58;
-
--- Item#,Unit Weight,g',f',e',d',c',b,a,g
--- PL0095,.00001999,20.7,16.4,** 14.6 **,11.6,9.2,8.2,6.5,5.2
--- tension   = 14.6 lb mass * 453.59237*980.665 to convert to ~Newtons (g*cm/s**2), from F=ma
--- frequency = 329.63 Hz, i.e. E4 (e')
--- length  = 25.5 inches * 2.54 to convert inches to cm
--- 178.58  = needed to convert g/m to lb/in to check results against PL0095 spec by Daadario
-SELECT music.derive_mass_per_length(tension=>14.6*453.59237*980.665,frequency=>329.63,scale_length => 25.5*2.54)/178.58;
-
--- Item#,Unit Weight,f',e',d',c',b,a,g,f
--- J4301,.00002024,16.6,** 14.8 **,11.8,9.3,8.3,6.6,5.2,4.2
--- tension   = 14.8 lb mass * 453.59237*980.665 to convert to ~Newtons (g*cm/s**2), from F=ma, 444822.16152605
--- frequency = 329.63 Hz, i.e. E4 (e')
--- length  = 25.5 inches * 2.54 to convert inches to cm
--- 178.58  = needed to convert g/m to lb/in to check results against J4301 spec by Daadario
-SELECT music.derive_mass_per_length(tension=>14.8*453.59237*980.665,frequency=>329.63,scale_length => 25.5*2.54)/178.58;
-
--- Item#,Unit Weight,f',e',d',c',b,a,g,f
--- J4503/EXP,.00004679,38.4,** 34.2 **,27.2,21.6,19.2,15.2,12.1,9.6
--- tension   = 34.2 lb mass * 453.59237*980.665 to convert to ~Newtons (g*cm/s**2), from F=ma, 444822.16152605
--- frequency = 329.63 Hz, i.e. E4 (e')
--- length  = 25.5 inches * 2.54 to convert inches to cm
--- 178.58  = needed to convert g/m to lb/in to check results against J4301 spec by Daadario
-SELECT music.derive_mass_per_length(tension=>34.2*453.59237*980.665,frequency=>329.63,scale_length => 25.5*2.54)/178.58;
-
--- Item#,Unit Weight,f',e',d',c',b,a,g,f
--- J4503/EXP,.00004679,38.4,34.2,27.2,21.6,** 19.2 **,15.2,12.1,9.6
--- tension   = 19.2 lb mass * 453.59237*980.665 to convert to ~Newtons (g*cm/s**2), from F=ma, 444822.16152605
--- frequency = 246.9 Hz, i.e. B3 (b)
--- length  = 25.5 inches * 2.54 to convert inches to cm
--- 178.58  = needed to convert g/m to lb/in to check results against J4301 spec by Daadario
-SELECT music.derive_mass_per_length(tension=>19.2*453.59237*980.665,frequency=>246.9,scale_length => 25.5*2.54)/178.58;
 
 -- https://en.wikipedia.org/wiki/String_vibration
 DROP FUNCTION IF EXISTS music.frequency_from_mass_per_length(numeric, numeric, numeric, numeric);
@@ -148,35 +103,8 @@ CREATE FUNCTION music.frequency_from_mass_per_length(
   LANGUAGE SQL
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
--- Item#,Unit Weight,g',f',e',d',c',b,a,g
--- PL009,.00001794,18.6,14.7,** 13.1 **,10.4,8.3,7.4,5.8,4.6
--- tension   = 13.1 lb mass * 453.59237*980.665 to convert to ~Newtons (g*cm/s**2), from F=ma
--- frequency = 329.63 Hz, i.e. E4 (e') [RETURNS THIS]
--- length  = 25.5 inches * 2.54 to convert inches to cm
--- 178.58  = needed to convert g/m to lb/in to check results against PL009 spec by Daadario
-SELECT music.frequency_from_mass_per_length(tension=>13.1*453.59237*980.665,mass_per_length=>0.00001794*178.58,scale_length=>25.5*2.54);
-  
--- Item#,Unit Weight,f',e',d',c',b,a,g,f
--- J4503/EXP,.00004679,38.4,34.2,27.2,21.6,** 19.2 **,15.2,12.1,9.6
--- tension   = 19.2 lb mass * 453.59237*980.665 to convert to ~Newtons (g*cm/s**2), from F=ma, 444822.16152605
--- frequency = 246.9 Hz, i.e. B3 (b) [RETURNS THIS]
--- length  = 25.5 inches * 2.54 to convert inches to cm
--- 178.58  = needed to convert g/m to lb/in to check results against J4301 spec by Daadario
-SELECT music.frequency_from_mass_per_length(tension =>19.2*453.59237*980.665,mass_per_length=>.00004679*178.58,scale_length=>25.5*2.54);
 
--- DROP FUNCTION IF EXISTS music.mu(numeric, numeric);
--- CREATE FUNCTION music.mu(
--- 	diameter numeric, 
--- 	density numeric
--- ) RETURNS numeric
--- 	AS 'select (PI()*(diameter^2)*density/4);'
---   LANGUAGE SQL
---   IMMUTABLE
--- 	RETURNS NULL ON NULL INPUT;
--- SELECT music.mu(diameter=>0.00899 * 2.54, density =>7.726 );
 
--- https://en.wikipedia.org/wiki/E_(musical_note)
--- https://en.wikipedia.org/wiki/Scientific_pitch_notation
 CREATE TABLE music.octaves (
   id SERIAL PRIMARY KEY,
   octave_number INT NOT NULL UNIQUE,
@@ -197,7 +125,6 @@ CREATE TABLE music.notes (
   comment TEXT
 );
 
--- https://en.wikipedia.org/wiki/Scientific_pitch_notation
 CREATE TABLE music.international_pitch_notations (
   id SERIAL PRIMARY KEY,
   notation TEXT NOT NULL UNIQUE,
@@ -207,20 +134,6 @@ CREATE TABLE music.international_pitch_notations (
   description TEXT,
   comment TEXT
 );
-
-
--- TODO: is a unit conversion table needed? http://www.endmemo.com/sconvert/g_cmlb_in.php
--- TODO: table of tension_classification by manufacturer?
--- grams  = lbm * 453.592292 (mass, and not weight)
--- grams/cm = lbm/in * 178.579673 (mass per length, mu)
--- tension of lbm to metric = tension(lbm)* 444822.08503418 = tension(lbm) * 453.592292*980.665 
--- g0     = 980.665 cm/s**2 (gravity)
-
--- strings
---  all units must be in metric, g/mm, g, mm, tension => Force => F = m*a => kg * m/s**2 => g * mm/s**2
--- mass_per_length = g/cm
--- scale length    = cm
--- tension        ~= kg (which really mass and not force)
 
 CREATE TABLE materials (
   id SERIAL PRIMARY KEY,
@@ -275,8 +188,6 @@ CREATE TABLE string_sets (
   comment TEXT
 );
 
--- 9806.65 = gravity in mm/s**2
--- 980.665 = gravity in cm/s2
 SELECT music.frequency_from_mass_per_length( 
 	tension         => (SELECT tension_at_note FROM strings where id=1)*1000*980.665, 
 	mass_per_length => (SELECT mass_per_length FROM strings where id=1),
@@ -310,21 +221,6 @@ CREATE FUNCTION music.octave_difference(
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
 
--- return the number of intervals away from A4 which is needed to determine the frequency
-SELECT (
-	(SELECT music.octave_difference('G3'))*12 + 
-	(SELECT semitones_from_A4 from music.chromatic_scale where note=(( SELECT note from music.international_pitch_notations where notation='G3' ) ))
-); 
-
-SELECT music.frequency_by_interval(
-	n=>(
-		SELECT (
-			(SELECT music.octave_difference('A0'))*12 + 
-			(SELECT semitones_from_A4 from music.chromatic_scale where note=(( SELECT note from music.international_pitch_notations where notation='A0' ) ))
-		)
-	)
-);
-
 DROP FUNCTION IF EXISTS music.frequency_by_notation(TEXT, TEXT, NUMERIC);
 CREATE FUNCTION music.frequency_by_notation(
 	n TEXT,
@@ -346,10 +242,6 @@ CREATE FUNCTION music.frequency_by_notation(
 	IMMUTABLE
 	RETURNS NULL ON NULL INPUT;
 
-SELECT music.frequency_by_notation(n=>'E4', n0=>'A4', f0=>440.0 );
-SELECT music.frequency_by_notation(n=>'E4');
-SELECT music.frequency_by_notation('D2');
-
 DROP VIEW IF EXISTS music.view_frequency_by_notation;
 CREATE VIEW music.view_frequency_by_notation AS 
   SELECT 
@@ -360,7 +252,6 @@ CREATE VIEW music.view_frequency_by_notation AS
 	  music.frequency_by_notation(n=>notation, n0=>'A4', f0=>440.0) AS frequency_A4_440
   FROM music.international_pitch_notations;
 
-select * from music.view_frequency_by_notation;
 
 DROP FUNCTION IF EXISTS music.string_frequency(numeric, numeric, numeric, numeric, numeric);
 CREATE FUNCTION music.string_frequency(
@@ -374,5 +265,4 @@ CREATE FUNCTION music.string_frequency(
   LANGUAGE SQL
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
-SELECT music.string_frequency(scale_length=>25.625*2.54,density=>7.726,diameter=>0.00899*2.54,tension=>13.1*453.59237*980.655);
 
