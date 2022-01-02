@@ -65,45 +65,9 @@ CREATE TABLE instrument_characteristics (
 );
 
 -- music
+-- CREATE music schema
 CREATE SCHEMA IF NOT EXISTS music AUTHORIZATION postgres;
 SET search_path TO public,music;
-
-DROP FUNCTION IF EXISTS music.frequency_by_interval(numeric, numeric, numeric);
-CREATE FUNCTION music.frequency_by_interval(
-  f0 numeric DEFAULT 440.0, 
-  intervals numeric DEFAULT 12, 
-  n numeric DEFAULT 0
-) RETURNS numeric
-  AS 'select (f0*(2^(1/intervals))^n);'
-  LANGUAGE SQL
-  IMMUTABLE
-  RETURNS NULL ON NULL INPUT;
-
-DROP FUNCTION IF EXISTS music.derive_mass_per_length(numeric, numeric, numeric);
-CREATE FUNCTION music.derive_mass_per_length(
-  tension numeric,
-  frequency numeric,
-  scale_length numeric
-) RETURNS numeric
-  AS 'select (tension/((frequency*2*scale_length))^2);'
-  LANGUAGE SQL
-  IMMUTABLE
-  RETURNS NULL ON NULL INPUT;
-
-
--- https://en.wikipedia.org/wiki/String_vibration
-DROP FUNCTION IF EXISTS music.frequency_from_mass_per_length(numeric, numeric, numeric, numeric);
-CREATE FUNCTION music.frequency_from_mass_per_length(
-  tension numeric, 
-  mass_per_length numeric,
-  scale_length numeric,
-  n numeric DEFAULT 1
-) RETURNS numeric
-  AS 'select (sqrt(tension/mass_per_length)*(n/(2*scale_length)));'
-  LANGUAGE SQL
-  IMMUTABLE
-  RETURNS NULL ON NULL INPUT;
-
 
 CREATE TABLE music.octaves (
   id SERIAL PRIMARY KEY,
@@ -188,21 +152,6 @@ CREATE TABLE string_sets (
   comment TEXT
 );
 
-SELECT music.frequency_from_mass_per_length( 
-	tension         => (SELECT tension_at_note FROM strings where id=1)*1000*980.665, 
-	mass_per_length => (SELECT mass_per_length FROM strings where id=1),
-	scale_length    => (SELECT scale_length FROM strings where id=1)/10
-);
-
-DROP VIEW IF EXISTS view_strings;
-CREATE VIEW view_strings AS 
-  SELECT 
-    music.frequency_from_mass_per_length(tension_maximum*1000*980.665,mass_per_length,scale_length/10) AS frequency_maximum,
-    music.frequency_from_mass_per_length(tension_at_note*1000*980.665,mass_per_length,scale_length/10) AS frequency_at_note,
-    music.frequency_from_mass_per_length(tension_minimum*1000*980.665,mass_per_length,scale_length/10) AS frequency_minimum,
-	*
-  FROM strings;
-
 CREATE TABLE music.chromatic_scale (
   note TEXT NOT NULL UNIQUE,
   semitones_from_A4 NUMERIC NOT NULL UNIQUE,
@@ -210,6 +159,41 @@ CREATE TABLE music.chromatic_scale (
   description TEXT,
   comment TEXT
 );
+
+-- CREATE FUNCTIONS
+DROP FUNCTION IF EXISTS music.frequency_by_interval(numeric, numeric, numeric);
+CREATE FUNCTION music.frequency_by_interval(
+  f0 numeric DEFAULT 440.0, 
+  intervals numeric DEFAULT 12, 
+  n numeric DEFAULT 0
+) RETURNS numeric
+  AS 'select (f0*(2^(1/intervals))^n);'
+  LANGUAGE SQL
+  IMMUTABLE
+  RETURNS NULL ON NULL INPUT;
+
+DROP FUNCTION IF EXISTS music.derive_mass_per_length(numeric, numeric, numeric);
+CREATE FUNCTION music.derive_mass_per_length(
+  tension numeric,
+  frequency numeric,
+  scale_length numeric
+) RETURNS numeric
+  AS 'select (tension/((frequency*2*scale_length))^2);'
+  LANGUAGE SQL
+  IMMUTABLE
+  RETURNS NULL ON NULL INPUT;
+
+DROP FUNCTION IF EXISTS music.frequency_from_mass_per_length(numeric, numeric, numeric, numeric);
+CREATE FUNCTION music.frequency_from_mass_per_length(
+  tension numeric, 
+  mass_per_length numeric,
+  scale_length numeric,
+  n numeric DEFAULT 1
+) RETURNS numeric
+  AS 'select (sqrt(tension/mass_per_length)*(n/(2*scale_length)));'
+  LANGUAGE SQL
+  IMMUTABLE
+  RETURNS NULL ON NULL INPUT;
 
 DROP FUNCTION IF EXISTS music.octave_difference(TEXT, TEXT);
 CREATE FUNCTION music.octave_difference(
@@ -242,17 +226,6 @@ CREATE FUNCTION music.frequency_by_notation(
 	IMMUTABLE
 	RETURNS NULL ON NULL INPUT;
 
-DROP VIEW IF EXISTS music.view_frequency_by_notation;
-CREATE VIEW music.view_frequency_by_notation AS 
-  SELECT 
-	  id,
-	  notation,
-	  note,
-	  octave_number,
-	  music.frequency_by_notation(n=>notation, n0=>'A4', f0=>440.0) AS frequency_A4_440
-  FROM music.international_pitch_notations;
-
-
 DROP FUNCTION IF EXISTS music.string_frequency(numeric, numeric, numeric, numeric, numeric);
 CREATE FUNCTION music.string_frequency(
   scale_length NUMERIC,
@@ -266,3 +239,22 @@ CREATE FUNCTION music.string_frequency(
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
 
+-- CREATE Views
+DROP VIEW IF EXISTS view_strings;
+CREATE VIEW view_strings AS 
+  SELECT 
+    music.frequency_from_mass_per_length(tension_maximum*1000*980.665,mass_per_length,scale_length/10) AS frequency_maximum,
+    music.frequency_from_mass_per_length(tension_at_note*1000*980.665,mass_per_length,scale_length/10) AS frequency_at_note,
+    music.frequency_from_mass_per_length(tension_minimum*1000*980.665,mass_per_length,scale_length/10) AS frequency_minimum,
+	*
+  FROM strings;
+
+DROP VIEW IF EXISTS music.view_frequency_by_notation;
+CREATE VIEW music.view_frequency_by_notation AS 
+  SELECT 
+	  id,
+	  notation,
+	  note,
+	  octave_number,
+	  music.frequency_by_notation(n=>notation, n0=>'A4', f0=>440.0) AS frequency_A4_440
+  FROM music.international_pitch_notations;
