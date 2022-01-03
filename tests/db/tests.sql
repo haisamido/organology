@@ -61,7 +61,7 @@ SELECT music.frequency_from_mass_per_length(tension =>19.2*453.592292*980.665,ma
 -- return the number of intervals away FROM A4 which is needed to determine the frequency relative to A4
 SELECT (
 	(SELECT music.octave_difference('G3'))*12 + 
-	(SELECT semitones_from_A4 FROM music.chromatic_scale WHERE note=(( SELECT note FROM music.international_pitch_notations WHERE notation='G3' ) ))
+	(SELECT semitones_from_A4 FROM music.notes WHERE note=(( SELECT note FROM music.international_pitch_notations WHERE notation='G3' ) ))
 ); 
 
 -- return the number of intervals away FROM A4 which is needed to determine the frequency
@@ -69,7 +69,7 @@ SELECT music.frequency_by_interval(
 	n=>(
 		SELECT (
 			(SELECT music.octave_difference('A0'))*12 + 
-			(SELECT semitones_from_A4 FROM music.chromatic_scale WHERE note=(( SELECT note FROM music.international_pitch_notations WHERE notation='A0' ) ))
+			(SELECT semitones_from_A4 FROM music.notes WHERE note=(( SELECT note FROM music.international_pitch_notations WHERE notation='A0' ) ))
 		)
 	)
 );
