@@ -1,4 +1,5 @@
 
+-- manually created from https://en.wikipedia.org/wiki/Musical_note#Note_designation_in_accordance_with_octave_name
 INSERT INTO music.octaves (octave_number,octave_name,midi_number) VALUES (-1,'subsubcontra',0);
 INSERT INTO music.octaves (octave_number,octave_name,midi_number) VALUES (0,'sub-contra',12);
 INSERT INTO music.octaves (octave_number,octave_name,midi_number) VALUES (1,'contra',24);

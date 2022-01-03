@@ -3,15 +3,17 @@
 CREATE SCHEMA IF NOT EXISTS music AUTHORIZATION postgres;
 SET search_path TO public,music;
 
+-- TODO: add helmholtz notation to table
 CREATE TABLE music.octaves (
   id SERIAL PRIMARY KEY,
   octave_number INT NOT NULL UNIQUE,
   octave_name TEXT NOT NULL UNIQUE,
   midi_number INT NOT NULL UNIQUE,
+
   UNIQUE(octave_number,octave_name,midi_number)
 );
 
--- notes - has quarter tone steps
+-- notes
 CREATE TABLE music.notes (
   id SERIAL PRIMARY KEY,
   note TEXT NOT NULL UNIQUE,
@@ -24,12 +26,13 @@ CREATE TABLE music.notes (
   comment TEXT
 );
 
+-- TODO: add helmholtz notation
 CREATE TABLE music.international_pitch_notations (
   id SERIAL PRIMARY KEY,
   notation TEXT NOT NULL UNIQUE,
   note TEXT NOT NULL, FOREIGN KEY (note) REFERENCES music.notes(note),
   octave_number INT NOT NULL, FOREIGN KEY (octave_number) REFERENCES music.octaves(octave_number),
-  frequency NUMERIC, 
+  helmholtz_notation TEXT NULL, 
   description TEXT,
   comment TEXT
 );
