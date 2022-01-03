@@ -1,6 +1,8 @@
 
 # Sources:
 
+http://www.hhmusic.com/department.asp?prodcode=k9ae&brand=DAD
+
 https://courses.physics.illinois.edu/phys406/sp2017/Student_Projects/Fall00/DAchilles/Guitar_String_Tension_Experiment.pdf
 
 https://www.omnicalculator.com/other/guitar-string-tension
