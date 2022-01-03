@@ -48,7 +48,11 @@ database-configure: | database-drop database-create ## configure project's datab
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/create_db.sql
 
 database-insert-records: database-configure ## insert records into project's database
-	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_records.sql
+	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_music.chromatic_scale_and_music.octaves.sql && \
+	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_music.notes.sql && \
+	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_music.international_pitch_notations.sql && \
+	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_records.sql
+
 
 database-test: database-insert-records ## test inserted database records
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./tests/db/tests.sql > ./tests/db/results/run.txt && \

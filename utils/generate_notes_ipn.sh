@@ -22,7 +22,7 @@ aka['Si']='Ti'
 
 notes=(C D E F G A B)
 
-echo writing notes to ../db/notes.sql
+echo writing notes to ../db/insert_music.notes.sql
 (
 for note in ${notes[@]}
 do
@@ -36,9 +36,9 @@ do
       | sed 's/://g' | egrep -v 'B#|E#'
   done
 done
-) > ../db/notes.sql
+) > ../db/insert_music.notes.sql
 
-echo writing international_pitch_notations to ../db/ipn.sql
+echo writing international_pitch_notations to ../db/insert_music.international_pitch_notations.sql
 (
 for octave in ${octaves[@]}
 do
@@ -53,4 +53,4 @@ do
     done
   done
 done
-) > ../db/ipn.sql
+) > ../db/insert_music.international_pitch_notations.sql
