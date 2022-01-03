@@ -151,42 +151,42 @@ CREATE TABLE public.string_sets (
   id SERIAL PRIMARY KEY,
   string_set_name TEXT NOT NULL,
   manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
-  number_of_strings int NOT NULL,
+  number_of_strings INT NOT NULL,
   UNIQUE(string_set_name,number_of_strings),
   UNIQUE(manufacturer_id,string_set_name,number_of_strings),
   comment TEXT
 );
 
 -- CREATE FUNCTIONS
-DROP FUNCTION IF EXISTS music.frequency_by_interval(numeric, numeric, numeric);
+DROP FUNCTION IF EXISTS music.frequency_by_interval(NUMERIC, NUMERIC, NUMERIC);
 CREATE FUNCTION music.frequency_by_interval(
-  f0 numeric DEFAULT 440.0, 
-  intervals numeric DEFAULT 12, 
-  n numeric DEFAULT 0
-) RETURNS numeric
+  f0 NUMERIC DEFAULT 440.0, 
+  intervals NUMERIC DEFAULT 12, 
+  n NUMERIC DEFAULT 0
+) RETURNS NUMERIC
   AS 'select (f0*(2^(1/intervals))^n);'
   LANGUAGE SQL
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
 
-DROP FUNCTION IF EXISTS music.derive_mass_per_length(numeric, numeric, numeric);
+DROP FUNCTION IF EXISTS music.derive_mass_per_length(NUMERIC, NUMERIC, NUMERIC);
 CREATE FUNCTION music.derive_mass_per_length(
-  tension numeric,
-  frequency numeric,
-  scale_length numeric
-) RETURNS numeric
+  tension NUMERIC,
+  frequency NUMERIC,
+  scale_length NUMERIC
+) RETURNS NUMERIC
   AS 'select (tension/((frequency*2*scale_length))^2);'
   LANGUAGE SQL
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
 
-DROP FUNCTION IF EXISTS music.frequency_from_mass_per_length(numeric, numeric, numeric, numeric);
+DROP FUNCTION IF EXISTS music.frequency_from_mass_per_length(NUMERIC, NUMERIC, NUMERIC, NUMERIC);
 CREATE FUNCTION music.frequency_from_mass_per_length(
-  tension numeric, 
-  mass_per_length numeric,
-  scale_length numeric,
-  n numeric DEFAULT 1
-) RETURNS numeric
+  tension NUMERIC, 
+  mass_per_length NUMERIC,
+  scale_length NUMERIC,
+  n NUMERIC DEFAULT 1
+) RETURNS NUMERIC
   AS 'select (sqrt(tension/mass_per_length)*(n/(2*scale_length)));'
   LANGUAGE SQL
   IMMUTABLE
@@ -196,7 +196,7 @@ DROP FUNCTION IF EXISTS music.octave_difference(TEXT, TEXT);
 CREATE FUNCTION music.octave_difference(
   n1 TEXT,
   n2 TEXT DEFAULT 'A4'
-) RETURNS numeric
+) RETURNS NUMERIC
   AS '(SELECT ((SELECT octave_number FROM music.international_pitch_notations WHERE notation="n1") - (SELECT octave_number FROM music.international_pitch_notations WHERE notation="n2")));'
   LANGUAGE SQL
   IMMUTABLE
@@ -207,7 +207,7 @@ CREATE FUNCTION music.frequency_by_notation(
 	n TEXT,
 	n0 TEXT DEFAULT 'A4',
 	f0 NUMERIC DEFAULT 440.0
-) RETURNS numeric
+) RETURNS NUMERIC
 	AS 'SELECT (
 			SELECT music.frequency_by_interval(
 				n=>(
@@ -223,14 +223,14 @@ CREATE FUNCTION music.frequency_by_notation(
 	IMMUTABLE
 	RETURNS NULL ON NULL INPUT;
 
-DROP FUNCTION IF EXISTS music.string_frequency(numeric, numeric, numeric, numeric, numeric);
+DROP FUNCTION IF EXISTS music.string_frequency(NUMERIC, NUMERIC, NUMERIC, NUMERIC, NUMERIC);
 CREATE FUNCTION music.string_frequency(
   scale_length NUMERIC,
   density NUMERIC,
   diameter NUMERIC,
   tension NUMERIC,
   n NUMERIC DEFAULT 1
-) RETURNS numeric
+) RETURNS NUMERIC
   AS 'SELECT ((n/(scale_length*diameter))*sqrt(tension/(PI()*density)));'
   LANGUAGE SQL
   IMMUTABLE
