@@ -27,7 +27,7 @@ while(<>) {
     $part_id,
     $mass_per_length,
     $diameter,
-    $t1,$t2,$t3,$t4,$t5,$t6,$t7,$t8,$tension_no,
+    $t1,$t2,$t3,$t4,$t5,$t6,$t7,$t8,
     $string_set,
     $string_order,
     $string_ipn,
@@ -54,7 +54,6 @@ while(<>) {
     mass_per_length     => $mass_per_length,
     diameter            => $diameter,
     tensions            => \@tensions,
-    tension_no          => $tension_no,
     string_set          => $string_set,
     string_order        => $string_order,
     string_ipn          => $string_ipn,
@@ -64,7 +63,7 @@ while(<>) {
     helmholtz_range     => \@helmholtz_range,
     ipn_range           => \@ipn_range
   };
-  print $_;
+  #print $_;
 }
 
 print Dumper $db;
