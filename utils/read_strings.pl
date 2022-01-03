@@ -26,6 +26,7 @@ while(<>) {
     $string_material,
     $part_id,
     $mass_per_length,
+    $diameter,
     $t1,$t2,$t3,$t4,$t5,$t6,$t7,$t8,$tension_no,
     $string_set,
     $string_order,
@@ -51,6 +52,7 @@ while(<>) {
   $db->{manufacturers}->{$manufacturer}->{instrument_types}->{$instrument_type}->{string_families}->{$string_family}->{part_id}->{$part_id} = {
     string_material     => $string_material,
     mass_per_length     => $mass_per_length,
+    diameter            => $diameter,
     tensions            => \@tensions,
     tension_no          => $tension_no,
     string_set          => $string_set,
