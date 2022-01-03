@@ -22,6 +22,24 @@ aka['Si']='Ti'
 
 notes=(C D E F G A B)
 
+echo writing notes to ../db/notes.sql
+(
+for note in ${notes[@]}
+do
+  for step in ${steps[@]}
+  do
+    alternative1=$( [[ ${aka[$note]+Y} ]] && echo "${aka[$note]}$step" || echo '')
+    solfege=${notes2solfege[$note]}
+    alternative2=$( [[ ${aka[$solfege]} ]] && echo "${aka[$solfege]}$step" || echo '' )
+    # skipping B# and E# since they are analogous to C and F
+    echo "INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('$note$step','$alternative1','${notes2solfege[$note]}$step','$alternative2');" \
+      | sed 's/://g' | egrep -v 'B#|E#'
+  done
+done
+) > ../db/notes.sql
+
+echo writing international_pitch_notations to ../db/ipn.sql
+(
 for octave in ${octaves[@]}
 do
   for note in ${notes[@]}
@@ -35,3 +53,4 @@ do
     done
   done
 done
+) > ../db/ipn.sql

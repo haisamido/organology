@@ -3,7 +3,6 @@ INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) 
 INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('D','','Re','');
 INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('D#','','Re#','');
 INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('E','','Mi','');
-INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('E#','','Mi#','');
 INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('F','','Fa','');
 INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('F#','','Fa#','');
 INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('G','','Sol','');
@@ -11,4 +10,3 @@ INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) 
 INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('A','','La','');
 INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('A#','','La#','');
 INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('B','H','Si','Ti');
-INSERT INTO music.notes (note,note_also_known_as,solfege,solfege_also_known_as) VALUES ('B#','H#','Si#','Ti#');
