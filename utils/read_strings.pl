@@ -30,7 +30,7 @@ while(<>) {
     $string_set,
     $string_order,
     $string_ipn,
-    $string_objective,
+    $string_designtation,
     $tension_name,
     $source,
     $helmholtz,
@@ -49,18 +49,18 @@ while(<>) {
 #   exit;
 
   $db->{manufacturers}->{$manufacturer}->{instrument_types}->{$instrument_type}->{string_families}->{$string_family}->{part_id}->{$part_id} = {
-    string_material => $string_material,
-    mass_per_length => $mass_per_length,
-    tensions => \@tensions,
-    tension_no => $tension_no,
-    string_set => $string_set,
-    string_order => $string_order,
-    string_ipn => $string_ipn,
-    string_objective => $string_objective,
-    tension_name => $tension_name,
-    source => $source,
-    helmholtz_range => \@helmholtz_range,
-    ipn_range => \@ipn_range
+    string_material     => $string_material,
+    mass_per_length     => $mass_per_length,
+    tensions            => \@tensions,
+    tension_no          => $tension_no,
+    string_set          => $string_set,
+    string_order        => $string_order,
+    string_ipn          => $string_ipn,
+    string_designtation => $string_designtation,
+    tension_name        => $tension_name,
+    source              => $source,
+    helmholtz_range     => \@helmholtz_range,
+    ipn_range           => \@ipn_range
   };
   print $_;
 }
