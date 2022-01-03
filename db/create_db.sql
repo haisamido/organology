@@ -1,20 +1,24 @@
 -- manufacturers
-CREATE TABLE manufacturer_types (
-  manufacturer_type_id SERIAL PRIMARY KEY,
+CREATE TABLE public.manufacturer_types (
+  id SERIAL PRIMARY KEY,
   manufacturer_type TEXT NOT NULL UNIQUE,
   comment TEXT
 );
+COMMENT ON TABLE public.manufacturer_types IS 'Table manufacturer_types has records of manufacturer types';
+COMMENT ON COLUMN public.manufacturer_types.id IS 'The primary key of manufacturer_types table';
+COMMENT ON COLUMN public.manufacturer_types.manufacturer_type IS 'The manufacturer_type in manufacturer_types';
 
-CREATE TABLE manufacturers (
+CREATE TABLE public.manufacturers (
   manufacturer_id SERIAL PRIMARY KEY,
   manufacturer_name TEXT NOT NULL,
   manufacturer_type TEXT NOT NULL, FOREIGN KEY (manufacturer_type) REFERENCES manufacturer_types (manufacturer_type),
   UNIQUE(manufacturer_name,manufacturer_type),
   comment TEXT
 );
+COMMENT ON TABLE manufacturer_types IS 'Table manufacturers has records of manufacturers';
 
-CREATE TABLE units (
-  unit_id SERIAL PRIMARY KEY,
+CREATE TABLE public.units (
+  id SERIAL PRIMARY KEY,
   unit TEXT NOT NULL UNIQUE,
   description TEXT NOT NULL,
   comment TEXT
@@ -22,22 +26,22 @@ CREATE TABLE units (
 
 --- instruments
 -- TODO: there are stringed instruments that are not plucked! violin etc. so perhaps stringed should be plucked-string ?
-CREATE TABLE instrument_types (
-  type_id SERIAL PRIMARY KEY,
+CREATE TABLE public.instrument_types (
+  id SERIAL PRIMARY KEY,
   type TEXT NOT NULL UNIQUE,
   actuator_type TEXT NOT NULL,
   comment TEXT,
   UNIQUE(type, actuator_type)
 );
 
-CREATE TABLE instrument_categories (
-  nstrument_category_id SERIAL PRIMARY KEY,
+CREATE TABLE public.instrument_categories (
+  id SERIAL PRIMARY KEY,
   instrument_category TEXT NOT NULL UNIQUE,
   comment TEXT
 );
 
-CREATE TABLE instruments (
-  instrument_id SERIAL PRIMARY KEY,
+CREATE TABLE public.instruments (
+  id SERIAL PRIMARY KEY,
   type TEXT NOT NULL, FOREIGN KEY (type) REFERENCES instrument_types (type),
   name TEXT NOT NULL,
   category TEXT NOT NULL, FOREIGN KEY (category) REFERENCES instrument_categories (instrument_category),
@@ -46,7 +50,7 @@ CREATE TABLE instruments (
   comment TEXT
 );
 
-CREATE TABLE instrument_attributes (
+CREATE TABLE public.instrument_attributes (
   id SERIAL PRIMARY KEY,
   instrument_attribute TEXT NOT NULL UNIQUE,
   instrument_attribute_type TEXT NOT NULL,
@@ -54,9 +58,9 @@ CREATE TABLE instrument_attributes (
   comment TEXT  
 );
 
-CREATE TABLE instrument_characteristics (
+CREATE TABLE public.instrument_characteristics (
   id SERIAL PRIMARY KEY,
-  instrument_id BIGINT NOT NULL, FOREIGN KEY (instrument_id) REFERENCES instruments (instrument_id),
+  instrument_id BIGINT NOT NULL, FOREIGN KEY (instrument_id) REFERENCES instruments (id),
   instrument_characteristic TEXT NOT NULL, FOREIGN KEY (instrument_characteristic) REFERENCES instrument_attributes (instrument_attribute),
   instrument_characteristic_value TEXT NOT NULL,
   UNIQUE(instrument_id,instrument_characteristic,instrument_characteristic_value),
@@ -99,14 +103,14 @@ CREATE TABLE music.international_pitch_notations (
   comment TEXT
 );
 
-CREATE TABLE materials (
+CREATE TABLE public.materials (
   id SERIAL PRIMARY KEY,
   material_name TEXT NOT NULL UNIQUE,
   description TEXT,
   comment TEXT
 );
 
-CREATE TABLE string_tension_categories (
+CREATE TABLE public.string_tension_categories (
   id SERIAL PRIMARY KEY,
   category TEXT NOT NULL UNIQUE,
   description TEXT,
@@ -114,12 +118,12 @@ CREATE TABLE string_tension_categories (
 );
 
 -- strings from the perspective of the manufacturer
-CREATE TABLE strings (
+CREATE TABLE public.strings (
   id SERIAL PRIMARY KEY,
   manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
   part_id TEXT NOT NULL,
   string_family TEXT NOT NULL,
-  instrument_id BIGINT NOT NULL, FOREIGN KEY (instrument_id) REFERENCES instruments (instrument_id),
+  instrument_id BIGINT NOT NULL, FOREIGN KEY (instrument_id) REFERENCES instruments (id),
   string_note TEXT NOT NULL, FOREIGN KEY (string_note) REFERENCES music.international_pitch_notations (notation),
   string_order INT NOT NULL,
   string_diameter NUMERIC,
@@ -142,8 +146,8 @@ CREATE TABLE strings (
 );
 
 -- string sets
-CREATE TABLE string_sets (
-  string_set_id SERIAL PRIMARY KEY,
+CREATE TABLE public.string_sets (
+  id SERIAL PRIMARY KEY,
   string_set_name TEXT NOT NULL,
   manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES manufacturers (manufacturer_id),
   number_of_strings int NOT NULL,
@@ -153,6 +157,7 @@ CREATE TABLE string_sets (
 );
 
 CREATE TABLE music.chromatic_scale (
+  id SERIAL PRIMARY KEY,
   note TEXT NOT NULL UNIQUE,
   semitones_from_A4 NUMERIC NOT NULL UNIQUE,
   UNIQUE(note,semitones_from_A4),

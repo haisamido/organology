@@ -37,27 +37,27 @@ INSERT INTO instrument_attributes (instrument_attribute,instrument_attribute_typ
 INSERT INTO instrument_attributes (instrument_attribute,instrument_attribute_type) VALUES ('adjustable_scale_length_type','TEXT');
 
 INSERT INTO instrument_characteristics (instrument_id,instrument_characteristic,instrument_characteristic_value) VALUES (
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'number_of_actuators',
   6
 );
 INSERT INTO instrument_characteristics (instrument_id,instrument_characteristic,instrument_characteristic_value) VALUES (
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'number_of_actuators',
   7
 );
 INSERT INTO instrument_characteristics (instrument_id,instrument_characteristic,instrument_characteristic_value) VALUES (
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'number_of_actuators',
   8
 );
 INSERT INTO instrument_characteristics (instrument_id,instrument_characteristic,instrument_characteristic_value) VALUES (
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'number_of_actuators',
   9
 );
 INSERT INTO instrument_characteristics (instrument_id,instrument_characteristic,instrument_characteristic_value) VALUES (
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'number_of_actuators',
   12
 );
@@ -265,7 +265,7 @@ INSERT INTO strings(
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
   'J4301',
   'Pro-Arté',
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'E4',
   1,
   .0275*25.4,
@@ -300,7 +300,7 @@ INSERT INTO strings(
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
   'J4302',
   'Pro-Arté',
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'B3',
   2,
   .0317*25.4,
@@ -335,7 +335,7 @@ INSERT INTO strings(
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
   'J4303',
   'Pro-Arté',
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'G3',
   3,
   .0397*25.4,
@@ -370,7 +370,7 @@ INSERT INTO strings(
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
   'J4401',
   'Pro-Arté',
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'E4',
   1,
   .029*25.4,
@@ -405,7 +405,7 @@ INSERT INTO strings(
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
   'J4402',
   'Pro-Arté',
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'B3',
   2,
   .033*25.4,
@@ -440,7 +440,7 @@ INSERT INTO strings(
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
   'J4403',
   'Pro-Arté',
-  (SELECT instrument_id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
+  (SELECT id FROM instruments WHERE type='stringed' AND name='guitar' AND category='classical'),
   'G3',
   3,
   .0416*25.4,
