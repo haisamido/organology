@@ -1,25 +1,25 @@
 ﻿#manufacturer,instrument category,instrument,family,material,item,mass per length,diameter,scale length,t1,t2,t3,t4,t5,t6,t7,t8,set,order,ipn,designation,Tension Name,URL,helmholtz_range,ipn_range
-#D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J2801,0.00002065,,25.5,16.9,15.1,12,9.5,8.5,6.7,5.3,4.2,EJ28,1,E4,treble,,,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-#D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J2802,0.000029,,25.5,23.8,21.2,16.8,13.4,11.9,9.4,7.5,6,EJ28,2,B3,treble,,,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-#D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J2803,0.00004602,,25.5,37.8,33.7,26.7,21.2,18.9,15,11.9,9.4,EJ28,3,G3,treble,,,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J2901,0.00001928,,25.5,15.8,14.1,11.2,8.9,7.9,6.3,5,4,EJ29,1,E4,treble,moderate tension,https://www.juststrings.com/dad-j2901.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J2902,0.00002803,,25.5,23,20.5,16.3,12.9,11.5,9.1,7.2,5.8,EJ29,2,B3,treble,moderate tension,https://www.juststrings.com/dad-j2902.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J2903,0.00004486,,25.5,36.8,32.8,26,20.7,18.4,14.6,11.6,9.2,EJ29,3,G3,treble,moderate tension,https://www.juststrings.com/dad-j2903.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-#D'Addario,classical,guitar,D’Addario Classic,silverplated copper wound,J2904,0.00010203,,25.5,14.8,11.7,10.5,8.3,6.6,5.2,4.7,3.7,,4,D2,bass,moderate tension,,,
-#D'Addario,classical,guitar,D’Addario Classic,silverplated copper wound,J2905,0.00015347,,25.5,-,17.7,15.8,12.5,9.9,7.9,7,5.6,,5,A2,bass,moderate tension,,,
-#D'Addario,classical,guitar,D’Addario Classic,silverplated copper wound,J2906,0.00028881,,25.5,-,-,-,-,18.7,14.8,13.2,10.5,,6,E2,bass,moderate tension,,,
-D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J3001,0.00002065,,25.5,16.9,15.1,12,9.5,8.5,6.7,5.3,4.2,EJ30,1,E4,treble,normal tension,https://www.juststrings.com/dad-j3001.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J3002,0.000029,,25.5,23.8,21.2,16.8,13.4,11.9,9.4,7.5,6,EJ30,2,B3,treble,normal tension,https://www.juststrings.com/dad-j3002.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J3003,0.00004602,,25.5,37.8,33.7,26.7,21.2,18.9,15,11.9,9.4,EJ30,3,G3,treble,normal tension,https://www.juststrings.com/dad-j3003.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-#D'Addario,classical,guitar,D’Addario Classic,silverplated copper wound,J3004,0.00010616,,25.5,15.4,12.2,10.9,8.6,6.9,5.4,4.9,3.8,,4,D2,bass,,,,
-#D'Addario,classical,guitar,D’Addario Classic,silverplated copper wound,J3005,0.00018416,,25.5,-,-,18.9,15,11.9,9.4,8.4,6.7,,5,A2,bass,,,,
-#D'Addario,classical,guitar,D’Addario Classic,silverplated copper wound,J3006,0.00030194,,25.5,-,-,-,-,19.5,15.5,13.8,11,,6,E2,bass,,,,
-D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J3101,0.00002284,,25.5,18.7,16.7,13.3,10.5,9.4,7.4,5.9,4.7,EJ31,1,E4,treble,hard tension,https://www.juststrings.com/dad-j3101.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J3102,0.00003022,,25.5,24.8,22.1,17.5,13.9,12.4,9.8,7.8,6.2,EJ31,2,B3,treble,hard tension,https://www.juststrings.com/dad-j3102.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-D'Addario,classical,guitar,D’Addario Classic,rectified clear nylon,J3103,0.00004989,,25.5,40.9,36.5,29,23,20.5,16.3,12.9,10.2,EJ31,3,G3,treble,hard tension,https://www.juststrings.com/dad-j3103.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
-#D'Addario,classical,guitar,D’Addario Classic,silverplated copper wound,J3104,0.00011512,,25.5,16.7,13.3,11.8,9.4,7.4,5.9,5.3,4.2,,4,D2,bass,,,,
-#D'Addario,classical,guitar,D’Addario Classic,silverplated copper wound,J3105,0.00019153,,25.5,-,-,19.7,15.6,12.4,9.8,8.8,6.9,,5,A2,bass,,,,
-#D'Addario,classical,guitar,D’Addario Classic,silverplated copper wound,J3106,0.00031726,,25.5,-,-,-,-,20.5,16.3,14.5,11.5,,6,E2,bass,,,,
+#D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J2801,0.00002065,,25.5,16.9,15.1,12,9.5,8.5,6.7,5.3,4.2,EJ28,1,E4,treble,,,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+#D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J2802,0.000029,,25.5,23.8,21.2,16.8,13.4,11.9,9.4,7.5,6,EJ28,2,B3,treble,,,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+#D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J2803,0.00004602,,25.5,37.8,33.7,26.7,21.2,18.9,15,11.9,9.4,EJ28,3,G3,treble,,,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J2901,0.00001928,,25.5,15.8,14.1,11.2,8.9,7.9,6.3,5,4,EJ29,1,E4,treble,moderate tension,https://www.juststrings.com/dad-j2901.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J2902,0.00002803,,25.5,23,20.5,16.3,12.9,11.5,9.1,7.2,5.8,EJ29,2,B3,treble,moderate tension,https://www.juststrings.com/dad-j2902.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J2903,0.00004486,,25.5,36.8,32.8,26,20.7,18.4,14.6,11.6,9.2,EJ29,3,G3,treble,moderate tension,https://www.juststrings.com/dad-j2903.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+#D'Addario,classical,guitar,D'Addario Classic,silverplated copper wound,J2904,0.00010203,,25.5,14.8,11.7,10.5,8.3,6.6,5.2,4.7,3.7,,4,D2,bass,moderate tension,,,
+#D'Addario,classical,guitar,D'Addario Classic,silverplated copper wound,J2905,0.00015347,,25.5,-,17.7,15.8,12.5,9.9,7.9,7,5.6,,5,A2,bass,moderate tension,,,
+#D'Addario,classical,guitar,D'Addario Classic,silverplated copper wound,J2906,0.00028881,,25.5,-,-,-,-,18.7,14.8,13.2,10.5,,6,E2,bass,moderate tension,,,
+D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J3001,0.00002065,,25.5,16.9,15.1,12,9.5,8.5,6.7,5.3,4.2,EJ30,1,E4,treble,normal tension,https://www.juststrings.com/dad-j3001.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J3002,0.000029,,25.5,23.8,21.2,16.8,13.4,11.9,9.4,7.5,6,EJ30,2,B3,treble,normal tension,https://www.juststrings.com/dad-j3002.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J3003,0.00004602,,25.5,37.8,33.7,26.7,21.2,18.9,15,11.9,9.4,EJ30,3,G3,treble,normal tension,https://www.juststrings.com/dad-j3003.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+#D'Addario,classical,guitar,D'Addario Classic,silverplated copper wound,J3004,0.00010616,,25.5,15.4,12.2,10.9,8.6,6.9,5.4,4.9,3.8,,4,D2,bass,,,,
+#D'Addario,classical,guitar,D'Addario Classic,silverplated copper wound,J3005,0.00018416,,25.5,-,-,18.9,15,11.9,9.4,8.4,6.7,,5,A2,bass,,,,
+#D'Addario,classical,guitar,D'Addario Classic,silverplated copper wound,J3006,0.00030194,,25.5,-,-,-,-,19.5,15.5,13.8,11,,6,E2,bass,,,,
+D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J3101,0.00002284,,25.5,18.7,16.7,13.3,10.5,9.4,7.4,5.9,4.7,EJ31,1,E4,treble,hard tension,https://www.juststrings.com/dad-j3101.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J3102,0.00003022,,25.5,24.8,22.1,17.5,13.9,12.4,9.8,7.8,6.2,EJ31,2,B3,treble,hard tension,https://www.juststrings.com/dad-j3102.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+D'Addario,classical,guitar,D'Addario Classic,rectified clear nylon,J3103,0.00004989,,25.5,40.9,36.5,29,23,20.5,16.3,12.9,10.2,EJ31,3,G3,treble,hard tension,https://www.juststrings.com/dad-j3103.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
+#D'Addario,classical,guitar,D'Addario Classic,silverplated copper wound,J3104,0.00011512,,25.5,16.7,13.3,11.8,9.4,7.4,5.9,5.3,4.2,,4,D2,bass,,,,
+#D'Addario,classical,guitar,D'Addario Classic,silverplated copper wound,J3105,0.00019153,,25.5,-,-,19.7,15.6,12.4,9.8,8.8,6.9,,5,A2,bass,,,,
+#D'Addario,classical,guitar,D'Addario Classic,silverplated copper wound,J3106,0.00031726,,25.5,-,-,-,-,20.5,16.3,14.5,11.5,,6,E2,bass,,,,
 D'Addario,classical,guitar,Pro-Arté,laser select clear nylon,J4301,0.00002024,,25.5,16.6,14.8,11.8,9.3,8.3,6.6,5.2,4.2,EJ43,1,E4,treble,light tension,,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
 D'Addario,classical,guitar,Pro-Arté,laser select clear nylon,J4302,0.00002729,,25.5,22.4,20,15.8,12.6,11.2,8.9,7.1,5.6,EJ43,2,B3,treble,light tension,https://www.juststrings.com/dad-j4302.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3
 D'Addario,classical,guitar,Pro-Arté,laser select clear nylon,J4303,0.00004525,,25.5,37.1,33.1,26.3,20.8,18.6,14.7,11.7,9.3,EJ43,3,G3,treble,light tension,https://www.juststrings.com/dad-j4303.html,f'|e'|d'|c'|b|a|g|f,F4|E4|D4|C4|B3|A3|G3|F3

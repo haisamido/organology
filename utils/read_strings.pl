@@ -93,6 +93,9 @@ foreach my $manufacturer ( keys %{$db->{manufacturers}} ) {
     my $part        = $db->{manufacturers}->{$manufacturer}->{part_id}->{$part_id};
     my $m = $manufacturer;
     $m =~ s/\'/\'\'/g;
+    
+    $part->{string_family} =~ s/\'/\'\'/g;
+
     my @tensions    = @{$part->{tensions}};
     my @note_ranges = @{$part->{ipn_range}};
     # Get the index in @note_ranges that the note appears in and use that to get the tension at note
