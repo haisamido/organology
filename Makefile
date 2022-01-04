@@ -55,7 +55,10 @@ database-insert-music-records: database-configure ## insert music schema records
 database-insert-records: database-insert-music-records ## insert non-music records into project's database
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_records.sql
 
-database-test: database-insert-records ## test inserted database records
+database-insert-strings: database-insert-records ## insert string records into project's database
+	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_strings.sql
+
+database-test: database-insert-strings ## test inserted database records
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./tests/db/tests.sql > ./tests/db/results/run.txt && \
 	diff ./tests/db/results/run.txt ./tests/db/results/expected/run.txt
 
