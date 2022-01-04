@@ -66,6 +66,7 @@ INSERT INTO public.materials (material_name) VALUES ('black nylon');
 INSERT INTO public.materials (material_name) VALUES ('rectified clear nylon');
 INSERT INTO public.materials (material_name) VALUES ('titanium nylon');
 INSERT INTO public.materials (material_name) VALUES ('silverplated wound');
+INSERT INTO public.materials (material_name) VALUES ('laser select clear nylon');
 
 INSERT INTO public.string_tension_categories (category) VALUES ('light tension');
 INSERT INTO public.string_tension_categories (category) VALUES ('medium tension' );

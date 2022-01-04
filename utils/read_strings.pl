@@ -45,7 +45,7 @@ while(<>) {
     $string_set,
     $string_order,
     $string_note,
-    $string_designtation,
+    $string_classification,
     $string_tension_category,
     $source,
     $helmholtz,
@@ -75,7 +75,7 @@ while(<>) {
     string_set          => $string_set,
     string_order        => $string_order,
     string_note         => $string_note,
-    string_designtation => $string_designtation,
+    string_classifcation => $string_classification,
     string_tension_category => $string_tension_category,
     source              => $source,
     helmholtz_range     => \@helmholtz_range,
@@ -93,7 +93,7 @@ foreach my $manufacturer ( keys %{$db->{manufacturers}} ) {
     my $part        = $db->{manufacturers}->{$manufacturer}->{part_id}->{$part_id};
     my $m = $manufacturer;
     $m =~ s/\'/\'\'/g;
-    
+
     $part->{string_family} =~ s/\'/\'\'/g;
 
     my @tensions    = @{$part->{tensions}};
@@ -117,6 +117,15 @@ foreach my $manufacturer ( keys %{$db->{manufacturers}} ) {
     my $tension_at_note = $tensions[$tension_index];
     my $tension_minimum = $tensions[$#tensions];
 
+    # Uppercase first words
+    $part->{instrument_category}     =~ s/(\w+)/\u$1/g;
+    $part->{instrument_name}         =~ s/(\w+)/\u$1/g;
+    $part->{string_tension_category} =~ s/(\w+)/\u$1/g;
+    $part->{string_material}         =~ s/(\w+)/\u$1/g;
+    $part->{string_classifcation}    =~ s/(\w+)/\u$1/g;
+
+    my $description = "$m $part->{string_family} $part->{instrument_category} $part->{instrument_name} String - $part_id - $part->{string_classifcation} - $part->{string_note}($part->{string_order}) - $part->{diameter}<TBD>\" ($part->{diameter}<TBD> mm) - $part->{string_tension_category} - $part->{string_material}";
+
     my $SQL = << "SQL_END";
 
 INSERT INTO strings(
@@ -134,6 +143,7 @@ INSERT INTO strings(
   tension_maximum,
   tension_at_note,
   tension_minimum,
+  string_classification,
   description
 ) VALUES (
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='$m' AND manufacturer_type='strings'),
@@ -150,7 +160,8 @@ INSERT INTO strings(
   $tension_maximum*453.592292/1000,
   $tension_at_note*453.592292/1000,
   $tension_minimum*453.592292/1000,
-  'ABC'
+  '$part->{string_classifcation}',
+  '$description'
 );
 
 SQL_END
