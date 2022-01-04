@@ -63,10 +63,14 @@ INSERT INTO instrument_characteristics (instrument_id,instrument_characteristic,
 );
 INSERT INTO materials (material_name) VALUES ('clear nylon');
 INSERT INTO materials (material_name) VALUES ('black nylon');
+INSERT INTO materials (material_name) VALUES ('rectified clear nylon');
 INSERT INTO materials (material_name) VALUES ('titanium nylon');
+INSERT INTO materials (material_name) VALUES ('silverplated wound');
 
 INSERT INTO string_tension_categories (category) VALUES ('light tension');
 INSERT INTO string_tension_categories (category) VALUES ('medium tension' );
+INSERT INTO string_tension_categories (category) VALUES ('moderate tension' );
+INSERT INTO string_tension_categories (category) VALUES ('normal tension' );
 INSERT INTO string_tension_categories (category) VALUES ('hard tension' );
 INSERT INTO string_tension_categories (category) VALUES ('extra hard tension');
 

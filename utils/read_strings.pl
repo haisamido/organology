@@ -4,8 +4,20 @@ use strict;
 use warnings;
 use Data::Dumper;
 use open ':std', ':encoding(UTF-8)';
+use List::MoreUtils qw(first_index);
+use Scalar::Util qw(looks_like_number);
 
 $Data::Dumper::Indent = 1;
+
+my $units = {
+  g0 =>{ 
+    value => 9.
+  },
+  tension => {
+    lb2kg => 453.592292/1000,
+    comment => "actually this is in mass an not force"
+  }
+};
 
 my $db={};
 
@@ -21,7 +33,8 @@ while(<>) {
  
   my (
     $manufacturer,
-    $instrument_type,
+    $instrument_category,
+    $instrument_name,
     $string_family,
     $string_material,
     $part_id,
@@ -50,7 +63,9 @@ while(<>) {
 
 #   exit;
 
-  $db->{manufacturers}->{$manufacturer}->{instrument_types}->{$instrument_type}->{part_id}->{$part_id} = {
+  $db->{manufacturers}->{$manufacturer}->{part_id}->{$part_id} = {
+    instrument_category => $instrument_category,
+    instrument_name     => $instrument_name,
     string_material     => $string_material,
     mass_per_length     => $mass_per_length,
     string_family       => $string_family,
@@ -66,21 +81,40 @@ while(<>) {
     helmholtz_range     => \@helmholtz_range,
     ipn_range           => \@ipn_range
   };
-  #print $_;
+
 }
 
 #print Dumper $db;
 
 foreach my $manufacturer ( keys %{$db->{manufacturers}} ) {
-  foreach my $instrument_type ( keys %{$db->{manufacturers}->{$manufacturer}->{instrument_types}} ) {
-    foreach my $part_id ( sort keys %{$db->{manufacturers}->{$manufacturer}->{instrument_types}->{$instrument_type}->{part_id}} ) {
-      my $part = $db->{manufacturers}->{$manufacturer}->{instrument_types}->{$instrument_type}->{part_id}->{$part_id};
 
-      my @tensions = @{$part->{tensions}};
-      my $tension_maximum = $tensions[0];
-      my $tension_minimum = $tensions[$#tensions];
+  foreach my $part_id ( sort keys %{$db->{manufacturers}->{$manufacturer}->{part_id}} ) {
 
-      my $SQL = << "SQL_END";
+    my $part        = $db->{manufacturers}->{$manufacturer}->{part_id}->{$part_id};
+    my $m = $manufacturer;
+    $m =~ s/\'/\'\'/g;
+    my @tensions    = @{$part->{tensions}};
+    my @note_ranges = @{$part->{ipn_range}};
+    # Get the index in @note_ranges that the note appears in and use that to get the tension at note
+    my $tension_index = first_index { $_ eq "$part->{string_note}" } @note_ranges;
+
+    my $tension_maximum = $tensions[0];
+
+    my $i=0;
+    # determine the maximum tension for when the tension is set to not a number
+    foreach my $tension ( @tensions ) {
+      if( looks_like_number($tension) ) {
+        $tension_maximum = $tensions[$i];
+        last;
+      } else {
+        $i++;
+      }
+    }
+
+    my $tension_at_note = $tensions[$tension_index];
+    my $tension_minimum = $tensions[$#tensions];
+
+    my $SQL = << "SQL_END";
 
 INSERT INTO strings(
   manufacturer_id,
@@ -99,19 +133,19 @@ INSERT INTO strings(
   tension_minimum,
   description
 ) VALUES (
-  (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='$manufacturer' AND manufacturer_type='strings'),
+  (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='$m' AND manufacturer_type='strings'),
   '$part_id',
   '$part->{string_family}',
-  (SELECT id FROM instruments WHERE type='stringed' AND category='classical' AND name='guitar'),
+  (SELECT id FROM instruments WHERE type='stringed' AND category='$part->{instrument_category}' AND name='$part->{instrument_name}'),
   '$part->{string_note}',
   $part->{string_order},
-  $part->{diameter}*25.4,
+  1.0$part->{diameter}*25.4,
   '$part->{string_tension_category}',
   '$part->{string_material}',
   $part->{mass_per_length}*453.592292/2.54,
   $part->{scale_length}*25.4,
   $tension_maximum*453.592292/1000,
-  11.2*453.592292/1000,
+  $tension_at_note*453.592292/1000,
   $tension_minimum*453.592292/1000,
   'ABC'
 );
@@ -123,9 +157,9 @@ $SQL =~ s/\s+/ /g;
 
 print "$SQL\n";
 
-    }
   }
 }
+
 # select (
 # 	100*( 0.00002065 - 
 # 	(SELECT music.derive_mass_per_length(
