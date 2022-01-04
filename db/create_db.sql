@@ -106,7 +106,6 @@ CREATE TABLE public.instrument_characteristics (
   comment TEXT
 );
 
-
 --
 CREATE TABLE public.materials (
   id SERIAL PRIMARY KEY,
@@ -123,6 +122,13 @@ CREATE TABLE public.string_tension_categories (
 );
 
 -- strings from the perspective of the manufacturer
+CREATE TABLE public.string_classifications (
+  id SERIAL PRIMARY KEY,
+  classification TEXT NOT NULL UNIQUE,
+  description TEXT,
+  comment TEXT
+);
+
 CREATE TABLE public.strings (
   id SERIAL PRIMARY KEY,
   manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES public.manufacturers (manufacturer_id),
