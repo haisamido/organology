@@ -121,7 +121,6 @@ CREATE TABLE public.string_tension_categories (
   comment TEXT
 );
 
--- strings from the perspective of the manufacturer
 CREATE TABLE public.string_classifications (
   id SERIAL PRIMARY KEY,
   classification TEXT NOT NULL UNIQUE,
@@ -129,6 +128,7 @@ CREATE TABLE public.string_classifications (
   comment TEXT
 );
 
+-- strings from the perspective of the manufacturer
 CREATE TABLE public.strings (
   id SERIAL PRIMARY KEY,
   manufacturer_id BIGINT NOT NULL, FOREIGN KEY (manufacturer_id) REFERENCES public.manufacturers (manufacturer_id),
@@ -139,6 +139,7 @@ CREATE TABLE public.strings (
   string_order INT NOT NULL,
   string_diameter NUMERIC,
   string_tension_category TEXT NOT NULL, FOREIGN KEY (string_tension_category) REFERENCES public.string_tension_categories(category),
+  string_classification TEXT NOT NULL, FOREIGN KEY (string_classification) REFERENCES public.string_classifications(classification),
   string_material TEXT NOT NULL, FOREIGN KEY (string_material) REFERENCES public.materials (material_name),
   mass_per_length NUMERIC NOT NULL,
   scale_length NUMERIC NOT NULL,

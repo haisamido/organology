@@ -93,6 +93,7 @@ INSERT INTO public.strings(
   tension_maximum,
   tension_at_note,
   tension_minimum,
+  string_classification,
   description
 ) VALUES (
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
@@ -109,6 +110,7 @@ INSERT INTO public.strings(
   16.6*453.592292/1000,
   14.8*453.592292/1000,
   4.2*453.592292/1000 ,
+  'treble',
   'Pro-Arté Classical Guitar J4301 - E-1st - 0.0275" (.699mm) Light Tension-Clear Nylon - 2F052'
 );
 
@@ -128,6 +130,7 @@ INSERT INTO public.strings(
   tension_maximum,
   tension_at_note,
   tension_minimum,
+  string_classification,
   description
 ) VALUES (
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
@@ -144,6 +147,7 @@ INSERT INTO public.strings(
   22.4*453.592292/1000,
   11.2*453.592292/1000,
   5.6*453.592292/1000,
+  'treble',
   'Pro-Arté Classical Guitar J4302 - B-2nd - 0.0317" (.806mm) Light Tension-Clear Nylon - 1K021'
 );
 
@@ -163,6 +167,7 @@ INSERT INTO public.strings(
   tension_maximum,
   tension_at_note,
   tension_minimum,
+  string_classification,
   description
 ) VALUES (
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
@@ -179,6 +184,7 @@ INSERT INTO public.strings(
   37.1*453.592292/1000,
   11.7*453.592292/1000,
   9.3*453.592292/1000,
+  'treble',
   'Pro-Arté Classical Guitar J4303 - G-3rd - 0.0397" (1.010mm) Light Tension-Clear Nylon'
 );
 
@@ -198,6 +204,7 @@ INSERT INTO public.strings(
   tension_maximum,
   tension_at_note,
   tension_minimum,
+  string_classification,
   description
 ) VALUES (
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
@@ -214,6 +221,7 @@ INSERT INTO public.strings(
   18.4*453.592292/1000,
   16.4*453.592292/1000,
   4.6*453.592292/1000,
+  'treble',
   'Pro-Arté Classical Guitar J4401 - E-1st - 0.029" (.737mm) Extra Hard Tension-Clear Nylon - 2E 222'
 );
 
@@ -233,6 +241,7 @@ INSERT INTO public.strings(
   tension_maximum,
   tension_at_note,
   tension_minimum,
+  string_classification,
   description
 ) VALUES (
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
@@ -249,6 +258,7 @@ INSERT INTO public.strings(
   22.3*453.592292/1000,
   12.5*453.592292/1000,
   6.3*453.592292/1000,
+  'treble',
   'Pro-Arté Classical Guitar J4401 - E-1st - 0.029" (.737mm) Extra Hard Tension-Clear Nylon - 2E222'
 );
 
@@ -268,6 +278,7 @@ INSERT INTO public.strings(
   tension_maximum,
   tension_at_note,
   tension_minimum,
+  string_classification,
   description
 ) VALUES (
   (SELECT manufacturer_id FROM manufacturers WHERE manufacturer_name='D''Addario' AND manufacturer_type='strings'),
@@ -284,6 +295,7 @@ INSERT INTO public.strings(
   40.9*453.592292/1000,
   12.9*453.592292/1000,
   10.2*453.592292/1000,
+  'treble',
   'Pro-Arté Classical Guitar J4403 - G-3rd - 0.0416" (1.057mm) Extra Hard Tension-Clear Nylon - 2C282'
 );
 
