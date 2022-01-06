@@ -1,3 +1,9 @@
+-- return list of strings that can achieve B2 note
+SELECT part_id,string_note,string_diameter/25.4,frequency_minimum,frequency_maximum FROM public.view_strings where 
+	(SELECT frequency_a4_440 FROM music.view_frequency_by_notation where notation='B2') <= frequency_maximum and
+	(SELECT frequency_a4_440 FROM music.view_frequency_by_notation where notation='B2') >= frequency_minimum order by
+	frequency_maximum desc;
+
 SELECT music.frequency_by_interval(f0=>440.0,intervals=>12, n=>0);
 SELECT music.frequency_by_interval(f0=>440.0, n=>1);
 SELECT music.frequency_by_interval(440.0,12,1);
