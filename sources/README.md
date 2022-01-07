@@ -19,3 +19,4 @@ https://en.wikipedia.org/wiki/E_(musical_note)
 
 https://en.wikipedia.org/wiki/Scientific_pitch_notation
 
+https://aquilacorde.com/en/gauges-and-tensions-for-classical-guitar/
