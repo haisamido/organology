@@ -55,6 +55,9 @@ database-insert-music-records: database-configure ## insert music schema records
 database-insert-records: database-insert-music-records ## insert non-music records into project's database
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_records.sql
 
+generate-strings: ## generate SQL insert statements from csv
+	./utils/read_strings.pl < ./sources/daadario/classical_guitar.csv  > ./db/insert_strings.sql
+
 database-insert-strings: database-insert-records ## insert string records into project's database
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_strings.sql
 
