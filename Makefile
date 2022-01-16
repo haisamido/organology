@@ -47,7 +47,10 @@ database-drop: database-up ## delete project's database (NON-RECOVERABLE)
 database-configure: | database-drop database-create ## configure project's database
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/create_db.sql
 
-database-insert-music-records: database-configure ## insert music schema records into project's database
+database-generate-ipn: ## generate notes and international pitch notation database records
+	@cd ./utils && ./generate_notes_ipn.sh
+
+database-insert-music-records: | database-configure database-generate-ipn ## insert music schema records into project's database
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_music.octaves.sql && \
 	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_music.notes.sql && \
 	psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./db/insert_music.international_pitch_notations.sql
