@@ -2,18 +2,20 @@
 
 ENVIRO = test
 
-PROJECT         = organology
-PROJECT_VERSION = latest
-PROJECT_NETWORK = $(PROJECT)-network
+CONTAINER_ENGINE = docker
+
+PROJECT          = organology
+PROJECT_VERSION  = latest
+PROJECT_NETWORK  = $(PROJECT)-network
 
 DB      = $(PROJECT)
 TAG     = $(PROJECT)
 
 IMAGE   = node:alpine
 
-DBENGINE   = postgres
-DBVERSION  = 13
-
+# Database Configurations
+DBVERSION         = 13
+DBIMAGE           = docker.io/library/postgres:$(DBVERSION)
 export DBHOST     = localhost
 export DBUSER     = postgres
 export DBPASSWORD = postgres
@@ -21,21 +23,21 @@ export PGPASSWORD = $(DBPASSWORD)
 export DBPORT     = 5432
 
 pull-db:
-	@docker pull postgres:$(DBVERSION) 
+	@$(CONTAINER_ENGINE) pull $(DBIMAGE)
 
 database-build: pull-db ## build database image
-	@docker tag postgres:$(DBVERSION) $(TAG)-database:$(PROJECT_VERSION)
+	@$(CONTAINER_ENGINE) tag $(DBIMAGE) $(TAG)-database:$(PROJECT_VERSION)
 
 create-network:
-	@docker network create --driver bridge $(PROJECT_NETWORK)
+	@$(CONTAINER_ENGINE) network create --driver bridge $(PROJECT_NETWORK)
 
 database-up: | database-build ## bring database engine up
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 docker-compose up -d $(PROJECT)-database
+	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d $(PROJECT)-database
 
 database-down: ## bring database engine down
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 docker-compose down
+	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose down
 
 database-create: database-up ## create project's database
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -tc "SELECT 1 FROM pg_database WHERE datname = '$(DB)'" \
@@ -69,10 +71,10 @@ database-test: database-insert-strings ## test inserted database records
 	diff ./tests/db/results/run.txt ./tests/db/results/expected/run.txt
 
 build-app:
-	cd ./docker && docker build . && docker tag $(IMAGE) $(TAG)
+	cd ./docker && $(CONTAINER_ENGINE) build . && $(CONTAINER_ENGINE) tag $(IMAGE) $(TAG)
 
 run-app: build-app
-	cd ./docker && docker-compose up $(TAG)
+	cd ./docker && $(CONTAINER_ENGINE)-compose up $(TAG)
 
 .PHONY: help
 
