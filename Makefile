@@ -10,12 +10,14 @@ PROJECT_NETWORK  = $(PROJECT)-network
 
 DB      = $(PROJECT)
 TAG     = $(PROJECT)
+DBTAG   = $(TAG)-database
 
 IMAGE   = node:alpine
 
 # Database Configurations
 DBVERSION         = 13
 DBIMAGE           = docker.io/library/postgres:$(DBVERSION)
+
 export DBHOST     = localhost
 export DBUSER     = postgres
 export DBPASSWORD = postgres
@@ -26,7 +28,7 @@ pull-db:
 	@$(CONTAINER_ENGINE) pull $(DBIMAGE)
 
 database-build: pull-db ## build database image
-	@$(CONTAINER_ENGINE) tag $(DBIMAGE) $(TAG)-database:$(PROJECT_VERSION)
+	@$(CONTAINER_ENGINE) tag $(DBIMAGE) $(DBTAG)
 
 create-network:
 	@$(CONTAINER_ENGINE) network create --driver bridge $(PROJECT_NETWORK)
@@ -39,11 +41,13 @@ database-down: ## bring database engine down
 	@cd ./docker && \
 	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose down
 
-database-create: database-up ## create project's database
+database-create: database-up ## create project's databaseq
+	@sleep 2
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -tc "SELECT 1 FROM pg_database WHERE datname = '$(DB)'" \
 		| grep -q 1 || psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -c "CREATE DATABASE $(DB);"
 
 database-drop: database-up ## delete project's database (NON-RECOVERABLE)
+	@sleep 2
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -c "DROP DATABASE IF EXISTS $(DB) WITH (FORCE);"
 
 database-configure: | database-drop database-create ## configure project's database
@@ -69,6 +73,10 @@ database-insert-strings: database-insert-records ## insert string records into p
 database-test: database-insert-strings ## test inserted database records
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./tests/db/tests.sql > ./tests/db/results/run.txt && \
 	diff ./tests/db/results/run.txt ./tests/db/results/expected/run.txt
+
+clean:
+	$(CONTAINER_ENGINE) stop $(DBTAG)
+	$(CONTAINER_ENGINE) rm $(DBTAG)
 
 build-app:
 	cd ./docker && $(CONTAINER_ENGINE) build . && $(CONTAINER_ENGINE) tag $(IMAGE) $(TAG)
