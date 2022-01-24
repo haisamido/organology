@@ -30,12 +30,20 @@ pull-db:
 database-build: pull-db ## build database image
 	@$(CONTAINER_ENGINE) tag $(DBIMAGE) $(DBTAG)
 
-create-network:
-	@$(CONTAINER_ENGINE) network create --driver bridge $(PROJECT_NETWORK)
-
+# TODO: podman cannot handle 127.0.0.1:5432:5432s
+# TODO: podman requires --network bridge since it cannot autoforward ports, this is known in version 3.3.1
+# TODO: therefore docker-compose in podman is not fully working yet
 database-up: | database-build ## bring database engine up
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d $(PROJECT)-database
+	$(CONTAINER_ENGINE) ps -a | grep -E ' $(PROJECT)-database$$' || \
+	$(CONTAINER_ENGINE) run -d \
+		--name $(PROJECT)-database \
+		-e POSTGRES_USER=postgres \
+		-e POSTGRES_PASSWORD=postgres \
+		-p 5432:5432 \
+		--network bridge \
+		$(PROJECT)-database
+#	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d $(PROJECT)-database
 
 database-down: ## bring database engine down
 	@cd ./docker && \
@@ -47,7 +55,7 @@ database-create: database-up ## create project's databaseq
 		| grep -q 1 || psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -c "CREATE DATABASE $(DB);"
 
 database-drop: database-up ## delete project's database (NON-RECOVERABLE)
-	@sleep 2
+	@sleep 3
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -c "DROP DATABASE IF EXISTS $(DB) WITH (FORCE);"
 
 database-configure: | database-drop database-create ## configure project's database
@@ -75,8 +83,7 @@ database-test: database-insert-strings ## test inserted database records
 	diff ./tests/db/results/run.txt ./tests/db/results/expected/run.txt
 
 clean:
-	$(CONTAINER_ENGINE) stop $(DBTAG)
-	$(CONTAINER_ENGINE) rm $(DBTAG)
+	$(CONTAINER_ENGINE) rm -f $(DBTAG)
 
 build-app:
 	cd ./docker && $(CONTAINER_ENGINE) build . && $(CONTAINER_ENGINE) tag $(IMAGE) $(TAG)
