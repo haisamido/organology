@@ -17,10 +17,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-    - "127.0.0.1:5432:5432"
-    networks:
-    - my-network
+    - "5432:5432"
 
-networks:
-  my-network:
-    driver: bridge
+# TODO: podman cannot handle 127.0.0.1:5432:5432

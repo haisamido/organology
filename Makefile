@@ -30,20 +30,9 @@ pull-db:
 database-build: pull-db ## build database image
 	@$(CONTAINER_ENGINE) tag $(DBIMAGE) $(DBTAG)
 
-# TODO: podman cannot handle 127.0.0.1:5432:5432s
-# TODO: podman requires --network bridge since it cannot autoforward ports, this is known in version 3.3.1
-# TODO: therefore docker-compose in podman is not fully working yet
 database-up: | database-build ## bring database engine up
 	@cd ./docker && \
-	$(CONTAINER_ENGINE) ps -a | grep -E ' $(PROJECT)-database$$' || \
-	$(CONTAINER_ENGINE) run -d \
-		--name $(PROJECT)-database \
-		-e POSTGRES_USER=postgres \
-		-e POSTGRES_PASSWORD=postgres \
-		-p 5432:5432 \
-		--network bridge \
-		$(PROJECT)-database
-#	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d $(PROJECT)-database
+	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d $(PROJECT)-database
 
 database-down: ## bring database engine down
 	@cd ./docker && \
