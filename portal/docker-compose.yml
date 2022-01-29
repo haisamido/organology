@@ -1,0 +1,10 @@
+services:
+  organology-portal:
+    image: organology-portal
+    container_name: organology-portal
+    hostname: organology-portal
+    command: tail -f /dev/null
+    volumes:
+      - ./portal:/portal
+    ports:
+      - "3000:3000"

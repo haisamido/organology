@@ -8,21 +8,24 @@ PROJECT          = organology
 PROJECT_VERSION  = latest
 PROJECT_NETWORK  = $(PROJECT)-network
 
-DB      = $(PROJECT)
-TAG     = $(PROJECT)
-DBTAG   = $(TAG)-database
-
-IMAGE   = node:alpine
+DB        = $(PROJECT)
+TAG       = $(PROJECT)
 
 # Database Configurations
-DBVERSION         = 13
-DBIMAGE           = docker.io/library/postgres:$(DBVERSION)
+DBTAG     = $(TAG)-database
+DBVERSION = 13
+DBIMAGE   = docker.io/library/postgres:$(DBVERSION)
 
 export DBHOST     = localhost
 export DBUSER     = postgres
 export DBPASSWORD = postgres
 export PGPASSWORD = $(DBPASSWORD)
 export DBPORT     = 5432
+
+# Portal Configurations
+PORTALVERSION = 8.4.0
+PORTALTAG   = $(TAG)-portal
+PORTALIMAGE = docker.io/library/node:$(PORTALVERSION)
 
 pull-db:
 	@$(CONTAINER_ENGINE) pull $(DBIMAGE)
@@ -71,14 +74,21 @@ database-test: database-insert-strings ## test inserted database records
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -d $(DB) < ./tests/db/tests.sql > ./tests/db/results/run.txt && \
 	diff ./tests/db/results/run.txt ./tests/db/results/expected/run.txt
 
+portal-pull:
+	@$(CONTAINER_ENGINE) pull $(PORTALIMAGE) && \
+	$(CONTAINER_ENGINE) tag $(PORTALIMAGE) $(PORTALTAG)
+
+portal-build: portal-pull ## build portal image
+	@cd ./portal && \
+	$(CONTAINER_ENGINE) tag $(PORTALIMAGE) $(PORTALTAG) && \
+	$(CONTAINER_ENGINE) build -t $(PORTALTAG) .
+
+portal-up: portal-build ## bring portal container up
+	@cd ./portal && \
+	$(CONTAINER_ENGINE) run --name $(PORTALTAG) -p 3000:3000 $(PORTALTAG) -d
+
 clean:
 	$(CONTAINER_ENGINE) rm -f $(DBTAG)
-
-build-app:
-	cd ./docker && $(CONTAINER_ENGINE) build . && $(CONTAINER_ENGINE) tag $(IMAGE) $(TAG)
-
-run-app: build-app
-	cd ./docker && $(CONTAINER_ENGINE)-compose up $(TAG)
 
 .PHONY: help
 
