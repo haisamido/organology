@@ -14,6 +14,8 @@ services:
     image: organology-portal
     container_name: organology-portal
     hostname: organology-portal
+    volumes:
+      - ../www/flask:/opt/flask
     ports:
     - "5000:5000"
 

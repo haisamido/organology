@@ -84,9 +84,9 @@ portal-build: portal-pull ## build portal image
 	$(CONTAINER_ENGINE) tag $(PORTALIMAGE) $(PORTALTAG) && \
 	$(CONTAINER_ENGINE) build -t $(PORTALTAG) .
 
-portal-up: | portal-down portal-build ## bring portal up
+portal-up: | portal-down database-down portal-build database-test ## bring portal up
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d $(PROJECT)-portal
+	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d 
 
 portal-down: ## bring portal down
 	@cd ./docker && \
