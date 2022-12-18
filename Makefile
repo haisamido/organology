@@ -13,7 +13,7 @@ TAG       = $(PROJECT)
 
 # Database Configurations
 DBTAG     = $(TAG)-database
-DBVERSION = 13
+DBVERSION = 14
 DBIMAGE   = docker.io/library/postgres:$(DBVERSION)
 
 export DBHOST     = localhost
@@ -26,6 +26,7 @@ export DBPORT     = 5432
 PORTALVERSION = 8.4.0
 PORTALTAG   = $(TAG)-portal
 PORTALIMAGE = docker.io/library/node:$(PORTALVERSION)
+PORTALIMAGE = docker.io/library/python:latest
 
 pull-db:
 	@$(CONTAINER_ENGINE) pull $(DBIMAGE)
@@ -79,13 +80,24 @@ portal-pull:
 	$(CONTAINER_ENGINE) tag $(PORTALIMAGE) $(PORTALTAG)
 
 portal-build: portal-pull ## build portal image
-	@cd ./portal && \
+	@cd ./www/flask && \
 	$(CONTAINER_ENGINE) tag $(PORTALIMAGE) $(PORTALTAG) && \
 	$(CONTAINER_ENGINE) build -t $(PORTALTAG) .
 
-portal-up: portal-build ## bring portal container up
-	@cd ./portal && \
-	$(CONTAINER_ENGINE) run --name $(PORTALTAG) -p 3000:3000 $(PORTALTAG) -d
+portal-up: | portal-down portal-build ## bring portal up
+	@cd ./docker && \
+	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d $(PROJECT)-portal
+
+portal-down: ## bring portal down
+	@cd ./docker && \
+	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose down
+
+podman-up: podman-down ## start podman
+	podman machine init
+	podman machine start
+
+podman-down: ## stop podman
+	podman machine stop
 
 clean:
 	$(CONTAINER_ENGINE) rm -f $(DBTAG)

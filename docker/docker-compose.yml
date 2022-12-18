@@ -10,4 +10,11 @@ services:
     ports:
     - "5432:5432"
 
+  organology-portal:
+    image: organology-portal
+    container_name: organology-portal
+    hostname: organology-portal
+    ports:
+    - "5000:5000"
+
 # TODO: podman cannot handle 127.0.0.1:5432:5432
