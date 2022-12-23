@@ -2,7 +2,7 @@
 
 ENVIRO = test
 
-CONTAINER_ENGINE = docker
+CONTAINER_BIN = docker
 
 PROJECT          = organology
 PROJECT_VERSION  = latest
@@ -29,18 +29,18 @@ PORTALIMAGE = docker.io/library/node:$(PORTALVERSION)
 PORTALIMAGE = docker.io/library/python:latest
 
 pull-db:
-	@$(CONTAINER_ENGINE) pull $(DBIMAGE)
+	@$(CONTAINER_BIN) pull $(DBIMAGE)
 
 database-build: pull-db ## build database image
-	@$(CONTAINER_ENGINE) tag $(DBIMAGE) $(DBTAG)
+	@$(CONTAINER_BIN) tag $(DBIMAGE) $(DBTAG)
 
 database-up: | database-build ## bring database engine up
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d $(PROJECT)-database
+	DOCKER_BUILDKIT=1 $(CONTAINER_BIN)-compose up -d $(PROJECT)-database
 
 database-down: ## bring database engine down
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose down
+	DOCKER_BUILDKIT=1 $(CONTAINER_BIN)-compose down
 
 database-create: database-up ## create project's databaseq
 	@sleep 2
@@ -76,21 +76,21 @@ database-test: database-insert-strings ## test inserted database records
 	diff ./tests/db/results/run.txt ./tests/db/results/expected/run.txt
 
 portal-pull:
-	@$(CONTAINER_ENGINE) pull $(PORTALIMAGE) && \
-	$(CONTAINER_ENGINE) tag $(PORTALIMAGE) $(PORTALTAG)
+	@$(CONTAINER_BIN) pull $(PORTALIMAGE) && \
+	$(CONTAINER_BIN) tag $(PORTALIMAGE) $(PORTALTAG)
 
 portal-build: portal-pull ## build portal image
 	@cd ./www/flask && \
-	$(CONTAINER_ENGINE) tag $(PORTALIMAGE) $(PORTALTAG) && \
-	$(CONTAINER_ENGINE) build -t $(PORTALTAG) .
+	$(CONTAINER_BIN) tag $(PORTALIMAGE) $(PORTALTAG) && \
+	$(CONTAINER_BIN) build -t $(PORTALTAG) .
 
 portal-up: | portal-down database-down portal-build database-test ## bring portal up
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose up -d 
+	DOCKER_BUILDKIT=1 $(CONTAINER_BIN)-compose up -d 
 
 portal-down: ## bring portal down
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_ENGINE)-compose down
+	DOCKER_BUILDKIT=1 $(CONTAINER_BIN)-compose down
 
 podman-up: podman-down ## start podman
 	podman machine init
@@ -100,7 +100,7 @@ podman-down: ## stop podman
 	podman machine stop
 
 clean:
-	$(CONTAINER_ENGINE) rm -f $(DBTAG)
+	$(CONTAINER_BIN) rm -f $(DBTAG)
 
 .PHONY: help
 
