@@ -1,3 +1,2 @@
-flask
-psycopg
-psycopg-binary
+
+# not using
