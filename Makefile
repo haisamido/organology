@@ -1,8 +1,9 @@
 .DEFAULT_GOAL := help
 
 ENVIRO = test
+export SHELL=/bin/bash
 
-CONTAINER_BIN = docker
+CONTAINER_BIN = podman
 
 PROJECT          = organology
 PROJECT_VERSION  = latest
@@ -29,26 +30,26 @@ PORTALIMAGE = docker.io/library/node:$(PORTALVERSION)
 PORTALIMAGE = docker.io/library/python:latest
 
 pull-db:
-	@$(CONTAINER_BIN) pull $(DBIMAGE)
+	@${CONTAINER_BIN} pull $(DBIMAGE)
 
 database-build: pull-db ## build database image
-	@$(CONTAINER_BIN) tag $(DBIMAGE) $(DBTAG)
+	@${CONTAINER_BIN} tag $(DBIMAGE) $(DBTAG)
 
 database-up: | database-build ## bring database engine up
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_BIN)-compose up -d $(PROJECT)-database
+	DOCKER_BUILDKIT=1 ${CONTAINER_BIN}-compose up -d $(PROJECT)-database
 
 database-down: ## bring database engine down
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_BIN)-compose down
+	DOCKER_BUILDKIT=1 ${CONTAINER_BIN}-compose down
 
 database-create: database-up ## create project's databaseq
-	@sleep 2
+	@sleep 10
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -tc "SELECT 1 FROM pg_database WHERE datname = '$(DB)'" \
 		| grep -q 1 || psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -c "CREATE DATABASE $(DB);"
 
 database-drop: database-up ## delete project's database (NON-RECOVERABLE)
-	@sleep 3
+	@sleep 10
 	@psql -h $(DBHOST) -U $(DBUSER) -p $(DBPORT) -c "DROP DATABASE IF EXISTS $(DB) WITH (FORCE);"
 
 database-configure: | database-drop database-create ## configure project's database
@@ -76,21 +77,21 @@ database-test: database-insert-strings ## test inserted database records
 	diff ./tests/db/results/run.txt ./tests/db/results/expected/run.txt
 
 portal-pull:
-	@$(CONTAINER_BIN) pull $(PORTALIMAGE) && \
-	$(CONTAINER_BIN) tag $(PORTALIMAGE) $(PORTALTAG)
+	@${CONTAINER_BIN} pull $(PORTALIMAGE) && \
+	${CONTAINER_BIN} tag $(PORTALIMAGE) $(PORTALTAG)
 
 portal-build: portal-pull ## build portal image
 	@cd ./www/flask && \
-	$(CONTAINER_BIN) tag $(PORTALIMAGE) $(PORTALTAG) && \
-	$(CONTAINER_BIN) build -t $(PORTALTAG) .
+	${CONTAINER_BIN} tag $(PORTALIMAGE) $(PORTALTAG) && \
+	${CONTAINER_BIN} build -t $(PORTALTAG) .
 
 portal-up: | portal-down database-down portal-build database-test ## bring portal up
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_BIN)-compose up -d 
+	DOCKER_BUILDKIT=1 ${CONTAINER_BIN}-compose up -d 
 
 portal-down: ## bring portal down
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 $(CONTAINER_BIN)-compose down
+	DOCKER_BUILDKIT=1 ${CONTAINER_BIN}-compose down
 
 podman-up: podman-down ## start podman
 	podman machine init
@@ -100,7 +101,9 @@ podman-down: ## stop podman
 	podman machine stop
 
 clean:
-	$(CONTAINER_BIN) rm -f $(DBTAG)
+	${CONTAINER_BIN} rm -f $(DBTAG) || true && \
+	yes yes | ${CONTAINER_BIN} system prune -a || true && \
+	${CONTAINER_BIN} pod rm -f pod_docker || true
 
 .PHONY: help
 
