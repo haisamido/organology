@@ -37,11 +37,11 @@ database-build: pull-db ## build database image
 
 database-up: | database-build ## bring database engine up
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 ${CONTAINER_BIN}-compose up -d $(PROJECT)-database
+	DOCKER_BUILDKIT=1 ${CONTAINER_BIN} compose up -d $(PROJECT)-database
 
 database-down: ## bring database engine down
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 ${CONTAINER_BIN}-compose down
+	DOCKER_BUILDKIT=1 ${CONTAINER_BIN} compose down
 
 database-create: database-up ## create project's databaseq
 	@sleep 10
@@ -87,11 +87,11 @@ portal-build: portal-pull ## build portal image
 
 portal-up: | portal-down database-down portal-build database-test ## bring portal up
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 ${CONTAINER_BIN}-compose up -d 
+	DOCKER_BUILDKIT=1 ${CONTAINER_BIN} compose up -d 
 
 portal-down: ## bring portal down
 	@cd ./docker && \
-	DOCKER_BUILDKIT=1 ${CONTAINER_BIN}-compose down
+	DOCKER_BUILDKIT=1 ${CONTAINER_BIN} compose down
 
 podman-up: podman-down ## start podman
 	podman machine init
