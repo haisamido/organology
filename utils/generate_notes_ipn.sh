@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # PURPOSE: generate insert statements for notes and international pitch notations
 
