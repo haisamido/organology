@@ -5,6 +5,16 @@ FROM public.view_strings where
 	(SELECT frequency_a4_440 FROM music.view_frequency_by_notation where notation='B2') >= frequency_minimum order by
 	frequency_maximum desc;
 
+-- EJ46	A2 -> 7.65 kg Tension
+-- https://docs.google.com/spreadsheets/d/1wjj6_DfVO8ley8AU0E5R4ADn3x0tD4H962TKqDtEOe0/edit?gid=1690579074#gid=1690579074
+-- https://www.daddario.com/products/guitar/classical-guitar/pro-arte-nylon/ej46-pro-arte-nylon-hard-tension/?srsltid=AfmBOooRPp7r464UwQcNi-aKiTdCRADQda9CsVx4C7fTdjtIR_b8gI1r
+-- J4605	A2	0.036 in, 17.0 lbf
+-- SELECT music.tension_from_frequency_and_mass_per_length(
+-- 	frequency=>110.0,
+-- 	mass_per_length=>0.03750000, -- as measured in g/cm
+-- 	scale_length=>650.0
+-- )*0.00001/980.665; -- converts to kg*m/s^2 then to kg
+
 SELECT music.frequency_by_interval(f0=>440.0,intervals=>12, n=>0);
 SELECT music.frequency_by_interval(f0=>440.0, n=>1);
 SELECT music.frequency_by_interval(440.0,12,1);

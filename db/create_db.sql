@@ -247,6 +247,18 @@ CREATE FUNCTION music.string_frequency(
   IMMUTABLE
   RETURNS NULL ON NULL INPUT;
 
+DROP FUNCTION IF EXISTS music.tension_from_frequency_and_mass_per_length(NUMERIC, NUMERIC, NUMERIC, NUMERIC);
+CREATE FUNCTION music.tension_from_frequency_and_mass_per_length(
+  frequency NUMERIC,
+  mass_per_length NUMERIC,
+  scale_length NUMERIC,
+  n NUMERIC DEFAULT 1
+) RETURNS NUMERIC
+  AS 'SELECT (mass_per_length*(2.0*frequency*scale_length/n)^2);'
+  LANGUAGE SQL
+  IMMUTABLE
+  RETURNS NULL ON NULL INPUT;
+
 -- CREATE Views
 DROP VIEW IF EXISTS view_strings;
 CREATE VIEW view_strings AS 
