@@ -12,8 +12,8 @@ FROM public.view_strings where
 -- SELECT music.tension_from_frequency_and_mass_per_length(
 -- 	frequency=>110.0,
 -- 	mass_per_length=>0.03750000, -- as measured in g/cm
--- 	scale_length=>650.0
--- )*0.00001/980.665; -- converts to kg*m/s^2 then to kg
+-- 	scale_length=>65.0  -- cm
+-- )/(1000*980.665); -- converts from g*cm/s^ to kg*m/s^2 then to kg by dividing by 980.665 (g0)
 
 SELECT music.frequency_by_interval(f0=>440.0,intervals=>12, n=>0);
 SELECT music.frequency_by_interval(f0=>440.0, n=>1);
