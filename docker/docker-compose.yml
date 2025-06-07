@@ -1,4 +1,3 @@
-version: '3' # Which version of Docker Compose to use
 services:
   organology-database:
     image: organology-database

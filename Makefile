@@ -14,7 +14,7 @@ TAG       = $(PROJECT)
 
 # Database Configurations
 DBTAG     = $(TAG)-database
-DBVERSION = 14
+DBVERSION = 17
 DBIMAGE   = docker.io/library/postgres:$(DBVERSION)
 
 export DBHOST     = localhost
@@ -94,7 +94,7 @@ portal-down: ## bring portal down
 	DOCKER_BUILDKIT=1 ${CONTAINER_BIN} compose down
 
 podman-up: podman-down ## start podman
-	podman machine init
+	podman machine init || true
 	podman machine start
 
 podman-down: ## stop podman
