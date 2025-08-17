@@ -1,0 +1,185 @@
+
+# cat ~/development/github.com/haisamido/strings.yml | yq '.instruments.ouds[].courses[].strings[].scale_length'
+# cat ~/development/github.com/haisamido/strings.yml | yq '.instruments.ouds[].courses[].strings[].frequency'
+
+instruments:
+  metadata: {}
+  ouds:
+    -
+      metadata: {"name":"foo"}
+      courses:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"do", "octave":4 }
+              frequency: 261.6
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"do", "octave":4 }
+              frequency: 261.6
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"sol", "octave":3 }
+              frequency: 193.0
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"sol", "octave":3 }       
+              frequency: 193.0
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"re", "octave":3 }
+              frequency: 146.8
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"re", "octave":3 }
+              frequency: 146.8
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"la", "octave":2 }
+              frequency: 110.0
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"la", "octave":2 }
+              frequency: 110.0
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"fa", "octave":2 }
+              frequency: 87.3
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"fa", "octave":2 }
+              frequency: 87.3
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"do", "octave":2 }
+              frequency: 65.4
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"do", "octave":2 }
+              frequency: 65.4
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"sol", "octave":1 }
+              frequency: 49.0
+              scale_length: 60.0
+              linear_density:
+    -
+      metadata: {"name":"bar"}
+      courses:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"do", "octave":4 }
+              frequency: 261.6
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"do", "octave":4 }
+              frequency: 261.6
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"sol", "octave":3 }
+              frequency: 193.0
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"sol", "octave":3 }       
+              frequency: 193.0
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"re", "octave":3 }
+              frequency: 146.8
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"re", "octave":3 }
+              frequency: 146.8
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"la", "octave":2 }
+              frequency: 110.0
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"la", "octave":2 }
+              frequency: 110.0
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"fa", "octave":2 }
+              frequency: 87.3
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"fa", "octave":2 }
+              frequency: 87.3
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"do", "octave":2 }
+              frequency: 65.4
+              scale_length: 60.0
+              linear_density:
+            -
+              metadata: { "temperament":"12TET", "solmization":"do", "octave":2 }
+              frequency: 65.4
+              scale_length: 60.0
+              linear_density:
+        -
+          metadata: {}
+          strings:
+            - 
+              metadata: { "temperament":"12TET", "solmization":"sol", "octave":1 }
+              frequency: 49.0
+              scale_length: 60.0
+              linear_density:
