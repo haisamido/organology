@@ -3,7 +3,7 @@
 ENVIRO = test
 export SHELL=/bin/bash
 
-CONTAINER_BIN = podman
+CONTAINER_BIN = docker
 
 PROJECT          = organology
 PROJECT_VERSION  = latest
