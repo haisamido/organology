@@ -1,0 +1,192 @@
+Scale length: 600 mm (23.622 inches)
+Pitch: D3 = 146.83 Hz
+Formula: T = UW * (2 * 23.622 * 146.83)^2 / 386.4
+
+Item         Instrument                   Family                   Diam             UW  T@600mm  T@25.5in Desig  
+-------------------------------------------------------------------------------------------------------------------
+PL0135       acoustic or electric guitar  Plain Steel            0.0135     0.00004037      5.0       5.9 treble 
+PL014        acoustic or electric guitar  Plain Steel             0.014     0.00004342      5.4       6.3 treble 
+KPL014       acoustic or electric guitar  Plain Steel             0.014     0.00004342      5.4       6.3 treble 
+PL015        acoustic or electric guitar  Plain Steel             0.015     0.00004984      6.2       7.2 treble 
+NYL019W      guitar                       D'Addario Classic       0.019     0.00005341      6.7       7.7 bass   
+NYL020W      guitar                       D'Addario Classic       0.020     0.00005341      6.7       7.7 bass   
+NW017        acoustic or electric guitar  XL                      0.017     0.00005524      6.9       8.0 bass   
+PL016        acoustic or electric guitar  Plain Steel             0.016     0.00005671      7.1       8.2 treble 
+KPL016       acoustic or electric guitar  Plain Steel             0.016     0.00005671      7.1       8.2 treble 
+SPL016       acoustic or electric guitar  Plain Steel             0.016     0.00005671      7.1       8.2 treble 
+NW018        acoustic or electric guitar  XL                      0.018     0.00006215      7.7       9.0 bass   
+PL017        acoustic or electric guitar  Plain Steel             0.017     0.00006402      8.0       9.3 treble 
+KPL017       acoustic or electric guitar  Plain Steel             0.017     0.00006402      8.0       9.3 treble 
+SPL017       acoustic or electric guitar  Plain Steel             0.017     0.00006402      8.0       9.3 treble 
+NYL022W      guitar                       D'Addario Classic       0.022     0.00006498      8.1       9.4 bass   
+XSG018       acoustic or electric guitar  XLS                     0.018     0.00006588      8.2       9.6 bass   
+NW019        acoustic or electric guitar  XL                      0.019     0.00006947      8.7      10.1 bass   
+NYL025W      guitar                       D'Addario Classic       0.025     0.00007023      8.7      10.2 bass   
+PL018        acoustic or electric guitar  Plain Steel             0.018     0.00007177      8.9      10.4 treble 
+NYL024W      guitar                       D'Addario Classic       0.024     0.00007408      9.2      10.7 bass   
+NW020        acoustic or electric guitar  XL                      0.020     0.00007495      9.3      10.9 bass   
+CG020        acoustic or electric guitar  Chromes                 0.020     0.00007812      9.7      11.3 bass   
+BW020        acoustic guitar              80/20 Bronze            0.020     0.00007862      9.8      11.4 bass   
+XSG020       acoustic or electric guitar  XLS                     0.020     0.00007919      9.9      11.5 bass   
+PL019        acoustic or electric guitar  Plain Steel             0.019     0.00007997     10.0      11.6 treble 
+PB020        acoustic guitar              Phosphor Bronze         0.020     0.00008106     10.1      11.8 bass   
+NW021        acoustic or electric guitar  XL                      0.021     0.00008293     10.3      12.0 bass   
+BW021        acoustic guitar              80/20 Bronze            0.021     0.00008684     10.8      12.6 bass   
+XSG021       acoustic or electric guitar  XLS                     0.021     0.00008774     10.9      12.7 bass   
+PL020        acoustic or electric guitar  Plain Steel             0.020     0.00008861     11.0      12.9 treble 
+KPL020       acoustic or electric guitar  Plain Steel             0.020     0.00008861     11.0      12.9 treble 
+PB021        acoustic guitar              Phosphor Bronze         0.021     0.00008944     11.1      13.0 bass   
+NW022        acoustic or electric guitar  XL                      0.022     0.00009184     11.4      13.3 bass   
+NYL026W      guitar                       D'Addario Classic       0.026     0.00009438     11.8      13.7 bass   
+J4504LP      guitar                       Pro-Arté                0.027     0.00009582     11.9      13.9 bass   
+BW022        acoustic guitar              80/20 Bronze            0.022     0.00009600     12.0      13.9 bass   
+XSG022       acoustic or electric guitar  XLS                     0.022     0.00009731     12.1      14.1 bass   
+CG022        acoustic or electric guitar  Chromes                 0.022     0.00009784     12.2      14.2 bass   
+ZW022        acoustic guitar              Great American Bronze   0.022     0.00009802     12.2      14.2 bass   
+J4504C       guitar                       Pro-Arté                0.028     0.00009858     12.3      14.3 bass   
+PB022        acoustic guitar              Phosphor Bronze         0.022     0.00009876     12.3      14.3 bass   
+J2904        guitar                       D'Addario Classic       0.028     0.00010203     12.7      14.8 bass   
+J4304        guitar                       Pro-Arté                0.028     0.00010203     12.7      14.8 bass   
+BW023        acoustic guitar              80/20 Bronze            0.023     0.00010509     13.1      15.2 bass   
+NYL028W      guitar                       D'Addario Classic       0.028     0.00010511     13.1      15.2 bass   
+J3004        guitar                       D'Addario Classic       0.029     0.00010616     13.2      15.4 bass   
+J4704        guitar                       Pro-Arté                0.029     0.00010616     13.2      15.4 bass   
+PL022        acoustic or electric guitar  Plain Steel             0.022     0.00010722     13.4      15.6 treble 
+J4504        guitar                       Pro-Arté                0.029     0.00010754     13.4      15.6 bass   
+J4904        guitar                       Pro-Arté                0.029     0.00010754     13.4      15.6 bass   
+PB023        acoustic guitar              Phosphor Bronze         0.023     0.00010801     13.5      15.7 bass   
+NW024        acoustic or electric guitar  XL                      0.024     0.00010857     13.5      15.8 bass   
+SNW024       acoustic or electric guitar  XL                      0.024     0.00010857     13.5      15.8 bass   
+J2804        guitar                       D'Addario Classic      <MISSING>     0.00011030     13.7      16.0 bass   
+J4604C       guitar                       Pro-Arté                0.029     0.00011030     13.7      16.0 bass   
+J4604LP      guitar                       Pro-Arté                0.029     0.00011168     13.9      16.2 bass   
+J4404        guitar                       Pro-Arté                 0.03     0.00011237     14.0      16.3 bass   
+J4604        guitar                       Pro-Arté                 0.03     0.00011237     14.0      16.3 bass   
+J4804        guitar                       Pro-Arté                0.030     0.00011237     14.0      16.3 bass   
+J5004        guitar                       Pro-Arté                 0.03     0.00011237     14.0      16.3 bass   
+HRG022       acoustic or electric guitar  Half Round              0.022     0.00011271     14.0      16.3 bass   
+BW024        acoustic guitar              80/20 Bronze            0.024     0.00011353     14.1      16.5 bass   
+XSG024       acoustic or electric guitar  XLS                     0.024     0.00011501     14.3      16.7 bass   
+J3104        guitar                       D'Addario Classic       0.030     0.00011512     14.3      16.7 bass   
+J4404C       guitar                       Pro-Arté                0.030     0.00011581     14.4      16.8 bass   
+ZW024        acoustic guitar              Great American Bronze   0.024     0.00011594     14.4      16.8 bass   
+CG024        acoustic or electric guitar  Chromes                 0.024     0.00011601     14.4      16.8 bass   
+BEB031W      folk guitar                  80/20 Brass             0.031     0.00011650     14.5      16.9 bass   
+NYL029W      guitar                       D'Addario Classic       0.029     0.00011667     14.5      16.9 bass   
+PB024        acoustic guitar              Phosphor Bronze         0.024     0.00011682     14.5      16.9 bass   
+BES031W      folk guitar                  Silverplated Copper     0.031     0.00012271     15.3      17.8 bass   
+BW025        acoustic guitar              80/20 Bronze            0.025     0.00012339     15.4      17.9 bass   
+NYL030W      guitar                       D'Addario Classic       0.030     0.00012419     15.5      18.0 bass   
+FT023        acoustic guitar              Flat Tops               0.023     0.00012568     15.7      18.2 bass   
+ZW025        acoustic guitar              Great American Bronze   0.025     0.00012592     15.7      18.3 bass   
+NW026        acoustic or electric guitar  XL                      0.026     0.00012671     15.8      18.4 bass   
+SNW026       acoustic or electric guitar  XL                      0.026     0.00012671     15.8      18.4 bass   
+PB025        acoustic guitar              Phosphor Bronze         0.025     0.00012686     15.8      18.4 bass   
+PL024        acoustic or electric guitar  Plain Steel             0.024     0.00012760     15.9      18.5 treble 
+NYL031W      guitar                       D'Addario Classic       0.031     0.00012821     16.0      18.6 bass   
+HRG024       acoustic or electric guitar  Half Round              0.024     0.00012857     16.0      18.7 bass   
+J5104        guitar                       Pro-Arté                0.028     0.00013029     16.2      18.9 bass   
+BW026        acoustic guitar              80/20 Bronze            0.026     0.00013253     16.5      19.2 bass   
+XSG026       acoustic or electric guitar  XLS                     0.026     0.00013419     16.7      19.5 bass   
+ZW026        acoustic guitar              Great American Bronze   0.026     0.00013536     16.9      19.6 bass   
+CG026        acoustic or electric guitar  Chromes                 0.026     0.00013574     16.9      19.7 bass   
+PB026        acoustic guitar              Phosphor Bronze         0.026     0.00013640     17.0      19.8 bass   
+FT024        acoustic guitar              Flat Tops               0.024     0.00013651     17.0      19.8 bass   
+BW027        acoustic guitar              80/20 Bronze            0.027     0.00014397     17.9      20.9 bass   
+NW028        acoustic or electric guitar  XL                      0.028     0.00014666     18.3      21.3 bass   
+CG028        acoustic or electric guitar  Chromes                 0.028     0.00014683     18.3      21.3 bass   
+HRG026       acoustic or electric guitar  Half Round              0.026     0.00014750     18.4      21.4 bass   
+PB027        acoustic guitar              Phosphor Bronze         0.027     0.00014834     18.5      21.5 bass   
+PL026        acoustic or electric guitar  Plain Steel             0.026     0.00014975     18.6      21.7 treble 
+J2905        guitar                       D'Addario Classic       0.033     0.00015347     19.1         - bass   
+J4305        guitar                       Pro-Arté                0.033     0.00015347     19.1         - bass   
+XSG028       acoustic or electric guitar  XLS                     0.028     0.00015493     19.3      22.5 bass   
+FT026        acoustic guitar              Flat Tops               0.026     0.00015894     19.8      23.1 bass   
+BW029        acoustic guitar              80/20 Bronze            0.029     0.00016838     21.0      24.4 bass   
+CG030        acoustic or electric guitar  Chromes                 0.030     0.00016958     21.1      24.6 bass   
+J4505LP      guitar                       Pro-Arté                0.033     0.00017066     21.3         - bass   
+FT028        acoustic guitar              Flat Tops               0.028     0.00017209     21.4      25.0 bass   
+NW030        acoustic or electric guitar  XL                      0.030     0.00017236     21.5      25.0 bass   
+J4705        guitar                       Pro-Arté                0.035     0.00017311     21.6         - bass   
+PB029        acoustic guitar              Phosphor Bronze         0.029     0.00017381     21.6      25.2 bass   
+NYL033W      guitar                       D'Addario Classic       0.033     0.00017913     22.3         - bass   
+J4505C       guitar                       Pro-Arté                0.035     0.00017925     22.3         - bass   
+BW030        acoustic guitar              80/20 Bronze            0.030     0.00018092     22.5      26.2 bass   
+J4805        guitar                       Pro-Arté                0.036     0.00018171     22.6         - bass   
+XSG030       acoustic or electric guitar  XLS                     0.030     0.00018203     22.7      26.4 bass   
+J3005        guitar                       D'Addario Classic       0.035     0.00018416     22.9         - bass   
+J4505        guitar                       Pro-Arté                0.035     0.00018416     22.9         - bass   
+J4905        guitar                       Pro-Arté                0.035     0.00018416     22.9         - bass   
+ZW030        acoustic guitar              Great American Bronze   0.030     0.00018507     23.0      26.8 bass   
+PB030        acoustic guitar              Phosphor Bronze         0.030     0.00018660     23.2      27.1 bass   
+BEB037W      folk guitar                  80/20 Brass             0.037     0.00018785     23.4         - bass   
+HRG030       acoustic or electric guitar  Half Round              0.030     0.00018970     23.6      27.5 bass   
+J3105        guitar                       D'Addario Classic       0.036     0.00019153     23.9         - bass   
+CG032        acoustic or electric guitar  Chromes                 0.032     0.00019233     24.0      27.9 bass   
+NYL034W      guitar                       D'Addario Classic       0.034     0.00019270     24.0         - bass   
+NW032        acoustic or electric guitar  XL                      0.032     0.00019347     24.1      28.1 bass   
+SNW032       acoustic or electric guitar  XL                      0.032     0.00019347     24.1      28.1 bass   
+J4405        guitar                       Pro-Arté                0.036     0.00019521     24.3         - bass   
+J4605        guitar                       Pro-Arté                0.036     0.00019521     24.3         - bass   
+J5005        guitar                       Pro-Arté                0.036     0.00019521     24.3         - bass   
+FT030        acoustic guitar              Flat Tops               0.030     0.00019785     24.6      28.7 bass   
+J4605LP      guitar                       Pro-Arté                0.035     0.00019890     24.8         - bass   
+J5105        guitar                       Pro-Arté                0.034     0.00020135     25.1         - bass   
+BES037W      folk guitar                  Silverplated Copper     0.037     0.00020258     25.2         - bass   
+BW032        acoustic guitar              80/20 Bronze            0.032     0.00020352     25.3      29.5 bass   
+J4405C       guitar                       Pro-Arté                0.036     0.00020381     25.4         - bass   
+J4605C       guitar                       Pro-Arté                0.036     0.00020381     25.4         - bass   
+XSG032       acoustic or electric guitar  XLS                     0.032     0.00020398     25.4      29.6 bass   
+NYL035W      guitar                       D'Addario Classic       0.035     0.00020667     25.7         - bass   
+ZW032        acoustic guitar              Great American Bronze   0.032     0.00020839     26.0      30.2 bass   
+PB032        acoustic guitar              Phosphor Bronze         0.032     0.00021018     26.2      30.5 bass   
+HRG032       acoustic or electric guitar  Half Round              0.032     0.00021100     26.3      30.6 bass   
+J2805        guitar                       D'Addario Classic      <MISSING>     0.00021363     26.6         - bass   
+NW034        acoustic or electric guitar  XL                      0.034     0.00021590     26.9      31.3 bass   
+NYL036W      guitar                       D'Addario Classic       0.036     0.00022105     27.5         - bass   
+XSG034       acoustic or electric guitar  XLS                     0.034     0.00022729     28.3      33.0 bass   
+BW034        acoustic guitar              80/20 Bronze            0.034     0.00022752     28.3      33.0 bass   
+ZW034        acoustic guitar              Great American Bronze   0.034     0.00023316     29.0      33.8 bass   
+FT032        acoustic guitar              Flat Tops               0.032     0.00023852     29.7      34.6 bass   
+PB034        acoustic guitar              Phosphor Bronze         0.034     0.00023887     29.7      34.7 bass   
+NW036        acoustic or electric guitar  XL                      0.036     0.00023964     29.8      34.8 bass   
+SNW036       acoustic or electric guitar  XL                      0.036     0.00023964     29.8      34.8 bass   
+BW035        acoustic guitar              80/20 Bronze            0.035     0.00024006     29.9      34.8 bass   
+CG035        acoustic or electric guitar  Chromes                 0.035     0.00024197     30.1      35.1 bass   
+ZW035        acoustic guitar              Great American Bronze   0.035     0.00024610     30.6      35.7 bass   
+XSG036       acoustic or electric guitar  XLS                     0.036     0.00025198     31.4      36.6 bass   
+PB035        acoustic guitar              Phosphor Bronze         0.035     0.00025365     31.6      36.8 bass   
+BW036        acoustic guitar              80/20 Bronze            0.036     0.00025417     31.7      36.9 bass   
+HRG036       acoustic or electric guitar  Half Round              0.036     0.00025650     31.9      37.2 bass   
+ZW036        acoustic guitar              Great American Bronze   0.036     0.00026045     32.4      37.8 bass   
+NW038        acoustic or electric guitar  XL                      0.038     0.00026471     33.0      38.4 bass   
+CG038        acoustic or electric guitar  Chromes                 0.038     0.00026520     33.0      38.5 bass   
+PB036        acoustic guitar              Phosphor Bronze         0.036     0.00026830     33.4      38.9 bass   
+FT035        acoustic guitar              Flat Tops               0.035     0.00027781     34.6      40.3 bass   
+XSG038       acoustic or electric guitar  XLS                     0.038     0.00027804     34.6      40.3 bass   
+J2906        guitar                       D'Addario Classic       0.042     0.00028881     36.0         - bass   
+J4306        guitar                       Pro-Arté                0.042     0.00028881     36.0         - bass   
+J4706        guitar                       Pro-Arté                0.043     0.00029100     36.2         - bass   
+FT036        acoustic guitar              Flat Tops               0.036     0.00029273     36.5      42.5 bass   
+J3006        guitar                       D'Addario Classic       0.043     0.00030194     37.6         - bass   
+J4506        guitar                       Pro-Arté                0.043     0.00030632     38.1         - bass   
+J4806        guitar                       Pro-Arté                0.044     0.00030632     38.1         - bass   
+J4906        guitar                       Pro-Arté                0.043     0.00030632     38.1         - bass   
+BEB045W      folk guitar                  80/20 Brass             0.045     0.00030850     38.4         - bass   
+J4506LP      guitar                       Pro-Arté                0.043     0.00031288     39.0         - bass   
+CG040        acoustic or electric guitar  Chromes                 0.040     0.00031676     39.4      46.0 bass   
+J2806        guitar                       D'Addario Classic      <MISSING>     0.00031726     39.5         - bass   
+J3106        guitar                       D'Addario Classic       0.044     0.00031726     39.5         - bass   
+J4606        guitar                       Pro-Arté                0.044     0.00031726     39.5         - bass   
+J5006        guitar                       Pro-Arté                0.044     0.00031726     39.5         - bass   
+J4506C       guitar                       Pro-Arté                0.044     0.00033257     41.4         - bass   
+BES045W      folk guitar                  Silverplated Copper     0.045     0.00033257     41.4         - bass   
+J4606LP      guitar                       Pro-Arté                0.044     0.00033914     42.2         - bass   
+J4406        guitar                       Pro-Arté                0.045     0.00034351     42.8         - bass   
+CG042        acoustic or electric guitar  Chromes                 0.042     0.00034377     42.8      49.9 bass   
+J5106        guitar                       Pro-Arté                0.042     0.00035008     43.6         - bass   
+J4606C       guitar                       Pro-Arté                0.046     0.00035226     43.9         - bass   
+J4406C       guitar                       Pro-Arté                0.047     0.00036758     45.8         - bass   
+CG045        acoustic or electric guitar  Chromes                 0.045     0.00040393     50.3      58.6 bass   
+
+Total options: 184
