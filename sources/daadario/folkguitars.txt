@@ -1,0 +1,29 @@
+FOLK GUITAR
+
+Black Nylon - Ball End
+
+Item# Unit Weight f' e' d' c' b a g f
+BEB028 .00002161 17.7 15.8 12.5 10.0 8.9 7.0 5.6 4.4
+BEB032 .00002778 22.8 20.3 16.1 12.8 11.4 9.1 7.2 5.7
+BEB040 .00004873 40.0 35.6 28.3 22.4 20.0 15.9 12.6 10.0
+
+Clear Nylon - Ball End
+
+Item# Unit Weight f' e' d' c' b a g f
+BEC028 .00002133 17.5 15.6 12.4 9.8 8.8 7.0 5.5 4.4
+BEC032 .00002754 22.6 20.1 16.0 12.7 11.3 9.0 7.1 5.7
+BEC040 .00004447 36.5 32.5 25.8 20.5 18.2 14.5 11.5 9.1
+
+80/20 Brass Wound on Nylon - Ball End
+
+Item# Unit Weight e d c B A G F E
+BEB031W .00011650 21.3 16.9 13.4 12.0 9.5 7.5 6.0 5.3
+BEB037W .00018785 - - 21.6 19.3 15.3 12.1 9.6 8.6
+BEB045W .00030850 - - - - 25.1 19.9 15.8 14.1
+
+Silverplated Copper Wound on Nylon - Ball End
+
+Item# Unit Weight e d c B A G F E
+BES031W .00012271 22.4 17.8 14.1 12.6 10.0 7.9 6.3 5.6
+BES037W .00020258 - - 23.3 20.8 16.5 13.1 10.4 9.3
+BES045W .00033257 - - - - - 21.5 17.1 15.2
